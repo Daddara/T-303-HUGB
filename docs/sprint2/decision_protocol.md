@@ -1,0 +1,51 @@
+Decision Protocol
+
+
+SPRINT 2
+
+Scrum Master: Arnar
+
+Meeting 1 (9.9.2021)
+
+Who showed up: Arnar, Rúnar, Tryggvi, Hörður, Daníel
+
+Others did not attend the meeting because of work/scheduling issues. 
+
+A simple python program picked a scrum maser. 
+
+We decided that we should make a temporary interface to work by until we get an interface from the client. 
+
+We decided that the top 7 user stories we have should be distributed/assigned to the 7 group members. 
+
+Use cases for this sprint:
+
+#11 As a nurse, I want to be able to see all information about a patient, so I can know about previous medical history, or any medical issues.
+
+#16 As a receptionist, I want to be able to add a new patient to the system, so that he can be treated at the hospital
+
+#13 As a doctor, I want to be able to see all patients that have an appointment with me for a specified day so that I can properly prepare.
+
+#15 As a doctor, I want to be able to see all patients that have an appointment with me for a specified date period so that I can properly prepare.
+
+#19 As a receptionist, I want to be able to a delete a patient, so the system is not full of patients that will not be patients at the hospital again.
+
+#25 As a receptionist, I want to be able to a delete a patient, so the system is not full of patients that will not be patients at the hospital again.
+
+#28 As a specialist, I want to be able to see all patients assigned to me, so I can properly prepare.
+
+Code: 
+We decided to use Snake Case as the style of programming. Definition of done: Once the user stories all run and work correctly in the mock interface, we can declare the sprint as done.
+
+_____________________
+
+Meeting 2 (12.9.2021) 
+Time: 13:00-15:30
+
+Who showed up: Arnar, Lovísa, Tryggvi, Hörður, Daníel
+
+We decided to watch the introduction webwork lecture on echo360. We then generated a client and server from the template generator given, we used 6 user stories to generate 6 methods. 
+The code was then pushed to master so everyone attending the meeting fetched and got it working.
+
+_____________________
+
+
