@@ -1,0 +1,2 @@
+1. Inní src möppunni í terminal keyra: python HospitalSystem_ctrl.py
+2. Inní src möppunni í annan terminal(VSC t.d.) keyra: python HospitalSystem_client.py
