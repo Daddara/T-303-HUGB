@@ -5,7 +5,7 @@ import json
 
 #This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
-    uri = "ws://127.0.0.1:8080"
+    uri = "ws://130.208.240.12:8080"
     async with websockets.connect(uri) as websocket:
         await websocket.send(json.dumps({"op":op, "data":data}))
 
