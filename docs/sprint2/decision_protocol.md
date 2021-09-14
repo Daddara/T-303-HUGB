@@ -48,4 +48,21 @@ The code was then pushed to master so everyone attending the meeting fetched and
 
 _____________________
 
+Meeting 3 (14.09.2021)
+time 16:30
+scrum master: Arnar
+secretary:Rúnar
+
+Who showed up: Arnar, Ingunn, Tryggvi, Hörður, Daníel
+
+Scrum master Arnar takes status report on group members.
+
+We decide to put up a test file similar to the one from a previous lecture.
+
+We talk about having all the branches up to date to avoid merge conflicts.
+
+
+
+
+
 
