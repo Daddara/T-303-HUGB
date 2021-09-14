@@ -10,24 +10,24 @@ class TestStationMethods(unittest.TestCase):
     #set up method - is run before each actual test case.
     def setUp(self):
         #all our tests need an instance of WeatherStation, so we just create one here
-        self.patient = Patients("Bubbi Morthens")
+        self.patient = Patients()
 
     #This is a single test case - it runs the reportWeather function in our station
     #and makes sure the return value is an empty string
     def test_patient_name(self):
         #Run function
-        patient_record = self.patient.get-patient()
+        patient_record = self.patient.get_patient("1")
 
         #Assertion
-        self.assertEqual("",patient_record)
-        self.assertEqual(1,1)
+        self.assertEqual(patient_record[0],"Sara")
+        self.assertNotEqual(patient_record[1], "21")
 
-    # def test_report_status (self):
+    def test_report_status (self):
     #     #Run function
-    #     status = self.my_station.report_status()
+        status = ""#self.my_station.report_status()
 
-    #     #Assertion
-    #     self.assertEqual("",status)
+        #Assertion
+        self.assertEqual("",status)
 
     #tear down method - is run after each test case
     def tearDown(self):
