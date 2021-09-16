@@ -3,7 +3,7 @@ import asyncio
 import websockets
 import json
 
-opperations = [(1, "surgery"), (2, "x-ray")]
+opperations = {"1": "Surgery", "2": "Cat scan"}
 
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
@@ -27,8 +27,11 @@ async def get_patient_appointments():
 async def delete_patient():
     return await send_msg("delete_patient", '{"patient_id":"" }')
 
-async def send_presription ():
-    request = input("Please input patient id, Medicine id and pharmecy id with space inbetween ")
+
+async def send_presription():
+    request = input(
+        "Please input patient id, Medicine id and pharmecy id with space inbetween "
+    )
     data = list(request)
     return await send_msg("send_presription", data)
 
