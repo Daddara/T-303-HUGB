@@ -27,9 +27,10 @@ async def get_patient_appointments():
 async def delete_patient():
     return await send_msg("delete_patient", '{"patient_id":"" }')
 
-
-async def send_presription():
-    return await send_msg("send_presription", '{"patient_id":"","presription":"" }')
+async def send_presription ():
+    request = input("Please input patient id, Medicine id and pharmecy id with space inbetween ")
+    data = list(request)
+    return await send_msg("send_presription", data)
 
 
 async def create_patient():
@@ -51,5 +52,5 @@ if __name__ == "__main__":
     print(asyncio.run(get_patient_appointments()))
     print(asyncio.run(delete_patient()))
     print(asyncio.run(send_presription()))
-    print(asyncio.run(create_patient()))
-    print(asyncio.run(get_patient_list()))
+    # print(asyncio.run(create_patient()))
+    # print(asyncio.run(get_patient_list()))
