@@ -3,6 +3,8 @@ import asyncio
 import websockets
 import json
 
+opperations = [(1, "surgery"), (2, "x-ray")]
+
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
     uri = "ws://127.0.0.1:8080"
@@ -39,6 +41,7 @@ async def get_patient_list():
 
 
 async def assign_opperation():
+
     return await send_msg("assign_opperation", "{'doctor_id':'' }")
 
 
