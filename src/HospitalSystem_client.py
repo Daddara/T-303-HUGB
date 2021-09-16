@@ -3,8 +3,6 @@ import asyncio
 import websockets
 import json
 
-opperations = {"1": "Surgery", "2": "Cat scan"}
-
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
     uri = "ws://127.0.0.1:8080"
