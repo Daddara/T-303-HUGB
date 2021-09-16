@@ -96,3 +96,10 @@ class HospitalsystemInterface:
       return '{"msg":"Operation get_patient_list not yet implemented"}'
     else:
       return '{"msg":"Invalid request. The following parameters are required: doctor_id."}' 
+  
+  def assign_opperation(self, data):
+    if "doctor_id" in data:
+      #Here you call the actual operation in your backend code.
+      return '{"msg":"Operation get_patient_list not yet implemented"}'
+    else:
+      return '{"msg":"Invalid request. The following parameters are required: doctor_id."}' 

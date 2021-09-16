@@ -45,7 +45,6 @@ async def get_patient_list():
 
 
 async def assign_opperation():
-
     return await send_msg("assign_opperation", "{'doctor_id':'' }")
 
 
