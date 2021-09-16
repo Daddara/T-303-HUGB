@@ -61,6 +61,24 @@ We decide to put up a test file similar to the one from a previous lecture.
 
 We talk about having all the branches up to date to avoid merge conflicts.
 
+Meeting 4 (16.09.2021)
+time 16:30
+scrum master: Arnar
+secretary:Rúnar
+
+
+We talk about different code practices that is better for group work. For instance make seperate py files and import them when making new classes instead of writing everything in one file everyone at once.
+
+Might need to change some things in the code to seperate to files.
+
+Test file is online and group members should be able to get it from git.
+
+Group members help each other with git issues.
+
+
+
+
+
 
 
 
