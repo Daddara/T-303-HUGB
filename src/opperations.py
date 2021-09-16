@@ -10,7 +10,7 @@ class AssignTreatment:
         self.doctor_id = doctor.id
         self.appointment = None
 
-    def assign_opperation(self, Treatments):
+    def assign_opperation(self):
         self.appointment = Appointments(self.patient_id, self.doctor_id, Treatments[1])
         # Preferably, this will be a class that takes in patient id, doctor id('s),
         # and maybe a description? where the type of appointment will automatically be
