@@ -27,11 +27,8 @@ class HospitalsystemInterface:
       return '{"msg":"Invalid request. The following parameters are required: patient_id."}' 
 
   def send_presription (self, data):
-    try:
       return_msg = self.wrapper.send_presription(data)
       return return_msg
-    except:
-      return '{"Order Failed"}'
 
   def create_patient (self, data):
     if "patient_data" in data :      
