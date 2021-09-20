@@ -3,13 +3,12 @@
 * **Group 1**
 * This project is developed using specified processes and systematic software engineering practices.
 
-## About the project
+# About the project
 The aim of this project is to create a backend for a hospital management system and to be used by hospital staff. 
 
-## Installing
+# Installing
 Clone the gitlab repository https://gitlab.com/hugb_21_g_1/hugb-21-g-1.git to an empty folder on your computer. 
 Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository
-
 
 # Running the project
 How to run step-by-step
