@@ -4,13 +4,11 @@ patientRecords = {
 }
 
 
-
-
-class Patients:
+class Patient:
   def __init__(self, patients = None):
     self.patients = patientRecords
 
-  def get_all_patients(self):
+  def get_all_patient(self):
     return self.patients
 
   def get_patient(self, id):
