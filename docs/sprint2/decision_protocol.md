@@ -65,7 +65,7 @@ Meeting 4 (16.09.2021)
 time 16:30
 scrum master: Arnar
 secretary:Rúnar
-
+Attending: All group members
 
 We talk about different code practices that is better for group work. For instance make seperate py files and import them when making new classes instead of writing everything in one file everyone at once.
 
@@ -75,8 +75,16 @@ Test file is online and group members should be able to get it from git.
 
 Group members help each other with git issues.
 
+Meeting 5 (20.09.2021)
+time 14:00
+scrum master: Arnar
+secretary:Rúnar
+Attending: All group members
 
-
+We talk about the structure of the code and how to start implementing things for those who have not pushed code yet.
+The class skeleton is not fully constructed and might be a slight delay in implementing specific methods. 
+This meeting is in person so we use whiteboards in the school to explain how the classes are connected.
+We finalize what classes whe want in sprint2.
 
 
 

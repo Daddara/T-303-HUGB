@@ -10,5 +10,7 @@
 
 .idea/
 
+.coverage
+
 #Mac
 .DS_Store
