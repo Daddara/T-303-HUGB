@@ -1,6 +1,5 @@
-
 class Patient:
-  def __init__(self, p_ssn, p_name, p_address, p_phone, p_email, p_record):
+  def __init__(self, p_ssn:str, p_name:str, p_address:str, p_phone:str, p_email:str, p_record=[]):
     self.__p_ssn = p_ssn
     self.__p_name = p_name
     self.p_address = p_address
@@ -10,6 +9,7 @@ class Patient:
 
 
   def get_patient(self):
+    """Returns information about a patient in a dictionary"""
     patient_dict = {
       "ssn": self.__p_ssn,
       "name": self.__p_name,
@@ -21,6 +21,7 @@ class Patient:
     return patient_dict
 
   def get_patient_records(self):
+    """Specifically returns a patient's record."""
     return self.__p_record
 
 
