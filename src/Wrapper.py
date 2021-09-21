@@ -92,7 +92,7 @@ class Wrapper:
                     new_patient = patient.get_patient()
                     return new_patient
         except:
-            return '{"No Patient Info"}'
+            return '{"msg": "No Patient Info"}'
 
     def delete_patient(self,data):
     
@@ -130,4 +130,3 @@ class Wrapper:
                 return '{"msg":"Invalid arguments, please try again}'
         else:
             return '{"msg":"No appointments"}'
-
