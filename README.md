@@ -17,7 +17,7 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 * Run the client in one terminal window: 
 `python src/HospitalSystem_client.py`
 
-*Run the server in another terminal window: 
+* Run the server in another terminal window: 
 `python src/HospitalSystem_ctrl.p`
 
 # Group Members
