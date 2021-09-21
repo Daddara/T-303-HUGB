@@ -3,7 +3,7 @@ from Classes.prescription import Prescription
 from Classes.patient import Patient
 from Classes.staff import Staff
 from data import Data
-
+import json
 
 class Wrapper:
     def __init__(self):
@@ -15,10 +15,13 @@ class Wrapper:
     
     def send_presription (self, data):
         try:
-            self.hospital.PharmacyRequests.append([self.pharmecy.get_pharmecy(data[0]), self.patient.get_patient(data[2]), self.medicine.get_medicine(data[4])])
-            print("The requests for the pharmecy are now: " + str(self.pharmecy.PharmecyRequests))
+            newPerscription = Prescription(data[0], data[1], data[2])
+            print(self.__prescriptions)
+            self.__prescriptions.append(newPerscription)
+            print(self.__prescriptions)
+            return_msg = newPerscription.get_return_str()
+            return return_msg
 
-            return '{"Order for medicine:' + str(self.pharmecy.PharmecyRequests[0][2][0]) + " to pharmacy: " + str(self.pharmecy.PharmecyRequests[0][0]) +" for patient: " + str(self.pharmecy.PharmecyRequests[0][1][0]) +' }'
         except:
             return '{"Order Failed"}'
 

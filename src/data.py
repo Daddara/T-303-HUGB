@@ -4,9 +4,14 @@ from Classes.patient import Patient
 from Classes.staff import Staff
 
 
-patients_list = [
-    Patient("")
+# patients_list = [
+#     Patient("")
+# ]
+
+prescriptions_list = [
+    Prescription("1", "23", "234")
 ]
+
 
 
 class Data():
@@ -24,5 +29,5 @@ class Data():
         return []
 
     def get_prescriptions(self):
-        return []
+        return prescriptions_list
     

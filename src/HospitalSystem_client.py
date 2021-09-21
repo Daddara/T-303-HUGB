@@ -26,8 +26,8 @@ async def delete_patient():
     return await send_msg("delete_patient", '{"patient_id":"" }')
 
 async def send_presription ():
-    request = input("Please input patient id, Medicine id and pharmecy id with space inbetween ")
-    data = list(request)
+    request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")
+    data = request.split()
     return await send_msg("send_presription", data)
 
 
