@@ -18,7 +18,7 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 `python src/HospitalSystem_client.py`
 
 * Run the server in another terminal window: 
-`python src/HospitalSystem_ctrl.p`
+`python src/HospitalSystem_ctrl.py`
 
 # Group Members
 | GitLab Username          | Student name                  |
