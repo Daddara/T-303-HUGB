@@ -1,7 +1,13 @@
 #import unittest library - needed to run unit tests
 import unittest
 #import the WeatherStation class - our test target ('system under test')
-from src.Classes.prescription import *
+from Classes.prescription import *
+from Classes.appointment import *
+from Classes.staff import *
+from Classes.patient import *
+from Wrapper import Wrapper
+from data import Data
+
 
 #You have to create a new class inheriting from unittest.TestCase
 #All methods in this class will be run by the unittest runner!
@@ -23,6 +29,12 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(self.prescription.get_medicine_name(), "Ibufen")
         self.assertEqual(self.prescription.get_return_str(), '{"medicine": "Ibufen", "pharmecy": "Heilsa", "patient_id": "190500-2330"}')
 
+    def test_Wrapper_send_prescription(self):
+        wrapper = Wrapper()
+
+        return_msg = wrapper.send_presription('{"medicine": "Daniel", "pharmecy": "Sara", "patient_id": "Sigur"}')
+
+        self.assertEqual(return_msg, '{"medicine": "Daniel", "pharmecy": "Sara", "patient_id": "Sigur"}')
 
     # #This is a single test case - it runs the reportWeather function in our station
     # #and makes sure the return value is an empty string

@@ -1,9 +1,11 @@
+import json
+
 from Classes.appointment import Appointment
 from Classes.prescription import Prescription
 from Classes.patient import Patient
 from Classes.staff import Staff
 from data import Data
-import json
+
 
 class Wrapper:
     def __init__(self):
@@ -15,10 +17,10 @@ class Wrapper:
     
     def send_presription (self, data):
         try:
-            newPerscription = Prescription(data[0], data[1], data[2])
-            print(self.__prescriptions)
+            print(data)
+            x = json.loads(data)
+            newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
             self.__prescriptions.append(newPerscription)
-            print(self.__prescriptions)
             return_msg = newPerscription.get_return_str()
             return return_msg
 
