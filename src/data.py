@@ -26,12 +26,15 @@ class Data():
         pass
 
     def get_patients(self):
+        """Returns a list of patients created to stand in for our database"""
         return patients_list
 
     def get_appointments(self):
+        """Returns a list of appointments created to stand in for our database"""
         return appointments
 
     def get_staff(self):
+        """Returns a list of staff members created to stand in for our database"""
         return staff_members
 
     def get_prescriptions(self):

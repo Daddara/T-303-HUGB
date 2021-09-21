@@ -1,5 +1,9 @@
-from data import Data
 import json
+from Classes.appointment import Appointment
+from Classes.prescription import Prescription
+from data import Data
+from Classes.patient import Patient
+from Classes.staff import Staff
 
 
 class Wrapper:
@@ -41,7 +45,44 @@ class Wrapper:
         return '{"Not implemented"}'
 
     def assign_treatment(self, data):
-        return '{"Not implemented"}'
+        data = json.loads(data)
+        # See if the input patient exists
+        for patient in self.__patients:
+            if patient.__p_ssn == data["ssn"]:
+                appointment_patient = patient
+            else:
+                return '{"Patient with this social security number does not exist"}'
+
+        # See if the assigned staff members exist
+        staff_involved = []
+        for staff_member in self.__staff:
+            for assignee_ssn in data["staff"]:
+                if staff_member.__ssn == assignee_ssn:
+                    staff_involved.append(staff_member)
+        if len(staff_involved) == 0:
+            return '{"At least one staff member whose social security number was input does not exist."}'
+
+        # See if duration can be converted to an integer
+        try:
+            duration = int(data["duration"])
+        except:
+            return '{"Duration must be a number (minutes)"}'
+
+        # Take the integer of the treatment chosen, if it doesn't work, then the treatment is automatic "Checkup"
+        try:
+            treatment = int(data["treatment"])
+        except:
+            treatment = None
+
+        try:
+            new_appointment = Appointment(appointment_patient, staff_involved, data["date"], data["time"], duration, treatment, data["description"])
+            self.__appointments.append(new_appointment)
+            print("APPOINTMENT CREATED")
+            new_appointment = new_appointment.get_info()
+            return json.dumps(new_appointment)
+
+        except:
+            return '{"Appoinment was not created"}'
     
     def create_patient(self, data):
         data = json.loads(data)
@@ -54,7 +95,6 @@ class Wrapper:
         except:
             return  '{ "No!!!!!" }'
         
-    
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
         try:
@@ -69,7 +109,7 @@ class Wrapper:
             return '{"No Patient Info"}'
 
     def delete_patient(self,data):
-        
+    
         index = 0
         for dict in self.__patients:
             index +=1
@@ -77,3 +117,16 @@ class Wrapper:
                 deleted_patient = self.__patients.pop(dict)
         
         return json.dumps(deleted_patient)
+    
+    def get_appointments(self, data):
+        ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
+        if "staff_ssn" in data:
+            data = json.loads(data)
+            appointments = []
+            for appoint in self.__appointments:
+                if appoint.check_appointments(data["staff_ssn"]):
+                    appointments.append(appoint.get_info())
+            return json.dumps(appointments)
+        else:
+            return '{"msg":"No appointments"}'
+
