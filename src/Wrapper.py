@@ -1,4 +1,6 @@
 from data import Data
+from Classes.patient import Patient
+import json
 
 
 class Wrapper:
@@ -40,3 +42,14 @@ class Wrapper:
 
     def assign_treatment(self, data):
         return '{"Not implemented"}'
+    
+    def create_patient(self, data):
+        data = json.loads(data)
+        try:
+            new_patient = Patient(data["ssn"], data["name"], data["address"], data["phone"], data["email"], data["record"])
+            print("PATIENT CREATED")
+            print(new_patient.get_patient())
+            new_patient = new_patient.get_patient()
+            return json.dumps(new_patient)
+        except:
+            return  '{ "No!!!!!" }'

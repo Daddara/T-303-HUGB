@@ -9,7 +9,7 @@ class Patient:
     self.__p_record = p_record
 
 
-  def get_patient(self, p_ssn):
+  def get_patient(self):
     patient_dict = {
       "ssn": self.__p_ssn,
       "name": self.__p_name,
@@ -20,7 +20,7 @@ class Patient:
     }
     return patient_dict
 
-  def get_patient_records(self, p_snn):
+  def get_patient_records(self):
     return self.__p_record
 
 
