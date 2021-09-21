@@ -102,10 +102,8 @@ class Wrapper:
                 print(patient.get_patient_id())
                 if patient.get_patient_id() == data:
                     new_patient = patient.get_patient()
-                    #patient_list = ("Name: " + str(new_patient[0]) + "\nSSN: " + str(new_patient[1]) + "\nAddress: " + str(new_patient[2]) + "\nPhone: " + str(new_patient[3]) + "\nEmail: " + str(new_patient[4]))
-                    #return patient_list
                     return json.dumps(new_patient)
-        except:
+        except ValueError:
             return '{"No Patient Info"}'
 
     def delete_patient(self,data):
