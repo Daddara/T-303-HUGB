@@ -9,14 +9,9 @@ prescriptions_list = [
 ]
 
 patients_list = [
-<<<<<<< HEAD
-    Patient("Sara" , "270590-2999", "Dufnaholar", "555-5555", "sara@ru.is"),
-    Patient("Daniel", "160580-3889", "Menntavegur", "555-44444", "daniel@ru.is")
-=======
     Patient("1212889909", "Bjarni Benediktsson", "Akurbraut 17, 200", 8887122, "icehot@rikid.is", {}),
     Patient("3110659989", "Guðrún Högnadóttir", "Hvervisgata 30, 101", 6671129, "gudrun1@gmail.com", {"Allergies": ["lactose", "nut", "latex"], "Surgeries": ["hip surgery", "brain surgery"]}),
     Patient("0101059980", "Jón Gunnarsson", "Hamraborg 19, 201", 9910345, "jonniminn@tolfan.is", {"Medication": ["ritalin", "Parkodin", "Astma"]})
->>>>>>> 76f6aca71cfa59f7e08474e44ac982bd8b35142c
 ]
 
 staff_members = [
