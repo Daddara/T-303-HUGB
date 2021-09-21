@@ -22,6 +22,21 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 * Run the server in another terminal window: 
 `python src/HospitalSystem_ctrl.py`
 
+# Testing
+
+* To test you must run
+
+# Dependencies
+
+* `Python`
+* `Pip`
+* ``websockets`
+* `coverage` for tests and the building pipeline.
+
+* Install requirements (Should be prompted by IDE, if not install manually with `$ pip install -r requirements.txt`)
+
+
+
 # Group Members
 | GitLab Username          | Student name                  |
 | ------------------------ | ----------------------------- |
