@@ -15,7 +15,8 @@ async def send_msg(op, data):
 
 
 async def get_patient_info():
-    return await send_msg("get_patient_info", "{ }")
+    request = input("Please input patient id: ")
+    return await send_msg("get_patient_info", request)
 
 
 async def get_patient_appointments():
@@ -46,8 +47,8 @@ async def assign_opperation():
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
     print(asyncio.run(get_patient_info()))
-    print(asyncio.run(get_patient_appointments()))
-    print(asyncio.run(delete_patient()))
-    print(asyncio.run(send_presription()))
+    #print(asyncio.run(get_patient_appointments()))
+    #print(asyncio.run(delete_patient()))
+    #print(asyncio.run(send_presription()))
     # print(asyncio.run(create_patient()))
     # print(asyncio.run(get_patient_list()))

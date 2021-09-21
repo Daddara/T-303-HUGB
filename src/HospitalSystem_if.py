@@ -8,9 +8,9 @@ class HospitalsystemInterface:
     print("Welcome to the Hospital System!")
 
   def get_patient_info (self, data):
-    #Here you call the actual operation in your backend code.
-    return '{"msg":"Operation get_patient_info not yet implemented"}'
-
+    return_msg = self.wrapper.get_patient_info(data)
+    return return_msg
+    
 
   def get_patient_appointments (self, data):
     if "doctor_id" in data :      

@@ -5,7 +5,8 @@ from Classes.staff import Staff
 
 
 patients_list = [
-    Patient("")
+    Patient("Sara" , "270590-2999", "Dúfnahólar", "555-5555", "sara@ru.is"),
+    Patient("Daniel", "160580-3889", "Menntavegur", "555-44444", "daniel@ru.is")
 ]
 
 
@@ -15,7 +16,7 @@ class Data():
         pass
 
     def get_patients(self):
-        return []
+        return patients_list
 
     def get_appointments(self):
         return []
@@ -24,5 +25,5 @@ class Data():
         return []
 
     def get_prescriptions(self):
-        return []
+        return []    
     
