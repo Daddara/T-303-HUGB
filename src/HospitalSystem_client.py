@@ -62,7 +62,20 @@ async def get_patient_list():
 
 
 async def assign_treatment():
-    return await send_msg("assign_opperation", "{'doctor_id':'' }")
+    patient_ssn = input("Please enter the social security number for an existing patient: ")
+    list_of_staff_ssn = input("Please enter the social security numbers for the existing staff members that are assigned to this appointment. Seperate the ssn's with a space: ")
+    list_of_staff_ssn = list_of_staff_ssn.split(" ")
+    date = input("Please enter the date of the appointment. Write it in the format 'DD MM YYYY': ")
+    date = date.split(" ")
+    time = input("Please enter the set time of the appointment. Enter in format '00:00' : ")
+    duration = input("Please enter the estimated duration of the appointment in minutes: ")
+    print("Here are the available treatments:\n 1: Checkup\n2: Surgery\n3: Catscan\n4: x-rays\n5: Bloodworks")
+    treatment = input("Please enter the number of the treatment for the appointment: ")
+    description = input("Please enter the descpription of the appointment if there is one, otherwise press enter: ")
+    data = {"patient_ssn": patient_ssn, "staff": list_of_staff_ssn, "date": date, "time": time, "duration": duration, "treatment":treatment, "description": description}
+    data = json.dumps(data)
+    print("Stop 1")
+    return await send_msg("assign_treatment", data)
 
 
 if __name__ == "__main__":
@@ -92,7 +105,7 @@ if __name__ == "__main__":
         elif user_input == "4":
             print(asyncio.run(get_patient_appointments()))
         elif user_input == "5":
-            print(asyncio.run( assign_treatment()))
+            print(asyncio.run(assign_treatment()))
         elif user_input == "6":
             print(asyncio.run(send_presription()))
         elif user_input == "7":

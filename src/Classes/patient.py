@@ -25,13 +25,13 @@ class Patient:
     return self.__p_record
 
 
-if __name__ == "__main__":
-  patient1 = Patient("1212889909", "Bjarni Benediktsson", "Akurbraut 17, 200", 8887122, "icehot@rikid.is", {})
-  patient2 = Patient("3110659989", "Guðrún Högnadóttir", "Hvervisgata 30, 101", 6671129, "gudrun1@gmail.com", {"Allergies": ["lactose", "nut", "latex"], "Surgeries": ["hip surgery", "brain surgery"]})
-  patient3 = Patient("0101059980", "Jón Gunnarsson", "Hamraborg 19, 201", 9910345, "jonniminn@tolfan.is", {"Medication": ["ritalin", "Parkodin", "Astma"]})
-  patient_list = [patient1, patient2 , patient3]
-  patient_id = ["1212889909", "3110659989", "0101059980"]
-  counter = 0
-  for patient in patient_list:
-    print(patient.get_patient(patient_id[counter]))
-    counter += 1
+# if __name__ == "__main__":
+#   patient1 = Patient("1212889909", "Bjarni Benediktsson", "Akurbraut 17, 200", 8887122, "icehot@rikid.is", {})
+#   patient2 = Patient("3110659989", "Guðrún Högnadóttir", "Hvervisgata 30, 101", 6671129, "gudrun1@gmail.com", {"Allergies": ["lactose", "nut", "latex"], "Surgeries": ["hip surgery", "brain surgery"]})
+#   patient3 = Patient("0101059980", "Jón Gunnarsson", "Hamraborg 19, 201", 9910345, "jonniminn@tolfan.is", {"Medication": ["ritalin", "Parkodin", "Astma"]})
+#   patient_list = [patient1, patient2 , patient3]
+#   patient_id = ["1212889909", "3110659989", "0101059980"]
+#   counter = 0
+#   for patient in patient_list:
+#     print(patient.get_patient(patient_id[counter]))
+#     counter += 1

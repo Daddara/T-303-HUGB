@@ -31,14 +31,16 @@ class Wrapper:
         return '{"Not implemented"}'
 
     def assign_treatment(self, data):
+        print("Stop 2")
         data = json.loads(data)
         # See if the input patient exists
         for patient in self.__patients:
-            if patient.__p_ssn == data["ssn"]:
+            if patient.__p_ssn == data["patient_ssn"]:
                 appointment_patient = patient
             else:
                 return '{"Patient with this social security number does not exist"}'
 
+        print("Stop 3")
         # See if the assigned staff members exist
         staff_involved = []
         for staff_member in self.__staff:
@@ -48,18 +50,21 @@ class Wrapper:
         if len(staff_involved) == 0:
             return '{"At least one staff member whose social security number was input does not exist."}'
 
+        print("Stop 4")
         # See if duration can be converted to an integer
         try:
             duration = int(data["duration"])
         except:
             return '{"Duration must be a number (minutes)"}'
 
+        print("Stop 5")
         # Take the integer of the treatment chosen, if it doesn't work, then the treatment is automatic "Checkup"
         try:
             treatment = int(data["treatment"])
         except:
             treatment = None
 
+        print("Stop 6")
         try:
             new_appointment = Appointment(appointment_patient, staff_involved, data["date"], data["time"], duration, treatment, data["description"])
             self.__appointments.append(new_appointment)
