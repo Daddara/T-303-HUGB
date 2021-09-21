@@ -11,8 +11,14 @@ Clone the gitlab repository https://gitlab.com/hugb_21_g_1/hugb-21-g-1.git to an
 Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository
 
 # Running the project
-How to run step-by-step
 
+*Open two terminals while in program's directory:
+
+*Run the client in one terminal window: 
+´python src/HospitalSystem_client.py´
+
+*Run the server in another terminal window: 
+´python src/HospitalSystem_ctrl.p´
 
 # Group Members
 | GitLab Username          | Student name                  |
