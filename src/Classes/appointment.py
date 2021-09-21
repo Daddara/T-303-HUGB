@@ -39,5 +39,4 @@ class Appointment:
         for staff in self.staff_involved:
             if staff.ssn == staff_ssn:
                 return True
-
         return False

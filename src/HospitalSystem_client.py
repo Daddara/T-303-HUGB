@@ -20,7 +20,9 @@ async def get_patient_info():
 
 
 async def get_patient_appointments():
-    return await send_msg("get_patient_appointments", '{"doctor_id":"" }')
+    staff_ssn = input("Enter your social security number(ssn): ")
+    data = json.dumps({"staff_ssn":staff_ssn})
+    return await send_msg("get_patient_appointments", data)
 
 
 async def delete_patient():

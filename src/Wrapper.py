@@ -55,7 +55,6 @@ class Wrapper:
         except:
             return  '{ "No!!!!!" }'
         
-    
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
         try:
@@ -68,7 +67,7 @@ class Wrapper:
             return '{"No Patient Info"}'
 
     def delete_patient(self,data):
-        
+    
         index = 0
         for dict in self.__patients:
             index +=1
@@ -76,3 +75,16 @@ class Wrapper:
                 deleted_patient = self.__patients.pop(dict)
         
         return json.dumps(deleted_patient)
+    
+    def get_appointments(self, data):
+        ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
+        if "staff_ssn" in data:
+            data = json.loads(data)
+            appointments = []
+            for appoint in self.__appointments:
+                if appoint.check_appointments(data["staff_ssn"]):
+                    appointments.append(appoint.get_info())
+            return json.dumps(appointments)
+        else:
+            return '{"msg":"No appointments"}'
+
