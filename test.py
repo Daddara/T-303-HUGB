@@ -3,6 +3,7 @@ import unittest
 
 # import the proper classes - our test targets ('system under test')
 from Classes.patient import Patient
+from Classes.staff import Staff
 from Classes.appointment import Appointment
 
 # You have to create a new class inheriting from unittest.TestCase
@@ -13,9 +14,12 @@ class TestStationMethods(unittest.TestCase):
         # all our tests need an instance of WeatherStation, so we just create one here
         self.patient = Patient()
 
+        self.doctor = Staff("Anna Önnudóttir", "1010661399", "doctor", "Hamraborg 20", "8992345")
+        self.nurse = Staff("Gunnar Gunnarsson", "0909691399", "nurse", "Hamraborg 10", "7883456")
+
         # Þarf ekki að senda inn allar upplýsingar?
-        self.appoinment_surgery = Appointment()
-        self.appointment_checkup = Appointment()
+        self.appoinment_surgery = Appointment(self.patient, [self.doctor, self.nurse], [10,10,2022], "08:00", 60, 2, "Surgery on shoulder.")
+        self.appointment_checkup = Appointment(self.patient, [self.doctor], [10,10,2022], "12:00", 120)
 
     # This is a single test case - it runs the reportWeather function in our station
     # and makes sure the return value is an empty string
@@ -36,9 +40,14 @@ class TestStationMethods(unittest.TestCase):
 
     # Eitthvað að reyna að testa
     def test_assign_treatment(self):
-        appointment = self.appoinment.get_info()
+        appointment_surgery = self.appoinment_surgery.get_info()
+        # ekki komnar upplýsingar um patient út af patient klasa
+        self.assertEqual(appointment_surgery["patient"], "Einhver patient")
 
-        self.assertEqual(appointment["patient"], "Einhver patient")
+        self.assertEqual(appointment_surgery["staff"][0].ssn, "1010661399")
+        self.assertEqual(appointment_surgery["staff"][1].ssn, "0909691399")
+        self.assertEqual(appointment_surgery["date"], [10,10,2022])
+        
 
     # tear down method - is run after each test case
     def tearDown(self):
