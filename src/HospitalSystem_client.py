@@ -2,6 +2,7 @@
 import asyncio
 import websockets
 import json
+from os import system, name
 
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
@@ -61,9 +62,41 @@ async def assign_treatment():
 
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
-    print(asyncio.run(get_patient_info()))
-    print(asyncio.run(get_patient_appointments()))
-    print(asyncio.run(delete_patient()))
-    print(asyncio.run(send_presription()))
-    print(asyncio.run(create_patient()))
+    print("\t\tWelcome to the Hospital System\n")
+    menu = "\n\
+            Enter 1 to create a new patient for the system\n\
+            Enter 2 to get a patients info\n\
+            Enter 3 to list all patients\n\
+            Enter 4 to list all appointments for a doctor\n\
+            Enter 5 to assign a treatment to a patient \n\
+            Enter 6 to send a prescription to a patient\n\
+            Enter 7 to delete a patient\n\
+            Enter q to quit\n\
+            "
+    while True:
+        print(menu)
+        user_input = input("Please enter your selection here: ")
+        if user_input == "q" or user_input == "Q":
+            break
+        elif user_input == "1":
+            print(asyncio.run(create_patient()))
+        elif user_input == "2":
+            print(asyncio.run(get_patient_info()))
+        elif user_input == "3":
+            print(asyncio.run(get_patient_list()))
+        elif user_input == "4":
+            print(asyncio.run(get_patient_appointments()))
+        elif user_input == "5":
+            print(asyncio.run( assign_treatment()))
+        elif user_input == "6":
+            print(asyncio.run(send_presription()))
+        elif user_input == "7":
+            print(asyncio.run(delete_patient()))
+        else:
+            print("Please enter a valid number")
+    
+    
+    
+    
+    # print(asyncio.run( assign_treatment()))
     # print(asyncio.run(get_patient_list()))
