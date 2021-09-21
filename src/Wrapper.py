@@ -39,8 +39,6 @@ class Wrapper:
         patient_found = False
         for patient in self.__patients:
             patient = patient.get_patient()
-            print(data["patient_ssn"])
-            print(patient["ssn"])
             if patient["ssn"] == data["patient_ssn"]:
                 appointment_patient = patient
                 patient_found = True
@@ -51,12 +49,9 @@ class Wrapper:
         # See if the assigned staff members exist
         staff_involved = []
         for staff_member in self.__staff:
-            print(data["staff"])
             for assignee_ssn in data["staff"]:
-                print(assignee_ssn)
                 staff_member = staff_member.get_staff_member()
                 if staff_member["ssn"] == assignee_ssn:
-                    print(staff_member["ssn"])
                     staff_involved.append(staff_member)
 
         if len(staff_involved) == 0:
