@@ -32,7 +32,7 @@ class HospitalsystemInterface:
         return return_msg
 
     def get_patient_list (self, data):
-        return self.wrapper.get_patient_list(data)
+        return self.wrapper.get_patient_list()
 
     def assign_treatment(self, data):
         return self.wrapper.assign_treatment(data)

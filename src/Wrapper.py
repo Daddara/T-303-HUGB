@@ -26,9 +26,13 @@ class Wrapper:
         except:
             return '{"Order Failed"}'
 
-    def get_patient_list(self, data):
-        self.__patients.get_patient_list(data)
-        return '{"Not implemented"}'
+    def get_patient_list(self):
+        print(self.__patients)
+        patient_list = []
+        for patient in self.__patients:
+            patient_list.append(patient.get_patient())
+            print(patient_list)
+        return json.dumps(patient_list)
 
     def assign_treatment(self, data):
         data = json.loads(data)
