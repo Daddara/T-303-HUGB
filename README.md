@@ -12,13 +12,13 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 
 # Running the project
 
-*Open two terminals while in program's directory:
+* Open two terminals while in program's directory:
 
-*Run the client in one terminal window: 
-´python src/HospitalSystem_client.py´
+* Run the client in one terminal window: 
+`python src/HospitalSystem_client.py`
 
 *Run the server in another terminal window: 
-´python src/HospitalSystem_ctrl.p´
+`python src/HospitalSystem_ctrl.p`
 
 # Group Members
 | GitLab Username          | Student name                  |
