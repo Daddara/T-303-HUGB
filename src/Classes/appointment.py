@@ -1,6 +1,6 @@
 from Classes.patient import Patient
-from Classes.staff import Staff
-from data import Data
+#from Classes.staff import Staff
+#from data import Data
 import json
 
 
