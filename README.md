@@ -30,7 +30,7 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 
 * `Python`
 * `Pip`
-* ``websockets`
+* `websockets`
 * `coverage` for tests and the building pipeline.
 
 * Install requirements (Should be prompted by IDE, if not install manually with `$ pip install -r requirements.txt`)
