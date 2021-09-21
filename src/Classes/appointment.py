@@ -1,12 +1,11 @@
 from Classes.patient import Patient
 from Classes.staff import Staff
-from data import Data
 import json
 
 
 # Treatments used for first implementation. Each treatment has an id. List will get longer.
 TREATMENTS = {
-    1: "Regular checkup",
+    1: "Checkup",
     2: "Surgery",
     3: "Catscan",
     4: "x-rays",
@@ -36,9 +35,9 @@ class Appointment:
         return json.dumps(appointment_info)
 
 
-    def check_doctor(self, doctor_ssn) -> bool:
+    def check_appointments(self, staff_ssn) -> bool:
         for staff in self.staff_involved:
-            if staff.ssn == doctor_ssn:
+            if staff.ssn == staff_ssn:
                 return True
 
         return False
