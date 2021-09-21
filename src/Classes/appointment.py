@@ -40,6 +40,6 @@ class Appointment:
     def check_appointments(self, staff_ssn) -> bool:
         """Returns a boolean value on wether a certain staff member is assigned to an appointment"""
         for staff in self.staff_involved:
-            if staff.ssn == staff_ssn:
+            if staff.get_ssn() == staff_ssn:
                 return True
         return False
