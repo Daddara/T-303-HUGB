@@ -33,18 +33,29 @@ class Wrapper:
     def assign_treatment(self, data):
         data = json.loads(data)
         # See if the input patient exists
+        patient_found = False
         for patient in self.__patients:
-            if patient.__p_ssn == data["ssn"]:
+            patient = patient.get_patient()
+            print(data["patient_ssn"])
+            print(patient["ssn"])
+            if patient["ssn"] == data["patient_ssn"]:
                 appointment_patient = patient
-            else:
-                return '{"Patient with this social security number does not exist"}'
+                patient_found = True
+
+        if patient_found == False:
+            return '{"Patient with this social security number does not exist"}'
 
         # See if the assigned staff members exist
         staff_involved = []
         for staff_member in self.__staff:
+            print(data["staff"])
             for assignee_ssn in data["staff"]:
-                if staff_member.__ssn == assignee_ssn:
+                print(assignee_ssn)
+                staff_member = staff_member.get_staff_member()
+                if staff_member["ssn"] == assignee_ssn:
+                    print(staff_member["ssn"])
                     staff_involved.append(staff_member)
+
         if len(staff_involved) == 0:
             return '{"At least one staff member whose social security number was input does not exist."}'
 
