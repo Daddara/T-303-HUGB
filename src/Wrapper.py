@@ -5,8 +5,6 @@ from Classes.prescription import Prescription
 from Classes.patient import Patient
 from Classes.staff import Staff
 from data import Data
-import json
-
 
 class Wrapper:
     def __init__(self):
@@ -19,12 +17,16 @@ class Wrapper:
     def send_presription(self, data):
         try:
             x = json.loads(data)
-            newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
-            # print(self.__prescriptions)
-            self.__prescriptions.append(newPerscription)
-            # print(self.__prescriptions)
-            return_msg = newPerscription.get_return_str()
-            return return_msg
+            for patient in self.__patients:
+                if x["patient_id"] == patient.get_patient_id():
+                    newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
+                    print(self.__prescriptions)
+                    self.__prescriptions.append(newPerscription)
+                    print(self.__prescriptions)
+                    return_msg = newPerscription.get_return_str()
+                    return return_msg
+                else:
+                    return '{"Not a valid person"}'
         except:
             return '{"Order Failed"}'
 
