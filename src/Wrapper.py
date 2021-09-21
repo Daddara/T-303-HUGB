@@ -3,6 +3,7 @@ from Classes.prescription import Prescription
 from Classes.patient import Patient
 from Classes.staff import Staff
 from data import Data
+import json
 
 
 class Wrapper:
@@ -24,3 +25,13 @@ class Wrapper:
 
     def get_patient_list(self, data):
         return '{"Not implemented"}'
+
+    def delete_patient(self,data):
+        
+        index = 0
+        for dict in self.__patients:
+            index +=1
+            if( dict[data] == id):
+                deleted_patient = self.__patients.pop(dict)
+        
+        return json.dumps(deleted_patient)
