@@ -2,7 +2,7 @@
 import asyncio
 import json
 import websockets
-from HospitalSystem_if import *
+from HospitalSystem_if import HospitalsystemInterface
 
 class HospitalsystemPort:
     __instance = None
