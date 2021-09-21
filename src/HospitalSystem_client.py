@@ -37,16 +37,18 @@ async def delete_patient():
     return await send_msg("delete_patient", json.dumps(patient_dict))
 
 async def send_presription ():
-    request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")
-    data = request.split()
-    json_data = {
-            "medicine": data[0],
-            "pharmecy": data[1],
-            "patient_id": data[2]
+    try:
+        request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")
+        data = request.split()
+        json_data = {
+                "medicine": data[0],
+                "pharmecy": data[1],
+                "patient_id": data[2]
 
-        }
-    return await send_msg("send_presription", json.dumps(json_data))
-
+            }
+        return await send_msg("send_presription", json.dumps(json_data))
+    except:
+        return '{"msg": "Not valid input"}'
 
 async def create_patient():
     patient_ssn = input("Please enter the patients social security number: ")

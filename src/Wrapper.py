@@ -14,24 +14,24 @@ class Wrapper:
         self.__prescriptions = self.__data.get_prescriptions()
 
     def send_presription(self, data):
+        ''' This function takes in name of medicine and pharmecy along with the id of a patient.
+        The function uses it to send a prescription for the medicine to the pharmecy for the patient. '''
         try:
             x = json.loads(data)
             for patient in self.__patients:
                 if x["patient_id"] == patient.get_patient_id():
                     newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
-                    print(self.__prescriptions)
                     self.__prescriptions.append(newPerscription)
-                    print(self.__prescriptions)
                     return_msg = newPerscription.get_return_str()
                     return return_msg
             else:
-                return '{"Not a valid person"}'
+                return '{"msg": "Not a valid person"}'
         except:
-            return '{"Order Failed"}'
+            return '{"msg": "Order Failed"}'
 
     def get_patient_list(self, data):
         self.__patients.get_patient_list(data)
-        return '{"Not implemented"}'
+        return '{"msg":  "Not implemented"}'
 
     def assign_treatment(self, data):
         data = json.loads(data)
@@ -66,7 +66,6 @@ class Wrapper:
         try:
             new_appointment = Appointment(appointment_patient, staff_involved, data["date"], data["time"], duration, treatment, data["description"])
             self.__appointments.append(new_appointment)
-            print("APPOINTMENT CREATED")
             new_appointment = new_appointment.get_info()
             return json.dumps(new_appointment)
 
@@ -98,20 +97,12 @@ class Wrapper:
             return '{"No Patient Info"}'
 
     def delete_patient(self,data):
-        #3110659989
         x = json.loads(data)
-        print(data)
-        print(self.__patients)
         index = 0
         for patient in self.__patients:
-            print("Hello")
             if( x["patient_id"] == patient.get_patient_id()):
-                print("Before:")
-                print(self.__patients)
                 return_msg = patient.get_patient()
                 self.__patients.pop(index)
-                print("After:")
-                print(self.__patients)
                 return json.dumps(return_msg)
             index += 1
         else:
@@ -124,7 +115,6 @@ class Wrapper:
             id_counter = 1
             appointments_list = {}
             for appoint in self.__appointments:
-                print(data["staff_ssn"])
                 if appoint.check_appointments(str(data["staff_ssn"])):
                     appointments_list[str(id_counter)] = appoint.get_info()
                     id_counter += 1
