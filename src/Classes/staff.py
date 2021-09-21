@@ -20,3 +20,6 @@ class Staff():
     
     def get_ssn(self):
         return self.__ssn
+
+    def get_name(self):
+        return self.__name

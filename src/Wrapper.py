@@ -51,18 +51,29 @@ class Wrapper:
     def assign_treatment(self, data):
         data = json.loads(data)
         # See if the input patient exists
+        patient_found = False
         for patient in self.__patients:
-            if patient.__p_ssn == data["ssn"]:
+            patient = patient.get_patient()
+            print(data["patient_ssn"])
+            print(patient["ssn"])
+            if patient["ssn"] == data["patient_ssn"]:
                 appointment_patient = patient
-            else:
-                return '{"Patient with this social security number does not exist"}'
+                patient_found = True
+
+        if patient_found == False:
+            return '{"Patient with this social security number does not exist"}'
 
         # See if the assigned staff members exist
         staff_involved = []
         for staff_member in self.__staff:
+            print(data["staff"])
             for assignee_ssn in data["staff"]:
-                if staff_member.__ssn == assignee_ssn:
+                print(assignee_ssn)
+                staff_member = staff_member.get_staff_member()
+                if staff_member["ssn"] == assignee_ssn:
+                    print(staff_member["ssn"])
                     staff_involved.append(staff_member)
+
         if len(staff_involved) == 0:
             return '{"At least one staff member whose social security number was input does not exist."}'
 
@@ -110,7 +121,7 @@ class Wrapper:
                     new_patient = patient.get_patient()
                     return new_patient
         except:
-            return '{"No Patient Info"}'
+            return '{"msg": "No Patient Info"}'
 
     def delete_patient(self,data):
     
@@ -125,18 +136,26 @@ class Wrapper:
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
         if "staff_ssn" in data:
-            data = json.loads(data)
-            id_counter = 1
-            appointments_list = {}
-            for appoint in self.__appointments:
-                print(data["staff_ssn"])
-                if appoint.check_appointments(str(data["staff_ssn"])):
-                    appointments_list[str(id_counter)] = appoint.get_info()
-                    id_counter += 1
-            if len(appointments_list) != 0:
-                return '{"msg":"nice one"}'
-            else:
-                return '{"msg":"No appointmentsA"}'
+            try:
+                data = json.loads(data)
+                id_counter = 1
+                appointments_list = []
+                appointments_dict = {}
+                for appoint in self.__appointments:
+                    print(data["staff_ssn"])
+                    if appoint.check_appointments(str(data["staff_ssn"])):
+                        x = appoint.get_info()
+                        patient = x["patient"]
+                        x["patient"] = patient.get_patient()
+                        x["staff"] = len(x["staff"])
+                        print(x)
+                        appointments_list.append(x)
+                        id_counter += 1
+                if len(appointments_list) != 0:
+                    return json.dumps(appointments_list)
+                else:
+                    return '{"msg":"No appointments"}'
+            except:
+                return '{"msg":"Invalid arguments, please try again}'
         else:
             return '{"msg":"No appointments"}'
-

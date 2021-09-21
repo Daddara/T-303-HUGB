@@ -66,7 +66,20 @@ async def create_patient():
 
 
 async def assign_treatment():
-    return await send_msg("assign_opperation", "{'doctor_id':'' }")
+    patient_ssn = input("Please enter the social security number for an existing patient: ")
+    list_of_staff_ssn = input("Please enter the social security number of the overseer of the appointment: ")
+    list_of_staff_ssn = list_of_staff_ssn.split(" ")
+    print(list_of_staff_ssn)
+    date = input("Please enter the date of the appointment. Write it in the format 'DD MM YYYY': ")
+    date = date.split(" ")
+    time = input("Please enter the set time of the appointment. Enter in format '00:00' : ")
+    duration = input("Please enter the estimated duration of the appointment in minutes: ")
+    print("Here are the available treatments:\n 1: Checkup\n2: Surgery\n3: Catscan\n4: x-rays\n5: Bloodworks")
+    treatment = input("Please enter the number of the treatment for the appointment: ")
+    description = input("Please enter the descpription of the appointment if there is one, otherwise press enter: ")
+    data = {"patient_ssn": patient_ssn, "staff": list_of_staff_ssn, "date": date, "time": time, "duration": duration, "treatment":treatment, "description": description}
+    data = json.dumps(data)
+    return await send_msg("assign_treatment", data)
 
 
 if __name__ == "__main__":
