@@ -1,4 +1,6 @@
-from src.Classes.patient import Patient
+from Classes.patient import Patient
+#from Classes.staff import Staff
+#from data import Data
 import json
 
 
