@@ -107,18 +107,27 @@ class Wrapper:
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
         if "staff_ssn" in data:
-            data = json.loads(data)
-            id_counter = 1
-            appointments_list = {}
-            for appoint in self.__appointments:
-                print(data["staff_ssn"])
-                if appoint.check_appointments(str(data["staff_ssn"])):
-                    appointments_list[str(id_counter)] = appoint.get_info()
-                    id_counter += 1
-            if len(appointments_list) != 0:
-                return '{"msg":"nice one"}'
-            else:
-                return '{"msg":"No appointmentsA"}'
+            try:
+                data = json.loads(data)
+                id_counter = 1
+                appointments_list = []
+                appointments_dict = {}
+                for appoint in self.__appointments:
+                    print(data["staff_ssn"])
+                    if appoint.check_appointments(str(data["staff_ssn"])):
+                        x = appoint.get_info()
+                        patient = x["patient"]
+                        x["patient"] = patient.get_patient()
+                        x["staff"] = len(x["staff"])
+                        print(x)
+                        appointments_list.append(x)
+                        id_counter += 1
+                if len(appointments_list) != 0:
+                    return json.dumps(appointments_list)
+                else:
+                    return '{"msg":"No appointments"}'
+            except:
+                return '{"msg":"Invalid arguments, please try again}'
         else:
             return '{"msg":"No appointments"}'
 
