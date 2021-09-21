@@ -12,7 +12,8 @@ class TestStationMethods(unittest.TestCase):
     # set up method - is run before each actual test case.
     def setUp(self):
         # all our tests need an instance of WeatherStation, so we just create one here
-        self.patient = Patient("0909002020", "Jói Jóason", "Hamraborg 100", "90990909", "ineine@gmail.com")
+        self.patient = Patient("0909002020", "Jói Jóason", "Hamraborg 100", "90990909", "joi@gmail.com")
+        self.patient_with_allergy = Patient("1212002320", "Gulla Gull", "Hamraborg 200", "8872233", "gulla@hotmail.com", ["Fish allergy", "Nut allergy"])
 
         self.doctor = Staff("Anna Önnudóttir", "1010661399", "doctor", "Hamraborg 20", "8992345")
         self.nurse = Staff("Gunnar Gunnarsson", "0909691399", "nurse", "Hamraborg 10", "7883456")
@@ -23,21 +24,11 @@ class TestStationMethods(unittest.TestCase):
 
     # This is a single test case - it runs the reportWeather function in our station
     # and makes sure the return value is an empty string
-    def test_patient_name(self):
-        # Run function
-        # patient_record = self.patient.get_patient("1")
-
-        # # Assertion
-        # self.assertEqual(patient_record[0], "Sara")
-        # self.assertNotEqual(patient_record[1], "21")
+    def test_patient_class(self):
         pass
 
-    def test_report_status(self):
-        #     #Run function
-        status = ""  # self.my_station.report_status()
-
-        # Assertion
-        self.assertEqual("", status)
+    def test_staff_class(self):
+        pass
 
     # Eitthvað að reyna að testa
     def test_assign_treatment(self):
@@ -64,6 +55,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_checkup["treatment"], "Checkup")
         self.assertEqual(appointment_checkup["description"], "")
 
+    def test_wrapper(self):
+        pass
 
     # tear down method - is run after each test case
     def tearDown(self):

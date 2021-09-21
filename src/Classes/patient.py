@@ -9,6 +9,7 @@ class Patient:
 
 
   def get_patient(self):
+    """Returns information about a patient in a dictionary"""
     patient_dict = {
       "ssn": self.__p_ssn,
       "name": self.__p_name,
@@ -20,6 +21,7 @@ class Patient:
     return patient_dict
 
   def get_patient_records(self):
+    """Specifically returns a patient's record."""
     return self.__p_record
 
 
