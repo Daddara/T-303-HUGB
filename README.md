@@ -12,6 +12,8 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 
 # Running the project
 
+* Websockets must be installed `pip install websockets`
+
 * Open two terminals while in program's directory:
 
 * Run the client in one terminal window: 
