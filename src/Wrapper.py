@@ -1,5 +1,6 @@
 from data import Data
 from Classes.patient import Patient
+from Classes.appointment import Appointment
 import json
 
 
@@ -38,8 +39,16 @@ class Wrapper:
             return '{"Order Failed"}'
 
     def get_patient_list(self, data):
-        self.__patients.get_patient_list(data)
-        return '{"Not implemented"}'
+        "Prints out list of patients assigned to a staff member"
+        try:
+            for Appointment in self.__appointments:
+                appointment = Appointment.get_info()
+                if appointment["ssn"] in data:
+                    patient_list = patient_list.append(appointment["patient"])
+                print("The following patients are assigned to you."),
+                print(patient_list)
+        except:
+            return '{"No patients assigned to this staff member"}'
 
     def assign_treatment(self, data):
         return '{"Not implemented"}'
