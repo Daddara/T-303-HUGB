@@ -2,7 +2,7 @@ import json
 
 class Patient():
   
-    def __init__(self, name:str, ssn:str, address=None, phone=None, email=None):
+    def __init__(self, name:str, ssn:str, address:str, phone:str, email:str):
         self.name = name
         self.ssn = ssn
         self.address = address
@@ -14,15 +14,12 @@ class Patient():
 
     def get_patient(self):
         ''' Gets all patients'''
-        # patient_dict = {
-        #     "name": self.name,
-        #     "age": self.age,
-        #     "ssn": self.ssn, 
-        #     "address": self.address, 
-        #     "phone": self.phone, 
-        #     "email": self.email
-        # }
+        patient_dict = {
+            "name": self.name,
+            "ssn": self.ssn,
+            "address": self.address, 
+            "phone": self.phone, 
+            "email": self.email
+        }
         
-        patient_list = [self.name, self.ssn, self.address, self.phone, self.email]
-        
-        return patient_list
+        return json.dumps(patient_dict)

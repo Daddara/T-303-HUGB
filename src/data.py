@@ -5,7 +5,7 @@ from Classes.staff import Staff
 
 
 patients_list = [
-    Patient("Sara" , "270590-2999", "Dúfnahólar", "555-5555", "sara@ru.is"),
+    Patient("Sara" , "270590-2999", "Dufnaholar", "555-5555", "sara@ru.is"),
     Patient("Daniel", "160580-3889", "Menntavegur", "555-44444", "daniel@ru.is")
 ]
 
