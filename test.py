@@ -2,7 +2,7 @@
 import unittest
 
 #import the WeatherStation class - our test target ('system under test')
-from src.HospitalSystem_if import Patients
+from Classes.Patients import Patients
 
 #You have to create a new class inheriting from unittest.TestCase
 #All methods in this class will be run by the unittest runner!
