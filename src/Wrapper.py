@@ -97,19 +97,15 @@ class Wrapper:
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
         try:
-            x = json.loads(data)
             for patient in self.__patients:
-                if patient.get_patient_id() == x["patient_id"]:
+                print(patient.get_patient_id())
+                if patient.get_patient_id() == data:
                     new_patient = patient.get_patient()
-<<<<<<< HEAD
+                    #patient_list = ("Name: " + str(new_patient[0]) + "\nSSN: " + str(new_patient[1]) + "\nAddress: " + str(new_patient[2]) + "\nPhone: " + str(new_patient[3]) + "\nEmail: " + str(new_patient[4]))
+                    #return patient_list
                     return json.dumps(new_patient)
-        except ValueError:
-            return '{"No Patient Info"}'
-=======
-                    return new_patient
         except:
-            return '{"msg": "No Patient Info"}'
->>>>>>> origin/back1
+            return '{"No Patient Info"}'
 
     def delete_patient(self,data):
     

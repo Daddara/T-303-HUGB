@@ -17,10 +17,7 @@ async def send_msg(op, data):
 
 async def get_patient_info():
     request = input("Please input patient id: ")
-    patient_dict = {
-        "patient_id": request,
-    }
-    return await send_msg("get_patient_info", json.dumps(patient_dict))
+    return await send_msg("get_patient_info", request)
 
 
 async def get_patient_appointments():
