@@ -1,14 +1,4 @@
 
-<<<<<<< HEAD
-class Patient():
-  
-    def __init__(self, name:str, ssn:str, address:str, phone:str, email:str):
-        self.name = name
-        self.ssn = ssn
-        self.address = address
-        self.phone = phone 
-        self.email = email
-=======
 class Patient:
   def __init__(self, p_ssn, p_name, p_address, p_phone, p_email, p_record):
     self.__p_ssn = p_ssn
@@ -17,22 +7,8 @@ class Patient:
     self.p_phone = p_phone
     self.p_email = p_email
     self.__p_record = p_record
->>>>>>> 76f6aca71cfa59f7e08474e44ac982bd8b35142c
 
 
-<<<<<<< HEAD
-    def get_patient(self):
-        ''' Gets all patients'''
-        patient_dict = {
-            "name": self.name,
-            "ssn": self.ssn,
-            "address": self.address, 
-            "phone": self.phone, 
-            "email": self.email
-        }
-        
-        return json.dumps(patient_dict)
-=======
   def get_patient(self):
     patient_dict = {
       "ssn": self.__p_ssn,
@@ -46,6 +22,9 @@ class Patient:
 
   def get_patient_records(self):
     return self.__p_record
+    
+  def get_patient_id(self):
+        return self.__p_ssn
 
 
 if __name__ == "__main__":
@@ -58,4 +37,3 @@ if __name__ == "__main__":
   for patient in patient_list:
     print(patient.get_patient(patient_id[counter]))
     counter += 1
->>>>>>> 76f6aca71cfa59f7e08474e44ac982bd8b35142c
