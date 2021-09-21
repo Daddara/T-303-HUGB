@@ -17,3 +17,6 @@ class Staff():
             "title": self.__title,
         }
         return staff_dict
+    
+    def get_ssn(self):
+        return self.__ssn
