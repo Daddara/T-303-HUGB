@@ -98,14 +98,24 @@ class Wrapper:
             return '{"No Patient Info"}'
 
     def delete_patient(self,data):
-    
+        #3110659989
+        x = json.loads(data)
+        print(data)
+        print(self.__patients)
         index = 0
-        for dict in self.__patients:
-            index +=1
-            if( dict[data] == id):
-                deleted_patient = self.__patients.pop(dict)
-        
-        return json.dumps(deleted_patient)
+        for patient in self.__patients:
+            print("Hello")
+            if( x["patient_id"] == patient.get_patient_id()):
+                print("Before:")
+                print(self.__patients)
+                return_msg = patient.get_patient()
+                self.__patients.pop(index)
+                print("After:")
+                print(self.__patients)
+                return json.dumps(return_msg)
+            index += 1
+        else:
+            return '{"msg":"No Patient with thi id"}'
     
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
