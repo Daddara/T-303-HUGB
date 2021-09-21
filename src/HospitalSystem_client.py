@@ -63,8 +63,9 @@ async def get_patient_list():
 
 async def assign_treatment():
     patient_ssn = input("Please enter the social security number for an existing patient: ")
-    list_of_staff_ssn = input("Please enter the social security numbers for the existing staff members that are assigned to this appointment. Seperate the ssn's with a space: ")
+    list_of_staff_ssn = input("Please enter the social security number of the overseer of the appointment: ")
     list_of_staff_ssn = list_of_staff_ssn.split(" ")
+    print(list_of_staff_ssn)
     date = input("Please enter the date of the appointment. Write it in the format 'DD MM YYYY': ")
     date = date.split(" ")
     time = input("Please enter the set time of the appointment. Enter in format '00:00' : ")
@@ -74,7 +75,6 @@ async def assign_treatment():
     description = input("Please enter the descpription of the appointment if there is one, otherwise press enter: ")
     data = {"patient_ssn": patient_ssn, "staff": list_of_staff_ssn, "date": date, "time": time, "duration": duration, "treatment":treatment, "description": description}
     data = json.dumps(data)
-    print("Stop 1")
     return await send_msg("assign_treatment", data)
 
 

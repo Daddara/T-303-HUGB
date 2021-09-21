@@ -31,40 +31,46 @@ class Wrapper:
         return '{"Not implemented"}'
 
     def assign_treatment(self, data):
-        print("Stop 2")
         data = json.loads(data)
         # See if the input patient exists
+        patient_found = False
         for patient in self.__patients:
-            if patient.__p_ssn == data["patient_ssn"]:
+            patient = patient.get_patient()
+            print(data["patient_ssn"])
+            print(patient["ssn"])
+            if patient["ssn"] == data["patient_ssn"]:
                 appointment_patient = patient
-            else:
-                return '{"Patient with this social security number does not exist"}'
+                patient_found = True
 
-        print("Stop 3")
+        if patient_found == False:
+            return '{"Patient with this social security number does not exist"}'
+
         # See if the assigned staff members exist
         staff_involved = []
         for staff_member in self.__staff:
+            print(data["staff"])
             for assignee_ssn in data["staff"]:
-                if staff_member.__ssn == assignee_ssn:
+                print(assignee_ssn)
+                staff_member = staff_member.get_staff_member()
+                if staff_member["ssn"] == assignee_ssn:
+                    print(staff_member["ssn"])
                     staff_involved.append(staff_member)
+
         if len(staff_involved) == 0:
             return '{"At least one staff member whose social security number was input does not exist."}'
 
-        print("Stop 4")
         # See if duration can be converted to an integer
         try:
             duration = int(data["duration"])
         except:
             return '{"Duration must be a number (minutes)"}'
 
-        print("Stop 5")
         # Take the integer of the treatment chosen, if it doesn't work, then the treatment is automatic "Checkup"
         try:
             treatment = int(data["treatment"])
         except:
             treatment = None
 
-        print("Stop 6")
         try:
             new_appointment = Appointment(appointment_patient, staff_involved, data["date"], data["time"], duration, treatment, data["description"])
             self.__appointments.append(new_appointment)
