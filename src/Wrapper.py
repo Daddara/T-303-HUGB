@@ -16,27 +16,13 @@ class Wrapper:
 
     def send_presription(self, data):
         try:
-            self.hospital.PharmacyRequests.append(
-                [
-                    self.pharmecy.get_pharmecy(data[0]),
-                    self.patient.get_patient(data[2]),
-                    self.medicine.get_medicine(data[4]),
-                ]
-            )
-            print(
-                "The requests for the pharmecy are now: "
-                + str(self.pharmecy.PharmecyRequests)
-            )
-
-            return (
-                '{"Order for medicine:'
-                + str(self.pharmecy.PharmecyRequests[0][2][0])
-                + " to pharmacy: "
-                + str(self.pharmecy.PharmecyRequests[0][0])
-                + " for patient: "
-                + str(self.pharmecy.PharmecyRequests[0][1][0])
-                + " }"
-            )
+            x = json.loads(data)
+            newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
+            # print(self.__prescriptions)
+            self.__prescriptions.append(newPerscription)
+            # print(self.__prescriptions)
+            return_msg = newPerscription.get_return_str()
+            return return_msg
         except:
             return '{"Order Failed"}'
 
@@ -47,18 +33,29 @@ class Wrapper:
     def assign_treatment(self, data):
         data = json.loads(data)
         # See if the input patient exists
+        patient_found = False
         for patient in self.__patients:
-            if patient.__p_ssn == data["ssn"]:
+            patient = patient.get_patient()
+            print(data["patient_ssn"])
+            print(patient["ssn"])
+            if patient["ssn"] == data["patient_ssn"]:
                 appointment_patient = patient
-            else:
-                return '{"Patient with this social security number does not exist"}'
+                patient_found = True
+
+        if patient_found == False:
+            return '{"Patient with this social security number does not exist"}'
 
         # See if the assigned staff members exist
         staff_involved = []
         for staff_member in self.__staff:
+            print(data["staff"])
             for assignee_ssn in data["staff"]:
-                if staff_member.__ssn == assignee_ssn:
+                print(assignee_ssn)
+                staff_member = staff_member.get_staff_member()
+                if staff_member["ssn"] == assignee_ssn:
+                    print(staff_member["ssn"])
                     staff_involved.append(staff_member)
+
         if len(staff_involved) == 0:
             return '{"At least one staff member whose social security number was input does not exist."}'
 
@@ -85,26 +82,34 @@ class Wrapper:
             return '{"Appoinment was not created"}'
     
     def create_patient(self, data):
+        """Takes a json object and turns into a dictionary that is then passed
+            to create a Patient object with the data. Returns a json value"""
+
         data = json.loads(data)
         try:
             new_patient = Patient(data["ssn"], data["name"], data["address"], data["phone"], data["email"], data["record"])
-            print("PATIENT CREATED")
-            print(new_patient.get_patient())
+            self.__patients.append(new_patient)
             new_patient = new_patient.get_patient()
             return json.dumps(new_patient)
         except:
-            return  '{ "No!!!!!" }'
+            return  '{ "Creating this patient was unsuccessful, please try again." }'
         
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
         try:
+            x = json.loads(data)
             for patient in self.__patients:
-                print(patient.get_patient_id())
-                if patient.get_patient_id() == data:
+                if patient.get_patient_id() == x["patient_id"]:
                     new_patient = patient.get_patient()
+<<<<<<< HEAD
                     return json.dumps(new_patient)
         except ValueError:
             return '{"No Patient Info"}'
+=======
+                    return new_patient
+        except:
+            return '{"msg": "No Patient Info"}'
+>>>>>>> origin/back1
 
     def delete_patient(self,data):
     
@@ -119,18 +124,26 @@ class Wrapper:
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
         if "staff_ssn" in data:
-            data = json.loads(data)
-            id_counter = 1
-            appointments_list = {}
-            for appoint in self.__appointments:
-                print(data["staff_ssn"])
-                if appoint.check_appointments(str(data["staff_ssn"])):
-                    appointments_list[str(id_counter)] = appoint.get_info()
-                    id_counter += 1
-            if len(appointments_list) != 0:
-                return '{"msg":"nice one"}'
-            else:
-                return '{"msg":"No appointmentsA"}'
+            try:
+                data = json.loads(data)
+                id_counter = 1
+                appointments_list = []
+                appointments_dict = {}
+                for appoint in self.__appointments:
+                    print(data["staff_ssn"])
+                    if appoint.check_appointments(str(data["staff_ssn"])):
+                        x = appoint.get_info()
+                        patient = x["patient"]
+                        x["patient"] = patient.get_patient()
+                        x["staff"] = len(x["staff"])
+                        print(x)
+                        appointments_list.append(x)
+                        id_counter += 1
+                if len(appointments_list) != 0:
+                    return json.dumps(appointments_list)
+                else:
+                    return '{"msg":"No appointments"}'
+            except:
+                return '{"msg":"Invalid arguments, please try again}'
         else:
             return '{"msg":"No appointments"}'
-
