@@ -45,6 +45,9 @@ class Wrapper:
         return '{"Not implemented"}'
     
     def create_patient(self, data):
+        """Takes a json object and turns into a dictionary that is then passed
+            to create a Patient object with the data. Returns a json value"""
+
         data = json.loads(data)
         try:
             new_patient = Patient(data["ssn"], data["name"], data["address"], data["phone"], data["email"], data["record"])
