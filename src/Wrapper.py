@@ -66,5 +66,13 @@ class Wrapper:
                     return patient_list
         except:
             return '{"No Patient Info"}'
+
+    def delete_patient(self,data):
         
- 
+        index = 0
+        for dict in self.__patients:
+            index +=1
+            if( dict[data] == id):
+                deleted_patient = self.__patients.pop(dict)
+        
+        return json.dumps(deleted_patient)
