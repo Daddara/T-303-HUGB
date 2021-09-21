@@ -1,7 +1,7 @@
 # import unittest library - needed to run unit tests
 import unittest
 
-# import the WeatherStation class - our test target ('system under test')
+# import the proper classes - our test targets ('system under test')
 from Classes.patient import Patient
 from Classes.appointment import Appointment
 
@@ -14,7 +14,8 @@ class TestStationMethods(unittest.TestCase):
         self.patient = Patient()
 
         # Þarf ekki að senda inn allar upplýsingar?
-        self.appoinment = Appointment()
+        self.appoinment_surgery = Appointment()
+        self.appointment_checkup = Appointment()
 
     # This is a single test case - it runs the reportWeather function in our station
     # and makes sure the return value is an empty string
@@ -37,7 +38,7 @@ class TestStationMethods(unittest.TestCase):
     def test_assign_treatment(self):
         appointment = self.appoinment.get_info()
 
-        self.assertEqual(appointment[0], "Einhver patient")
+        self.assertEqual(appointment["patient"], "Einhver patient")
 
     # tear down method - is run after each test case
     def tearDown(self):
