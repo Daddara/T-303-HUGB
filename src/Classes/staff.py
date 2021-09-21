@@ -1,5 +1,3 @@
-import json
-
 class Staff():
 
     def __init__(self, name:str, ssn:str, title:str, address=None, phone=None):
@@ -18,4 +16,4 @@ class Staff():
             "phone": self.__phone, 
             "title": self.__title,
         }
-        return json.dumps(staff_dict)
+        return staff_dict

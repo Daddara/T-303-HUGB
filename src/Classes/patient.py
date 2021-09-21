@@ -1,6 +1,5 @@
-
 class Patient:
-  def __init__(self, p_ssn, p_name, p_address, p_phone, p_email, p_record):
+  def __init__(self, p_ssn:str, p_name:str, p_address:str, p_phone:str, p_email:str, p_record=[]):
     self.__p_ssn = p_ssn
     self.__p_name = p_name
     self.p_address = p_address

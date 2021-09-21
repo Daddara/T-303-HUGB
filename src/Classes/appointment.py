@@ -1,7 +1,4 @@
 from Classes.patient import Patient
-#from Classes.staff import Staff
-#from data import Data
-import json
 
 
 # Treatments used for first implementation. Each treatment has an id. List will get longer.
@@ -35,7 +32,7 @@ class Appointment:
         
     def get_info(self) -> dict:
         appointment_info = {"patient": self.patient, "staff": self.staff_involved, "date": self.date, "time": self.time, "duration": self.duration, "treatment": self.treatment, "description": self.description}
-        return json.dumps(appointment_info)
+        return appointment_info
 
 
     def check_appointments(self, staff_ssn) -> bool:
