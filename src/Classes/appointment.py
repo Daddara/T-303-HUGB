@@ -32,3 +32,6 @@ class Appointment:
         else:
             self.treatment = treatment
         self.description = description
+
+    def get_info(self):
+        return {"patient": self.patient, "staff": self.staff_involved}
