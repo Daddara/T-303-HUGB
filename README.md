@@ -8,6 +8,7 @@ The aim of this project is to create a backend for a hospital management system 
 
 # Installing
 Clone the gitlab repository https://gitlab.com/hugb_21_g_1/hugb-21-g-1.git to an empty folder on your computer. 
+
 Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository
 
 # Running the project
@@ -24,15 +25,27 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 
 # Testing
 
-* To test you must run
+* First you must install coverage and unittest with the following commands:
+    `pip install coverage`
+    `pip install unittes`
+
+* To test you must run the following command:
+    
+    `coverage run -m unittest *test.py*`
+
+    where the ** is the name of the test folder.
+
+    and to see the coverage you must run: `coverage report`
+    which will show the test coverage
 
 # Dependencies
 
 * `Python`
 * `Pip`
 * `websockets`
-* `coverage` for tests and the building pipeline.
-
+* `coverage`
+* `unittest`
+`
 * Install requirements (Should be prompted by IDE, if not install manually with `$ pip install -r requirements.txt`)
 
 
