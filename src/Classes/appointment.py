@@ -12,26 +12,31 @@ TREATMENTS = {
 
 
 class Appointment:
-    def __init__(
-        self,
-        patient=Patient,
-        list_of_staff=list,
-        date=list,
-        time=int,
-        duration=int,
-        treatment=int,
-        description=str,
-    ) -> None:
+    def __init__(self, patient=Patient, list_of_staff=list, date=list, time=int, duration=int, treatment=int, description=str,) -> None:
+        if treatment == None:
+            treatment = TREATMENTS[1]
+
+        if description == None:
+            description = ""
+        
         self.patient = patient
         self.staff_involved = list_of_staff
         self.date = date
         self.time = time
         self.duration = duration
-        if treatment == None:
-            self.treatment = TREATMENTS[1]
-        else:
-            self.treatment = treatment
+        self.treatment = treatment
         self.description = description
-
+        
+        
+        
     def get_info(self):
-        return {"patient": self.patient, "staff": self.staff_involved}
+        appointment_info = {"patient": self.patient, "staff": self.staff_involved, "date": self.date, "time": self.time, "duration": self.duration, "treatment": self.treatment, "descpription": self.description}
+        return appointment_info
+
+
+    def check_doctor(self, doctor_ssn):
+        for staff in self.staff_involved:
+            if staff.snn == doctor_ssn:
+                return True
+
+        return False

@@ -8,6 +8,8 @@ patients_list = [
     Patient("")
 ]
 
+appointments = [Appointment("here comes info"), Appointment("here comes info"), Appointment("here comes info")]
+
 
 class Data():
     ''' Our Database Dummy'''
@@ -18,7 +20,7 @@ class Data():
         return []
 
     def get_appointments(self):
-        return []
+        return appointments
 
     def get_staff(self):
         return []
