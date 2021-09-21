@@ -45,7 +45,7 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 * `websockets`
 * `coverage`
 * `unittest`
-`
+
 * Install requirements (Should be prompted by IDE, if not install manually with `$ pip install -r requirements.txt`)
 
 
