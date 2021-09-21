@@ -23,9 +23,6 @@ class Patient:
   def get_patient_records(self):
     """Specifically returns a patient's record."""
     return self.__p_record
-    
-  def get_patient_id(self):
-        return self.__p_ssn
 
 
 if __name__ == "__main__":
