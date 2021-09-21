@@ -140,4 +140,4 @@ class Wrapper:
             except:
                 return '{"msg":"Invalid arguments, please try again}'
         else:
-            return '{"msg":"No appointments"}'
+            return '{"msg":"Missing arguments: staff_ssn"}'
