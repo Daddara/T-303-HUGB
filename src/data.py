@@ -4,6 +4,10 @@ from Classes.patient import Patient
 from Classes.staff import Staff
 
 
+prescriptions_list = [
+    Prescription("1", "23", "234")
+]
+
 patients_list = [
     Patient("1212889909", "Bjarni Benediktsson", "Akurbraut 17, 200", 8887122, "icehot@rikid.is", {}),
     Patient("3110659989", "Guðrún Högnadóttir", "Hvervisgata 30, 101", 6671129, "gudrun1@gmail.com", {"Allergies": ["lactose", "nut", "latex"], "Surgeries": ["hip surgery", "brain surgery"]}),
@@ -19,6 +23,7 @@ staff_members = [
 appointments = [
     Appointment(patients_list[0], [staff_members[0], staff_members[2]], [10, 8, 2022], "13:00", 60, 2, "Surgery on shoulder"), 
     Appointment(patients_list[0], [staff_members[2]], [12, 9, 2022], "09:00", 30)]
+
 
 class Data():
     ''' Our Database Dummy'''
@@ -38,6 +43,5 @@ class Data():
         return staff_members
 
     def get_prescriptions(self):
-        """Returns a list of prescriptions created to stand in for our database"""
-        return []    
+        return prescriptions_list    
     

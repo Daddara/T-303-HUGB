@@ -13,11 +13,7 @@ class HospitalsystemInterface:
         return '{"msg":"Operation get_patient_info not yet implemented"}'
 
     def get_patient_appointments (self, data):
-        if "doctor_id" in data :      
-            #Here you call the actual operation in your backend code.
-            return '{"msg":"Operation get_patient_appointments not yet implemented"}'
-        else:
-            return '{"msg":"Invalid request. The following parameters are required: doctor_id."}' 
+        return self.wrapper.get_appointments(data)
 
     def delete_patient (self, data):
         if "patient_id" in data :      
