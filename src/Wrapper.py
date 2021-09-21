@@ -3,6 +3,7 @@ from Classes.prescription import Prescription
 from Classes.patient import Patient
 from Classes.staff import Staff
 from data import Data
+import json
 
 
 class Wrapper:
@@ -24,3 +25,15 @@ class Wrapper:
 
     def get_patient_list(self, data):
         return '{"Not implemented"}'
+
+    
+    def create_patient(self, data):
+        data = json.loads(data)
+        try:
+            new_patient = Patient(data["ssn"], data["name"], data["address"], data["phone"], data["email"], data["record"])
+            print("PATIENT CREATED")
+            print(new_patient.get_patient())
+            new_patient = new_patient.get_patient()
+            return json.dumps(new_patient)
+        except:
+            return  '{ "No!!!!!" }'

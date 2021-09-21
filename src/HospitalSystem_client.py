@@ -32,7 +32,16 @@ async def send_presription ():
 
 
 async def create_patient():
-    return await send_msg("create_patient", '{"patient_data":"" }')
+    patient_ssn = input("Please enter the patients social security number: ")
+    patient_name = input("Please enter the patients full name: ")
+    patient_address = input("Please enter the patients current address: ")
+    patient_phone = input("Please enter the patients current phone number: ")
+    patient_email = input("Please enter the patients current email: ")
+    patient_record = {}
+    data = {"ssn": patient_ssn, "name": patient_name, "address": patient_address, 
+    "phone": patient_phone, "email": patient_email, "record": patient_record}
+    data = json.dumps(data)
+    return await send_msg("create_patient", data)
 
 
 async def get_patient_list():
@@ -49,5 +58,5 @@ if __name__ == "__main__":
     print(asyncio.run(get_patient_appointments()))
     print(asyncio.run(delete_patient()))
     print(asyncio.run(send_presription()))
-    # print(asyncio.run(create_patient()))
+    print(asyncio.run(create_patient()))
     # print(asyncio.run(get_patient_list()))

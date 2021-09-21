@@ -30,12 +30,10 @@ class HospitalsystemInterface:
       return_msg = self.wrapper.send_presription(data)
       return return_msg
 
-  def create_patient (self, data):
-    if "patient_data" in data :      
-      #Here you call the actual operation in your backend code.
-      return '{"msg":"Operation create_patient not yet implemented"}'
-    else:
-      return '{"msg":"Invalid request. The following parameters are required: patient_data."}' 
+  def create_patient (self, data):     
+    #Here you call the actual operation in your backend code.
+    return_msg = self.wrapper.create_patient(data)
+    return return_msg
 
   def get_patient_list (self, data):
     return self.wrapper.get_patient_list(data)

@@ -4,9 +4,6 @@ from Classes.patient import Patient
 from Classes.staff import Staff
 
 
-patients_list = [
-    Patient("")
-]
 
 
 class Data():
