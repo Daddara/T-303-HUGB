@@ -124,13 +124,11 @@ class Wrapper:
                 appointments_list = []
                 appointments_dict = {}
                 for appoint in self.__appointments:
-                    print(data["staff_ssn"])
                     if appoint.check_appointments(str(data["staff_ssn"])):
                         x = appoint.get_info()
                         patient = x["patient"]
                         x["patient"] = patient.get_patient()
                         x["staff"] = len(x["staff"])
-                        print(x)
                         appointments_list.append(x)
                         id_counter += 1
                 if len(appointments_list) != 0:
