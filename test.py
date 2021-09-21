@@ -2,9 +2,9 @@
 import unittest
 
 # import the proper classes - our test targets ('system under test')
-from Classes.patient import Patient
-from Classes.staff import Staff
-from Classes.appointment import Appointment
+from src.Classes.patient import Patient
+from src.Classes.staff import Staff
+from src.Classes.appointment import Appointment
 
 # You have to create a new class inheriting from unittest.TestCase
 # All methods in this class will be run by the unittest runner!
@@ -41,11 +41,13 @@ class TestStationMethods(unittest.TestCase):
     # Eitthvað að reyna að testa
     def test_assign_treatment(self):
         appointment_surgery = self.appoinment_surgery.get_info()
+        self.assertIsInstance(appointment_surgery, dict)
         # ekki komnar upplýsingar um patient út af patient klasa
-        self.assertEqual(appointment_surgery["patient"], "Einhver patient")
-
-        self.assertEqual(appointment_surgery["staff"][0].ssn, "1010661399")
-        self.assertEqual(appointment_surgery["staff"][1].ssn, "0909691399")
+        # self.assertEqual(self.appointment_surgery
+        doctor = appointment_surgery["staff"][0].get_staff_member()
+        nurse = appointment_surgery["staff"][1].get_staff_member()
+        self.assertEqual(doctor["ssn"], "1010661399")
+        self.assertEqual(nurse["ssn"], "0909691399")
         self.assertEqual(appointment_surgery["date"], [10,10,2022])
         self.assertEqual(appointment_surgery["time"], "08:00")
         self.assertEqual(appointment_surgery["duration"], 120)
@@ -53,12 +55,13 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_surgery["description"], "Surgery on shoulder.")
 
         appointment_checkup = self.appoinment_surgery.get_info()
-        self.assertEqual(appointment_surgery["staff"][0].ssn, "0909691399")
-        self.assertEqual(appointment_surgery["date"], [10,10,2022])
-        self.assertEqual(appointment_surgery["time"], "12:00")
-        self.assertEqual(appointment_surgery["duration"], 60)
-        self.assertEqual(appointment_surgery["treatment"], "Checkup")
-        self.assertEqual(appointment_surgery["description"], "")
+        nurse = appointment_surgery["staff"][0].get_staff_member()
+        self.assertEqual(nurse["ssn"], "0909691399")
+        self.assertEqual(appointment_checkup["date"], [10,10,2022])
+        self.assertEqual(appointment_checkup["time"], "12:00")
+        self.assertEqual(appointment_checkup["duration"], 60)
+        self.assertEqual(appointment_checkup["treatment"], "Checkup")
+        self.assertEqual(appointment_checkup["description"], "")
 
 
     # tear down method - is run after each test case

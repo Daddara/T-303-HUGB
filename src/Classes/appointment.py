@@ -1,5 +1,4 @@
-from Classes.patient import Patient
-from Classes.staff import Staff
+from src.Classes.patient import Patient
 import json
 
 
@@ -17,6 +16,8 @@ class Appointment:
     def __init__(self, patient:Patient, list_of_staff:list, date:list, time:str, duration:int, treatment=None, description=None) -> None:
         if treatment == None:
             treatment = TREATMENTS[1]
+        else:
+            treatment = TREATMENTS[treatment]
 
         if description == None:
             description = ""
@@ -31,7 +32,7 @@ class Appointment:
         
         
     def get_info(self) -> dict:
-        appointment_info = {"patient": self.patient, "staff": self.staff_involved, "date": self.date, "time": self.time, "duration": self.duration, "treatment": self.treatment, "descpription": self.description}
+        appointment_info = {"patient": self.patient, "staff": self.staff_involved, "date": self.date, "time": self.time, "duration": self.duration, "treatment": self.treatment, "description": self.description}
         return json.dumps(appointment_info)
 
 
