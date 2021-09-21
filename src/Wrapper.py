@@ -5,7 +5,6 @@ from data import Data
 from Classes.patient import Patient
 from Classes.staff import Staff
 
-
 class Wrapper:
     def __init__(self):
         self.__data = Data()
@@ -17,12 +16,16 @@ class Wrapper:
     def send_presription(self, data):
         try:
             x = json.loads(data)
-            newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
-            # print(self.__prescriptions)
-            self.__prescriptions.append(newPerscription)
-            # print(self.__prescriptions)
-            return_msg = newPerscription.get_return_str()
-            return return_msg
+            for patient in self.__patients:
+                if x["patient_id"] == patient.get_patient_id():
+                    newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
+                    print(self.__prescriptions)
+                    self.__prescriptions.append(newPerscription)
+                    print(self.__prescriptions)
+                    return_msg = newPerscription.get_return_str()
+                    return return_msg
+            else:
+                return '{"Not a valid person"}'
         except:
             return '{"Order Failed"}'
 
@@ -108,14 +111,24 @@ class Wrapper:
             return '{"No Patient Info"}'
 
     def delete_patient(self,data):
-    
+        #3110659989
+        x = json.loads(data)
+        print(data)
+        print(self.__patients)
         index = 0
-        for dict in self.__patients:
-            index +=1
-            if( dict[data] == id):
-                deleted_patient = self.__patients.pop(dict)
-        
-        return json.dumps(deleted_patient)
+        for patient in self.__patients:
+            print("Hello")
+            if( x["patient_id"] == patient.get_patient_id()):
+                print("Before:")
+                print(self.__patients)
+                return_msg = patient.get_patient()
+                self.__patients.pop(index)
+                print("After:")
+                print(self.__patients)
+                return json.dumps(return_msg)
+            index += 1
+        else:
+            return '{"msg":"No Patient with thi id"}'
     
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''

@@ -27,7 +27,11 @@ async def get_patient_appointments():
 
 
 async def delete_patient():
-    return await send_msg("delete_patient", '{"patient_id":"" }')
+    request = input("Please input patient id: ")
+    patient_dict = {
+        "patient_id": request,
+    }
+    return await send_msg("delete_patient", json.dumps(patient_dict))
 
 async def send_presription ():
     request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")

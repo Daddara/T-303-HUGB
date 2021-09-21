@@ -7,6 +7,19 @@ class Patient:
     self.p_email = p_email
     self.__p_record = p_record
 
+  def get_patient_id(self):
+    return self.__p_ssn
+
+  def get_patient_name(self):
+    return self.__p_name
+
+  def get_return_str(self):
+    prescription_data = {
+      "medicine": self.medicine_name,
+      "pharmecy": self.pharmecy_name,
+      "patient_id": self.patient_id
+    }
+    return json.dumps(prescription_data)
 
   def get_patient(self):
     """Returns information about a patient in a dictionary"""
