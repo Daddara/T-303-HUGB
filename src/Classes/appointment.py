@@ -1,4 +1,3 @@
-from typing import List
 from Classes.patient import Patient
 from Classes.staff import Staff
 from data import Data
@@ -16,11 +15,12 @@ class Appointment:
     def __init__(
         self,
         patient=Patient,
-        list_of_staff=List,
+        list_of_staff=list,
         date=list,
         time=int,
         duration=int,
         treatment=int,
+        description=str,
     ) -> None:
         self.patient = patient
         self.staff_involved = list_of_staff
@@ -31,3 +31,4 @@ class Appointment:
             self.treatment = TREATMENTS[1]
         else:
             self.treatment = treatment
+        self.description = description

@@ -42,7 +42,7 @@ async def get_patient_list():
     return await send_msg("get_patient_list", '{"doctor_id":"" }')
 
 
-async def assign_opperation():
+async def assign_treatment():
     return await send_msg("assign_opperation", "{'doctor_id':'' }")
 
 

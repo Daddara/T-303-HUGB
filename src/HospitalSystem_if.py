@@ -38,3 +38,6 @@ class HospitalsystemInterface:
 
     def get_patient_list(self, data):
         return self.wrapper.get_patient_list(data)
+
+    def assign_treatment(self, data):
+        return self.wrapper.assign_treatment(data)
