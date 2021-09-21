@@ -13,12 +13,8 @@ from data import Data
 class TestStationMethods(unittest.TestCase):
     # set up method - is run before each actual test case.
     def setUp(self):
-        #all our tests need an instance of WeatherStation, so we just create one here
 
-        # self.patient = Patient()
         self.prescription = Prescription("Ibufen", "Heilsa", "190500-2330")
-        # self.appointment = Appointment()
-        # self.staff = Staff()
 
         self.patient = Patient("0909002020", "Jói Jóason", "Hamraborg 100", "90990909", "joi@gmail.com")
         self.patient_with_allergy = Patient("1212002320", "Gulla Gull", "Hamraborg 200", "8872233", "gulla@hotmail.com", ["Fish allergy", "Nut allergy"])
@@ -44,8 +40,6 @@ class TestStationMethods(unittest.TestCase):
 
         self.assertEqual(return_msg, '{"medicine": "Daniel", "pharmecy": "Sara", "patient_id": "Sigur"}')
 
-    # This is a single test case - it runs the reportWeather function in our station
-    # and makes sure the return value is an empty string
     def test_patient_class(self):
         """Testing wether the patient class works correctly"""
         patient_one = self.patient.get_patient()
@@ -120,12 +114,9 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_checkup["duration"], 60)
         self.assertEqual(appointment_checkup["treatment"], "Checkup")
         self.assertEqual(appointment_checkup["description"], "")
+        self.assertEquals(self.appointment_checkup.check_appointments("1010661399"), True)
+        self.assertEquals(self.appointment_checkup.check_appointments("2202002020"), False)
 
-    def test_prescription_class(self):
-        pass
-
-    def test_wrapper(self):
-        pass
 
     # tear down method - is run after each test case
     def tearDown(self):
