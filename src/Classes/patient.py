@@ -24,6 +24,9 @@ class Patient:
     """Specifically returns a patient's record."""
     return self.__p_record
 
+  def get_patient_id(self):
+        return self.__p_ssn
+
 
 # if __name__ == "__main__":
 #   patient1 = Patient("1212889909", "Bjarni Benediktsson", "Akurbraut 17, 200", 8887122, "icehot@rikid.is", {})
