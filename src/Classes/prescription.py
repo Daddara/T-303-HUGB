@@ -7,7 +7,7 @@ class Prescription:
         self.patient_id = patient_id
 
     def get_medicine_name(self):
-        return self.medicine_id
+        return self.medicine_name
 
     def get_pharmecy_name(self):
         return self.pharmecy_name
@@ -23,6 +23,3 @@ class Prescription:
 
         }
         return json.dumps(prescription_data)
-
-    def send_prescription(self):
-        pass
