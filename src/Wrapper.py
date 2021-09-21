@@ -4,9 +4,11 @@ from Classes.prescription import Prescription
 from data import Data
 from Classes.patient import Patient
 from Classes.staff import Staff
+import json
 
 
 class Wrapper:
+    ''' The wrapper handles all the logic, the interface calls the wrapper and it returns all of the desired data.'''
     def __init__(self):
         self.__data = Data()
         self.__patients = self.__data.get_patients()  # return list of dict
@@ -15,6 +17,8 @@ class Wrapper:
         self.__prescriptions = self.__data.get_prescriptions()
 
     def send_presription(self, data):
+        ''' This function takes patient id, medicine name and the pharmecy name to send to said pharmecy 
+            a prescription for the patient for said medicine.'''
         try:
             x = json.loads(data)
             newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
@@ -26,13 +30,23 @@ class Wrapper:
         except:
             return '{"Order Failed"}'
 
-    def get_patient_list(self):
-        print(self.__patients)
-        patient_list = []
-        for patient in self.__patients:
-            patient_list.append(patient.get_patient())
-            print(patient_list)
-        return json.dumps(patient_list)
+    ''' This use case is unessecary since another use case does the same'''
+    # def get_patient_list(self, data):
+    #     "Prints out list of patients assigned to a staff member"
+    #     #1010661399
+    #     try:
+    #         x = json.loads(data)
+    #         all_patients
+    #         print(data)
+    #         for Appointment in self.__appointments:
+    #             appointment = Appointment.get_info()
+    #             print(appointment)
+    #             for staff in appointment["staff"]:
+    #                 if staff.get_ssn() == x["doctor_id"]:
+    #                     patient_list = patient_list.append(appointment["patient"])
+                
+    #     except:
+    #         return '{"No patients assigned to this staff member"}'
 
     def assign_treatment(self, data):
         data = json.loads(data)

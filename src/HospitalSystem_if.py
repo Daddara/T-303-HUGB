@@ -31,8 +31,8 @@ class HospitalsystemInterface:
         return_msg = self.wrapper.create_patient(data)
         return return_msg
 
-    def get_patient_list (self, data):
-        return self.wrapper.get_patient_list()
+    # def get_patient_list (self, data):
+    #     return self.wrapper.get_patient_list(data)
 
     def assign_treatment(self, data):
         return self.wrapper.assign_treatment(data)
