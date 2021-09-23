@@ -6,7 +6,7 @@ from os import system, name
 
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
-    uri = "ws://127.0.0.1:8080"
+    uri = "ws://127.0.0.1:8888"
     async with websockets.connect(uri) as websocket:
         await websocket.send(json.dumps({"op": op, "data": data}))
 
@@ -16,8 +16,11 @@ async def send_msg(op, data):
 
 
 async def get_patient_info():
-    request = input("Please input patient id: ")
-    return await send_msg("get_patient_info", request)
+    try:
+        request = input("Please input patient id: ")
+        return await send_msg("get_patient_info", request)
+    except:
+        return {"msg":"Enter a proper SSN"}
 
 
 async def get_patient_appointments():
@@ -87,11 +90,10 @@ if __name__ == "__main__":
     menu = "\n\
             Enter 1 to create a new patient for the system\n\
             Enter 2 to get a patients info\n\
-            Enter 3 to list all patients\n\
-            Enter 4 to list all appointments for a doctor\n\
-            Enter 5 to assign a treatment to a patient \n\
-            Enter 6 to send a prescription to a patient\n\
-            Enter 7 to delete a patient\n\
+            Enter 3 to list all appointments for a doctor\n\
+            Enter 4 to assign a treatment to a patient \n\
+            Enter 5 to send a prescription to a patient\n\
+            Enter 6 to delete a patient\n\
             Enter q to quit\n\
             "
     while True:
@@ -104,14 +106,12 @@ if __name__ == "__main__":
         elif user_input == "2":
             print(asyncio.run(get_patient_info()))
         elif user_input == "3":
-            print(asyncio.run(get_patient_list()))
-        elif user_input == "4":
             print(asyncio.run(get_patient_appointments()))
-        elif user_input == "5":
+        elif user_input == "4":
             print(asyncio.run(assign_treatment()))
-        elif user_input == "6":
+        elif user_input == "5":
             print(asyncio.run(send_presription()))
-        elif user_input == "7":
+        elif user_input == "6":
             print(asyncio.run(delete_patient()))
         else:
             print("Please enter a valid number")

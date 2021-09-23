@@ -1,0 +1,29 @@
+1. Reading all patients
+
+Frontend request:
+{"op":"readAll_patient", "data": {}}`
+
+Backend response:
+{"msg": [{"name": "Patient 1", "email": "patient1@email.com", "note": "Dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}, {"name": "patient 2", "email": "patient2@email.com", "note": "this is a dummy note", "username": "patient2", "doctor_id": "null", "nurse_id": null}]}
+
+2. Creating a patient
+
+Frontend request: 
+{"op":"create_patient", "data": {"name":"Grischa","note":"","email":"grischa@grischa.de","username":"grischa"}}
+
+Backend response: {{"name":"Grischa","note":"","email":"grischa@grischa.de","username":"grischa", "doctor_id": null, "nurse_id": null}
+
+3. Updating a patient
+
+Frontend request: 
+{"op":"update_patient", "data":{"name":"Edited name","email": "patient1@email.com", "note": "this is a dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}}
+
+Backend response:
+{"msg": {"name":"Edited name","email": "patient1@email.com", "note": "this is a dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}}
+
+4. Deleting a patient
+
+Frontend request: 
+{"op":"delete_patient", "data": {"username": "patient1"}}
+
+Backend response: {"msg": {"name": "Patient 1", "email": "patient1@email.com", "note": "Dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}}
