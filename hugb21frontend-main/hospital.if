@@ -1,0 +1,8 @@
+name hospital
+ip '127.0.0.1'
+port 8888
+
+op readAll_patient () 
+op create_patient (name, note, email, username) 
+op update_patient (name, note, email, username, doctor_id, nurse_id) 
+op delete_patient (username) 
