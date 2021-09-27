@@ -19,21 +19,24 @@ class HospitalsystemInterface:
     def get_patient_appointments (self, data):
         return self.wrapper.get_appointments(data)
 
-    def delete_patient (self, data):     
+    def delete_patient(self, data):     
         #Here you call the actual operation in your backend code.
         return self.wrapper.delete_patient(data)
 
-    def send_presription (self, data):
+    def send_presription(self, data):
         return_msg = self.wrapper.send_presription(data)
         return return_msg
 
-    def create_patient (self, data):     
+    def create_patient(self, data):     
         #Here you call the actual operation in your backend code.
         return_msg = self.wrapper.create_patient(data)
         return return_msg
 
-    def get_patient_list (self, data):
+    def get_patient_list(self, data):
         return self.wrapper.get_patient_list(data)
 
     def assign_treatment(self, data):
         return self.wrapper.assign_treatment(data)
+
+    def delete_staff_member(self, data):
+        return self.wrapper.delete_staff_member(data)
