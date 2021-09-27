@@ -51,14 +51,12 @@ async def send_presription ():
         return '{"msg": "Not valid input"}'
 
 async def create_patient():
-    patient_ssn = input("Please enter the patients social security number: ")
+    patient_username = input("Please enter the patients username: ")
     patient_name = input("Please enter the patients full name: ")
-    patient_address = input("Please enter the patients current address: ")
-    patient_phone = input("Please enter the patients current phone number: ")
     patient_email = input("Please enter the patients current email: ")
-    patient_record = {}
-    data = {"ssn": patient_ssn, "name": patient_name, "address": patient_address, 
-    "phone": patient_phone, "email": patient_email, "record": patient_record}
+    patient_note = ""
+    data = {"username": patient_username, "name": patient_name, "email": patient_email,
+     "note": patient_note, "doctorid": "", "nurseid": ""}
     data = json.dumps(data)
     return await send_msg("create_patient", data)
 

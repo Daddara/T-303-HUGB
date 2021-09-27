@@ -9,9 +9,9 @@ prescriptions_list = [
 ]
 
 patients_list = [
-    Patient("1212889909", "Bjarni Benediktsson", "Akurbraut 17, 200", 8887122, "icehot@rikid.is", {}),
-    Patient("3110659989", "Gudrun Hognadottir", "Hvervisgata 30, 101", 6671129, "gudrun1@gmail.com", {"Allergies": ["lactose", "nut", "latex"], "Surgeries": ["hip surgery", "brain surgery"]}),
-    Patient("0101059980", "Jon Gunnarsson", "Hamraborg 19, 201", 9910345, "jonniminn@tolfan.is", {"Medication": ["ritalin", "Parkodin", "Astma"]})
+    Patient("icehot", "Bjarni Benediktsson","icehot@rikid.is", "", "", ""),
+    Patient("gudrun1", "Gudrun Hognadottir","gudrun1@gmail.com", '{"Allergies": ["lactose", "nut", "latex"], "Surgeries": ["hip surgery", "brain surgery"]}', "", ""),
+    Patient("jonniminn", "Jon Gunnarsson", "jonniminn@tolfan.is", '{"Medication": ["ritalin", "Parkodin", "Astma"]}', "", "")
 ]
 
 staff_members = [

@@ -1,14 +1,14 @@
 class Patient:
-  def __init__(self, p_ssn:str, p_name:str, p_address:str, p_phone:str, p_email:str, p_record=[]):
-    self.__p_ssn = p_ssn
+  def __init__(self, p_username:str, p_name:str, p_email:str, p_note:str, p_doctor_id: str, p_nurse_id: str):
+    self.__p_username = p_username
     self.__p_name = p_name
-    self.p_address = p_address
-    self.p_phone = p_phone
     self.p_email = p_email
-    self.__p_record = p_record
+    self.__p_note = p_note
+    self.p_doctor_id = p_doctor_id
+    self.p_nurse_id = p_nurse_id
 
   def get_patient_id(self):
-    return self.__p_ssn
+    return self.__p_username
 
   def get_patient_name(self):
     return self.__p_name
@@ -17,21 +17,18 @@ class Patient:
   def get_patient(self):
     """Returns information about a patient in a dictionary"""
     patient_dict = {
-      "ssn": self.__p_ssn,
+      "username": self.__p_username,
       "name": self.__p_name,
-      "address" : self.p_address,
-      "phone" : self.p_phone,
       "email" : self.p_email,
-      "record" : self.__p_record
+      "note" : self.__p_note,
+      "doctorid" : self.p_doctor_id,
+      "nurseid" : self.p_nurse_id
     }
     return patient_dict
 
   def get_patient_records(self):
     """Specifically returns a patient's record."""
-    return self.__p_record
-
-  def get_patient_id(self):
-        return self.__p_ssn
+    return self.__p_note
 
 
 # if __name__ == "__main__":

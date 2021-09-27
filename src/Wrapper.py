@@ -84,7 +84,7 @@ class Wrapper:
 
         data = json.loads(data)
         try:
-            new_patient = Patient(data["ssn"], data["name"], data["address"], data["phone"], data["email"], data["record"])
+            new_patient = Patient(data["username"], data["name"], data["email"], data["note"], data["doctorid"], data["nurseid"])
             self.__patients.append(new_patient)
             new_patient = new_patient.get_patient()
             return json.dumps(new_patient)
