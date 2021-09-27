@@ -14,15 +14,14 @@ class Wrapper:
         self.__prescriptions = self.__data.get_prescriptions()
 
     def update_patient(self, data):
-        print("welcome")
         if "username" in data:
-            #unpacked_data = json.loads(data)
+            message = {}
             for patient in self.__patients:
-                    if patient.get_patient_id() == data["username"]:
-                        new_patient = patient.get_patient()
-                        print("works!")
-                        
-            #return json.dumps(new_patient)
+                if patient.get_patient_id() == data["username"]:
+                    updated_patient = patient.update_patient(data["name"], data["email"], data["note"])
+            message["msg"] = updated_patient
+            return json.dumps(message)
+
         else:
             return '{"msg": "username needed!"}'
         
@@ -49,7 +48,6 @@ class Wrapper:
         for patient in self.__patients:
             pat_list.append(patient.get_patient())
         message["msg"] = pat_list
-        print(message)
         return json.dumps(message)
 
     def assign_treatment(self, data):

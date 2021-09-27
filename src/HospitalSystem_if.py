@@ -21,7 +21,6 @@ class HospitalsystemInterface:
         return self.wrapper.get_appointments(data)
     
     def update_patient (self, data):
-        print("welcome if!")
         return self.wrapper.update_patient(data)
 
     def delete_patient (self, data):     
