@@ -13,6 +13,20 @@ class Wrapper:
         self.__appointments = self.__data.get_appointments()
         self.__prescriptions = self.__data.get_prescriptions()
 
+    def update_patient(self, data):
+        print("welcome")
+        if "username" in data:
+            #unpacked_data = json.loads(data)
+            for patient in self.__patients:
+                    if patient.get_patient_id() == data["username"]:
+                        new_patient = patient.get_patient()
+                        print("works!")
+                        
+            #return json.dumps(new_patient)
+        else:
+            return '{"msg": "username needed!"}'
+        
+
     def send_presription(self, data):
         ''' This function takes in name of medicine and pharmecy along with the id of a patient.
         The function uses it to send a prescription for the medicine to the pharmecy for the patient. '''
@@ -29,9 +43,14 @@ class Wrapper:
         except:
             return '{"msg": "Order Failed"}'
 
-    def get_patient_list(self, data):
-        self.__patients.get_patient_list(data)
-        return '{"msg":  "Not implemented"}'
+    def get_patient_list(self):
+        message = {}
+        pat_list = []
+        for patient in self.__patients:
+            pat_list.append(patient.get_patient())
+        message["msg"] = pat_list
+        print(message)
+        return json.dumps(message)
 
     def assign_treatment(self, data):
         data = json.loads(data)

@@ -9,6 +9,7 @@ class HospitalsystemInterface:
         print("Welcome to the Hospital System!")
 
     def readAll_patient (self, data):
+        return self.wrapper.get_patient_list()
         return '{"msg": [{"name": "Patient 1", "email": "patient1@email.com", "note": "Dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}, {"name": "patient 2", "email": "patient2@email.com", "note": "this is a dummy note", "username": "patient2", "doctor_id": "null", "nurse_id": null}]}' 
 
     def get_patient_info (self, data):
@@ -18,6 +19,10 @@ class HospitalsystemInterface:
             
     def get_patient_appointments (self, data):
         return self.wrapper.get_appointments(data)
+    
+    def update_patient (self, data):
+        print("welcome if!")
+        return self.wrapper.update_patient(data)
 
     def delete_patient (self, data):     
         #Here you call the actual operation in your backend code.
