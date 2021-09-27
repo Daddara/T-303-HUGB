@@ -19,6 +19,9 @@ class HospitalsystemInterface:
             
     def get_patient_appointments (self, data):
         return self.wrapper.get_appointments(data)
+
+    def read_patient (self, data):
+        return self.wrapper.get_patient_info(data)
     
     def update_patient (self, data):
         return self.wrapper.update_patient(data)

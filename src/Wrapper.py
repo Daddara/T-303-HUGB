@@ -24,7 +24,6 @@ class Wrapper:
 
         else:
             return '{"msg": "username needed!"}'
-        
 
     def send_presription(self, data):
         ''' This function takes in name of medicine and pharmecy along with the id of a patient.
@@ -111,10 +110,12 @@ class Wrapper:
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
         try:
+            message = {}
             for patient in self.__patients:
-                if patient.get_patient_id() == data:
+                if patient.get_patient_id() == data["username"]:
                     new_patient = patient.get_patient()
-                    return json.dumps(new_patient)     
+                    message["msg"] = new_patient
+                    return json.dumps(message)     
             return '{"msg": "No Patient Info"}'        
         except:
             return '{"msg": No Patient Info"}'
