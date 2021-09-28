@@ -60,13 +60,9 @@ async def create_patient():
     data = json.dumps(data)
     return await send_msg("create_patient", data)
 
-''' This use case became unessesary since we already have a use case which does the same '''
-# async def get_patient_list():
-#     request = input("Please input patient id: ")
-#     doctor_dict = {
-#         "doctor_id": request,
-#     }
-#     return await send_msg("get_patient_list", json.dumps(doctor_dict))
+
+async def get_patient_list():
+    return await send_msg("get_patient_list", '{"doctor_id":"" }')
 
 
 async def assign_treatment():

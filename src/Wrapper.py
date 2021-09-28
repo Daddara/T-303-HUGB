@@ -4,10 +4,8 @@ from Classes.prescription import Prescription
 from data import Data
 from Classes.patient import Patient
 from Classes.staff import Staff
-import json
 
 class Wrapper:
-    ''' The wrapper handles all the logic, the interface calls the wrapper and it returns all of the desired data.'''
     def __init__(self):
         self.__data = Data()
         self.__patients = self.__data.get_patients()  # return list of dict
