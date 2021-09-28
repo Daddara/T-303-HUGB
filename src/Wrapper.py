@@ -143,6 +143,7 @@ class Wrapper:
 
     def delete_staff_member(self,data):
         the_data = json.loads(data)
+        # testing
         index = 0
         for staff_member in self.__staff:
             if( the_data["staff_ssn"] == staff_member.get_ssn()):
