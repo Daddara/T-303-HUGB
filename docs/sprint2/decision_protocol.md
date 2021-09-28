@@ -87,8 +87,13 @@ This meeting is in person so we use whiteboards in the school to explain how the
 We finalize what classes whe want in sprint2.
 
 
+Meeting 6 (21.09.2021)
+time 16:00
+scrum master: Arnar
+secretary:Rúnar
+Attending: All group members
 
-
+Most of us were in the school and the rest joined on discord. We all helped out to implement the use cases and test cases. We decided that one use case was a duplicate of another one thus those people joined in on one use case.
 
 
 

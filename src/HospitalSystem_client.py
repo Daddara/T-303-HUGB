@@ -6,7 +6,7 @@ from os import system, name
 
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
-    uri = "ws://127.0.0.1:8080"
+    uri = "ws://127.0.0.1:8888"
     async with websockets.connect(uri) as websocket:
         await websocket.send(json.dumps({"op": op, "data": data}))
 
@@ -16,11 +16,11 @@ async def send_msg(op, data):
 
 
 async def get_patient_info():
-    request = input("Please input patient id: ")
-    patient_dict = {
-        "patient_id": request,
-    }
-    return await send_msg("get_patient_info", json.dumps(patient_dict))
+    try:
+        request = input("Please input patient id: ")
+        return await send_msg("get_patient_info", request)
+    except:
+        return {"msg":"Enter a proper SSN"}
 
 
 async def get_patient_appointments():
@@ -30,29 +30,33 @@ async def get_patient_appointments():
 
 
 async def delete_patient():
-    return await send_msg("delete_patient", '{"patient_id":"" }')
+    request = input("Please input patient id: ")
+    patient_dict = {
+        "patient_id": request,
+    }
+    return await send_msg("delete_patient", json.dumps(patient_dict))
 
 async def send_presription ():
-    request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")
-    data = request.split()
-    json_data = {
-            "medicine": data[0],
-            "pharmecy": data[1],
-            "patient_id": data[2]
+    try:
+        request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")
+        data = request.split()
+        json_data = {
+                "medicine": data[0],
+                "pharmecy": data[1],
+                "patient_id": data[2]
 
-        }
-    return await send_msg("send_presription", json.dumps(json_data))
-
+            }
+        return await send_msg("send_presription", json.dumps(json_data))
+    except:
+        return '{"msg": "Not valid input"}'
 
 async def create_patient():
-    patient_ssn = input("Please enter the patients social security number: ")
+    patient_username = input("Please enter the patients username: ")
     patient_name = input("Please enter the patients full name: ")
-    patient_address = input("Please enter the patients current address: ")
-    patient_phone = input("Please enter the patients current phone number: ")
     patient_email = input("Please enter the patients current email: ")
-    patient_record = {}
-    data = {"ssn": patient_ssn, "name": patient_name, "address": patient_address, 
-    "phone": patient_phone, "email": patient_email, "record": patient_record}
+    patient_note = ""
+    data = {"username": patient_username, "name": patient_name, "email": patient_email,
+     "note": patient_note, "doctorid": "", "nurseid": ""}
     data = json.dumps(data)
     return await send_msg("create_patient", data)
 
@@ -108,7 +112,7 @@ if __name__ == "__main__":
         elif user_input == "4":
             print(asyncio.run(assign_treatment()))
         elif user_input == "5":
-            print(asyncio.run( send_presription()))
+            print(asyncio.run(send_presription()))
         elif user_input == "6":
             print(asyncio.run(delete_patient()))
         else:

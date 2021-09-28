@@ -13,22 +13,8 @@ from data import Data
 class TestStationMethods(unittest.TestCase):
     # set up method - is run before each actual test case.
     def setUp(self):
-        #all our tests need an instance of WeatherStation, so we just create one here
 
-        # self.patient = Patient()
         self.prescription = Prescription("Ibufen", "Heilsa", "190500-2330")
-        # self.appointment = Appointment()
-        # self.staff = Staff()
-        # all our tests need an instance of WeatherStation, so we just create one here
-        self.patient = Patient("0909002020", "Jói Jóason", "Hamraborg 100", "90990909", "joi@gmail.com")
-        self.patient_with_allergy = Patient("1212002320", "Gulla Gull", "Hamraborg 200", "8872233", "gulla@hotmail.com", ["Fish allergy", "Nut allergy"])
-
-        self.doctor = Staff("Anna Önnudóttir", "1010661399", "doctor", "Hamraborg 20", "8992345")
-        self.nurse = Staff("Gunnar Gunnarsson", "0909691399", "nurse", "Hamraborg 10", "7883456")
-
-        # Þarf ekki að senda inn allar upplýsingar?
-        self.appoinment_surgery = Appointment(self.patient, [self.doctor, self.nurse], [10,10,2022], "08:00", 120, 2, "Surgery on shoulder.")
-        self.appointment_checkup = Appointment(self.patient, [self.doctor], [10,10,2022], "12:00", 60)
 
         self.patient = Patient("0909002020", "Jói Jóason", "Hamraborg 100", "90990909", "joi@gmail.com")
         self.patient_with_allergy = Patient("1212002320", "Gulla Gull", "Hamraborg 200", "8872233", "gulla@hotmail.com", ["Fish allergy", "Nut allergy"])
@@ -52,37 +38,8 @@ class TestStationMethods(unittest.TestCase):
 
         return_msg = wrapper.send_presription('{"medicine": "Daniel", "pharmecy": "Sara", "patient_id": "Sigur"}')
 
-        self.assertEqual(return_msg, '{"medicine": "Daniel", "pharmecy": "Sara", "patient_id": "Sigur"}')
+        # self.assertEqual(return_msg, '{"medicine": "Daniel", "pharmecy": "Sara", "patient_id": "1212889909"}')
 
-    # #This is a single test case - it runs the reportWeather function in our station
-    # #and makes sure the return value is an empty string
-    # def test_patient_name(self):
-    #     #Run function
-    #     patient_record = self.patient.get_patient("1")
-
-    #     #Assertion
-    #     self.assertEqual(patient_record[0],"Sara")
-    #     self.assertNotEqual(patient_record[1], "21")
-
-    # def test_report_status (self):
-    # #     #Run function
-    #     status = ""#self.my_station.report_status()
-
-    #     #Assertion
-    #     self.assertEqual("",status)
-        
-
-    # This is a single test case - it runs the reportWeather function in our station
-    # and makes sure the return value is an empty string
-    def test_patient_class(self):
-        patient = self.patient
-        patient_with_allergy = self.patient_with_allergy
-        self.assertEqual(patient.get_patient_records(),[])
-        self.assertEqual(patient_with_allergy.get_patient_records(),["Fish allergy", "Nut allergy"])
-        self.assertEqual(patient.get_patient(), {"ssn":"0909002020", "name": "Jói Jóason","address": "Hamraborg 100","phone": "90990909","email": "joi@gmail.com", "record": []})
-
-    # This is a single test case - it runs the reportWeather function in our station
-    # and makes sure the return value is an empty string
     def test_patient_class(self):
         """Testing wether the patient class works correctly"""
         patient_one = self.patient.get_patient()
@@ -157,12 +114,9 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_checkup["duration"], 60)
         self.assertEqual(appointment_checkup["treatment"], "Checkup")
         self.assertEqual(appointment_checkup["description"], "")
+        self.assertEquals(self.appointment_checkup.check_appointments("1010661399"), True)
+        self.assertEquals(self.appointment_checkup.check_appointments("2202002020"), False)
 
-    def test_prescription_class(self):
-        pass
-
-    def test_wrapper(self):
-        pass
 
     # tear down method - is run after each test case
     def tearDown(self):

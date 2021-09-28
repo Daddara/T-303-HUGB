@@ -43,7 +43,7 @@ class HospitalsystemPort:
     #In case you want multiple interfaces/ports, you will have to modify your generated code so that there is only a single main file taking care of all ports.
     def start(self):
         url = "127.0.0.1"        
-        port = 8080
+        port = 8888
         start_server = websockets.serve(self.__msg_handler, url, port)
 
         print(f"Listening on ws://{url}:{port}")
