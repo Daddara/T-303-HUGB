@@ -13,6 +13,18 @@ class Wrapper:
         self.__appointments = self.__data.get_appointments()
         self.__prescriptions = self.__data.get_prescriptions()
 
+    def update_patient(self, data):
+        if "username" in data:
+            message = {}
+            for patient in self.__patients:
+                if patient.get_patient_id() == data["username"]:
+                    updated_patient = patient.update_patient(data["name"], data["email"], data["note"])
+            message["msg"] = updated_patient
+            return json.dumps(message)
+
+        else:
+            return '{"msg": "username needed!"}'
+
     def send_presription(self, data):
         ''' This function takes in name of medicine and pharmecy along with the id of a patient.
         The function uses it to send a prescription for the medicine to the pharmecy for the patient. '''
@@ -29,9 +41,13 @@ class Wrapper:
         except:
             return '{"msg": "Order Failed"}'
 
-    def get_patient_list(self, data):
-        self.__patients.get_patient_list(data)
-        return '{"msg":  "Not implemented"}'
+    def get_patient_list(self):
+        message = {}
+        pat_list = []
+        for patient in self.__patients:
+            pat_list.append(patient.get_patient())
+        message["msg"] = pat_list
+        return json.dumps(message)
 
     def assign_treatment(self, data):
         data = json.loads(data)
@@ -94,10 +110,12 @@ class Wrapper:
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
         try:
+            message = {}
             for patient in self.__patients:
-                if patient.get_patient_id() == data:
+                if patient.get_patient_id() == data["username"]:
                     new_patient = patient.get_patient()
-                    return json.dumps(new_patient)     
+                    message["msg"] = new_patient
+                    return json.dumps(message)     
             return '{"msg": "No Patient Info"}'        
         except:
             return '{"msg": No Patient Info"}'
@@ -122,7 +140,7 @@ class Wrapper:
                 data = json.loads(data)
                 id_counter = 1
                 appointments_list = []
-                appointments_dict = {}
+                message = {}
                 for appoint in self.__appointments:
                     if appoint.check_appointments(str(data["staff_ssn"])):
                         x = appoint.get_info()
@@ -132,7 +150,8 @@ class Wrapper:
                         appointments_list.append(x)
                         id_counter += 1
                 if len(appointments_list) != 0:
-                    return json.dumps(appointments_list)
+                    message["msg"] = appointments_list
+                    return json.dumps(message)
                 else:
                     return '{"msg":"No appointments"}'
             except:
