@@ -12,6 +12,12 @@ class Patient:
 
   def get_patient_name(self):
     return self.__p_name
+  
+  def update_patient(self, name, email, note):
+    self.__p_name = name
+    self.p_email = email
+    self.__p_note = note
+    return self.get_patient()
 
 
   def get_patient(self):
