@@ -97,15 +97,23 @@ class Wrapper:
     def create_patient(self, data):
         """Takes a json object and turns into a dictionary that is then passed
             to create a Patient object with the data. Returns a json value"""
-
-        data = json.loads(data)
+        
         try:
-            new_patient = Patient(data["username"], data["name"], data["email"], data["note"], data["doctorid"], data["nurseid"])
+            message = {}
+            p_data = data["msg"]
+            p_split = p_data["email"].split("@")
+            if "@" not in p_split:
+                return '{ "msg": "Please enter a valid email" }'
+            p_username = p_split[0]
+            if p_username == "":
+                return '{ "msg": "Please enter a valid email" }'
+            new_patient = Patient(p_username, p_data["name"], p_data["email"], p_data["note"], p_data["doctorid"], p_data["nurseid"])
             self.__patients.append(new_patient)
             new_patient = new_patient.get_patient()
-            return json.dumps(new_patient)
+            message["msg"] = new_patient
+            return json.dumps(message)
         except:
-            return  '{ "Creating this patient was unsuccessful, please try again." }'
+            return  '{ "msg": "Creating this patient was unsuccessful, please try again." }'
         
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
