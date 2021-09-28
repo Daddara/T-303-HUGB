@@ -139,7 +139,7 @@ class Wrapper:
                 data = json.loads(data)
                 id_counter = 1
                 appointments_list = []
-                appointments_dict = {}
+                message = {}
                 for appoint in self.__appointments:
                     if appoint.check_appointments(str(data["staff_ssn"])):
                         x = appoint.get_info()
@@ -149,7 +149,8 @@ class Wrapper:
                         appointments_list.append(x)
                         id_counter += 1
                 if len(appointments_list) != 0:
-                    return json.dumps(appointments_list)
+                    message["msg"] = appointments_list
+                    return json.dumps(message)
                 else:
                     return '{"msg":"No appointments"}'
             except:
