@@ -100,14 +100,18 @@ class Wrapper:
         
         try:
             message = {}
-            p_data = data["msg"]
-            p_split = p_data["email"].split("@")
-            if "@" not in p_split:
-                return '{ "msg": "Please enter a valid email" }'
+            # data = json.loads(data)
+            print(data)
+            # p_data = data["data"]
+            # print(p_data)
+            p_split = data["email"].split("@")
+            print(p_split)
+            # if "@" not in p_split:
+            #     return '{ "msg": "Please enter a valid email" }'
             p_username = p_split[0]
-            if p_username == "":
-                return '{ "msg": "Please enter a valid email" }'
-            new_patient = Patient(p_username, p_data["name"], p_data["email"], p_data["note"], p_data["doctorid"], p_data["nurseid"])
+            # if p_username == "":
+            #     return '{ "msg": "Please enter a valid email" }'
+            new_patient = Patient(p_username, data["name"], data["email"], data["note"], "", "")
             self.__patients.append(new_patient)
             new_patient = new_patient.get_patient()
             message["msg"] = new_patient

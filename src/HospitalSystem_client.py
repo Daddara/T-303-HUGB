@@ -58,7 +58,7 @@ async def create_patient():
     patient_username = ""
     data = {"username": patient_username, "name": patient_name, "email": patient_email,
      "note": patient_note, "doctorid": "", "nurseid": ""}
-    message = {"msg": data}
+    message = {"data": data}
     data = json.dumps(message)
     return await send_msg("create_patient", message)
 
