@@ -18,7 +18,9 @@ class Wrapper:
             message = {}
             for patient in self.__patients:
                 if patient.get_patient_id() == data["username"]:
-                    updated_patient = patient.update_patient(data["name"], data["email"], data["note"])
+                    #if data[username]
+                    username = data["email"].split("@")
+                    updated_patient = patient.update_patient(username[0], data["name"], data["email"], data["note"])
             message["msg"] = updated_patient
             return json.dumps(message)
 
