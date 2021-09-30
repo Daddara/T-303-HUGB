@@ -10,6 +10,9 @@ class Patient:
   def get_patient_id(self):
     return self.__p_username
 
+  def get_patient_email(self):
+    return self.p_email
+
   def get_patient_name(self):
     return self.__p_name
   

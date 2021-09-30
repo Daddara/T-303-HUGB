@@ -14,28 +14,31 @@ class Wrapper:
         self.__prescriptions = self.__data.get_prescriptions()
 
     def update_patient(self, data):
-        if "username" in data:
-            # print(data)
-            message = {}
-            # print(self.__patients)
-            email = []
-            for patient in self.__patients:
-                thepatient = patient.get_patient()
-                username1 = thepatient["email"].split("@")
-                email.append(username1[0])
-            for patient in self.__patients:
-                if patient.get_patient_id() == data["username"]:
-                    username = data["email"].split("@")
-                    if username[0] not in email:
-                        updated_patient = patient.update_patient(username[0], data["name"], data["email"], data["note"])
-                    else:
-                        print("here")
-                        return json.dumps(message)
-            message["msg"] = updated_patient
-            return json.dumps(message)
+        '''Updates information about an existing patient.'''
+        try:
+            if "username" in data:
+                message = {}
+                emails = []
+                for patient in self.__patients:
+                    email = patient.get_patient_email()
+                    email_username = email.split("@")
+                    emails.append(email_username[0])
+                for patient in self.__patients:
+                    username = data["username"]
+                    if patient.get_patient_id() == username:
+                        new_username = data["email"].split("@")
+                        emails.remove(patient.get_patient_id())
+                        if new_username[0] not in emails:
+                            updated_patient = patient.update_patient(new_username[0], data["name"], data["email"], data["note"])
+                        else:
+                            updated_patient = patient.update_patient(patient.get_patient_id(), data["name"], patient.get_patient_email(), data["note"])
+                message["msg"] = updated_patient
+                return json.dumps(message)
 
-        else:
-            return '{"msg": "username needed!"}'
+            else:
+                return '{"msg": "username needed!"}'
+        except:
+            return  '{ "msg": "Updating this patient was unsuccessful, please try again." }'
 
     def send_presription(self, data):
         ''' This function takes in name of medicine and pharmecy along with the id of a patient.
