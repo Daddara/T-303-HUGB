@@ -133,6 +133,7 @@ class Wrapper:
             return '{"msg": No Patient Info"}'
 
     def delete_patient(self,data):
+        """Deletes a patient with a particular ssn"""
         x = json.loads(data)
         index = 0
         for patient in self.__patients:
@@ -142,7 +143,7 @@ class Wrapper:
                 return json.dumps(return_msg)
             index += 1
         else:
-            return '{"msg":"No Patient with thi id"}'
+            return '{"msg":"No Patient with the id"}'
     
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
@@ -169,3 +170,17 @@ class Wrapper:
                 return '{"msg":"Invalid arguments, please try again}'
         else:
             return '{"msg":"Missing arguments: staff_ssn"}'
+
+
+    def delete_staff_member(self,data):
+        the_data = json.loads(data)
+        # testing
+        index = 0
+        for staff_member in self.__staff:
+            if( the_data["staff_ssn"] == staff_member.get_ssn()):
+                return_msg = staff_member.get_staff_member()
+                self.__patients.pop(index)
+                return json.dumps(return_msg)
+            index += 1
+        else:
+            return '{"msg":"No staff member with this ssn"}'
