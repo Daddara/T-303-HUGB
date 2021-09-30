@@ -81,6 +81,13 @@ async def assign_treatment():
     data = json.dumps(data)
     return await send_msg("assign_treatment", data)
 
+async def delete_staff_member():
+    request = input("Please input staff member's social security number: ")
+    staff_dict = {
+        "staff_ssn": request,
+    }
+    return await send_msg("delete_staff_member", json.dumps(staff_dict))
+
 
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
@@ -92,6 +99,7 @@ if __name__ == "__main__":
             Enter 4 to assign a treatment to a patient \n\
             Enter 5 to send a prescription to a patient\n\
             Enter 6 to delete a patient\n\
+            Enter 7 to delete a staff member\n\
             Enter q to quit\n\
             "
     while True:
@@ -111,6 +119,8 @@ if __name__ == "__main__":
             print(asyncio.run(send_presription()))
         elif user_input == "6":
             print(asyncio.run(delete_patient()))
+        elif user_input == "7":
+            print(asyncio.run(delete_staff_member()))
         else:
             print("Please enter a valid number")
     
