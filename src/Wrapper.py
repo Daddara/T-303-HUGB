@@ -97,15 +97,27 @@ class Wrapper:
     def create_patient(self, data):
         """Takes a json object and turns into a dictionary that is then passed
             to create a Patient object with the data. Returns a json value"""
-
-        data = json.loads(data)
+        
         try:
-            new_patient = Patient(data["username"], data["name"], data["email"], data["note"], data["doctorid"], data["nurseid"])
+            message = {}
+            # data = json.loads(data)
+            print(data)
+            # p_data = data["data"]
+            # print(p_data)
+            p_split = data["email"].split("@")
+            print(p_split)
+            # if "@" not in p_split:
+            #     return '{ "msg": "Please enter a valid email" }'
+            p_username = p_split[0]
+            # if p_username == "":
+            #     return '{ "msg": "Please enter a valid email" }'
+            new_patient = Patient(p_username, data["name"], data["email"], data["note"], "", "")
             self.__patients.append(new_patient)
             new_patient = new_patient.get_patient()
-            return json.dumps(new_patient)
+            message["msg"] = new_patient
+            return json.dumps(message)
         except:
-            return  '{ "Creating this patient was unsuccessful, please try again." }'
+            return  '{ "msg": "Creating this patient was unsuccessful, please try again." }'
         
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
@@ -121,6 +133,7 @@ class Wrapper:
             return '{"msg": No Patient Info"}'
 
     def delete_patient(self,data):
+        """Deletes a patient with a particular ssn"""
         x = json.loads(data)
         index = 0
         for patient in self.__patients:
@@ -130,7 +143,7 @@ class Wrapper:
                 return json.dumps(return_msg)
             index += 1
         else:
-            return '{"msg":"No Patient with thi id"}'
+            return '{"msg":"No Patient with the id"}'
     
     ##Arnar  
     def create_staff(self, data):
@@ -173,3 +186,17 @@ class Wrapper:
                 return '{"msg":"Invalid arguments, please try again}'
         else:
             return '{"msg":"Missing arguments: staff_ssn"}'
+
+
+    def delete_staff_member(self,data):
+        the_data = json.loads(data)
+        # testing
+        index = 0
+        for staff_member in self.__staff:
+            if( the_data["staff_ssn"] == staff_member.get_ssn()):
+                return_msg = staff_member.get_staff_member()
+                self.__patients.pop(index)
+                return json.dumps(return_msg)
+            index += 1
+        else:
+            return '{"msg":"No staff member with this ssn"}'
