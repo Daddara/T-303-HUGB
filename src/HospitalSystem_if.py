@@ -10,7 +10,6 @@ class HospitalsystemInterface:
 
     def readAll_patient (self, data):
         return self.wrapper.get_patient_list()
-        return '{"msg": [{"name": "Patient 1", "email": "patient1@email.com", "note": "Dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}, {"name": "patient 2", "email": "patient2@email.com", "note": "this is a dummy note", "username": "patient2", "doctor_id": "null", "nurse_id": null}]}' 
 
     def get_patient_info (self, data):
         return_msg = self.wrapper.get_patient_info(data)

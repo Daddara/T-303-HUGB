@@ -30,5 +30,26 @@ Attending: All group members
 
 The group decided to hold meetings for the upcoming week. Next tuesday at 11:00 will be the next meeting. The Patient class has been updated to fit the new frontend.
 
+_____________________
+
+Meeting 4 (28.09.2021)
+time 11:00
+scrum master: Daníel
+secretary: Hörður
+Attending: Arnar, Daníel, Hörður, Ingunn, Rúnar, Tryggvi
+
+This meeting we went over the requirements for continuous progress. The frontend can now fetch patients from our patients list.
+
+_____________________
+
+Meeting 5 (30.09.2021)
+time 14:20
+scrum master: Daníel
+secretary: Hörður
+Attending: Arnar, Daníel, Hörður, Ingunn, Rúnar, Tryggvi
+
+The group decided to get together on sunday at time 15:30-16:00 to finish this sprint. The group fixed some git merge conflicts.
+
+
 
 
