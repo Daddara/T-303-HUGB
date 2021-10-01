@@ -132,6 +132,22 @@ class Wrapper:
         else:
             return '{"msg":"No Patient with thi id"}'
     
+    ##Arnar  
+    def create_staff(self, data):
+        """Takes a json object and turns into a dictionary that is then passed
+            to create a Patient object with the data. Returns a json value"""
+
+        data = json.loads(data)
+        try:
+            new_staff = Staff(data["name"], data["ssn"], data["title"], data["address"], data["phone"])
+            self.__staff.append(new_staff)
+            new_staff = new_staff.get_staff()
+            return json.dumps(new_staff)
+        except:
+            return  '{ "Creating this staff member was unsuccessful, please try again." }'
+        
+    #######
+    
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
         if "staff_ssn" in data:

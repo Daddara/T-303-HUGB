@@ -65,6 +65,22 @@ async def get_patient_list():
     return await send_msg("get_patient_list", '{"doctor_id":"" }')
 
 
+###Arnar
+
+async def create_staff():
+    staff_name = input("Please enter the staff member full name: ")
+    staff_ssn = input("Please enter the staff member SSN: ")
+    staff_address = input("Please enter the staff member address: ")
+    staff_phone = input("Please enter the staff member phone: ")
+    staff_title = input("Please enter the staff member title: ")
+    data = {"name": staff_name, "ssn": staff_ssn, "address": staff_address, "phone": staff_phone,
+     "title": staff_title}
+    data = json.dumps(data)
+    return await send_msg("create_staff", data)
+
+#####
+
+
 async def assign_treatment():
     patient_ssn = input("Please enter the social security number for an existing patient: ")
     list_of_staff_ssn = input("Please enter the social security number of the overseer of the appointment: ")
