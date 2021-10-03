@@ -54,13 +54,13 @@ class Wrapper:
         # See if the input patient exists
         patient_found = False
         for patient in self.__patients:
-            patient = patient.get_patient()
-            if patient["username"] == data["patient_username"]:
-                appointment_patient = patient
+            patient_username = patient.get_patient_id()
+            if patient_username == data["patient_username"]:
+                appointment_patient = patient_username
                 patient_found = True
 
         if patient_found == False:
-            return '{"Patient with this social security number does not exist"}'
+            return '{"Patient with this username does not exist"}'
 
         # See if the assigned staff members exist
         staff_involved = []

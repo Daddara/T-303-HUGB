@@ -44,4 +44,5 @@ class Data():
         return staff_members
 
     def get_prescriptions(self):
+        """Returns a list of precriptions made to stand in for our database"""
         return prescriptions_list   

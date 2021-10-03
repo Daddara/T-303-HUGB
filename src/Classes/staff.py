@@ -1,5 +1,5 @@
 class Staff():
-
+    """Keeps track of staff members"""
     def __init__(self, name:str, ssn:str, title:str, address=None, phone=None):
         self.__name = name
         self.__ssn = ssn
@@ -19,7 +19,9 @@ class Staff():
         return staff_dict
     
     def get_ssn(self):
+        """Returns the social security number of a staff member"""
         return self.__ssn
 
     def get_name(self):
+        """Returns the name of a staff member"""
         return self.__name
