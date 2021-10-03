@@ -132,13 +132,23 @@ class Wrapper:
             # if "@" not in p_split:
             #     return '{ "msg": "Please enter a valid email" }'
             p_username = p_split[0]
+            emails = []
+            for patient in self.__patients:
+                email = patient.get_patient_email()
+                email_username = email.split("@")
+                emails.append(email_username[0])
+
+            print(emails)
             # if p_username == "":
             #     return '{ "msg": "Please enter a valid email" }'
-            new_patient = Patient(p_username, data["name"], data["email"], data["note"], "", "")
-            self.__patients.append(new_patient)
-            new_patient = new_patient.get_patient()
-            message["msg"] = new_patient
-            return json.dumps(message)
+            if len(p_split) == 2 and p_split[1] != "" and p_split[0] not in emails:
+                new_patient = Patient(p_username, data["name"], data["email"], data["note"], "", "")
+                self.__patients.append(new_patient)
+                new_patient = new_patient.get_patient()
+                message["msg"] = new_patient
+                return json.dumps(message)
+            else:
+                return '{ "msg": "Not a valid email or email in use." }'
         except:
             return  '{ "msg": "Creating this patient was unsuccessful, please try again." }'
         
