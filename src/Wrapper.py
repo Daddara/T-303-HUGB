@@ -200,7 +200,6 @@ class Wrapper:
         except:
             return  '{"msg": "Creating this staff member was unsuccessful, please try again." }'
     
-
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
         if "staff_ssn" in data:
