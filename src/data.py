@@ -25,8 +25,6 @@ appointments = [
     Appointment(patients_list[0], [staff_members[2]], [12, 9, 2022], "09:00", 30),
     Appointment(patients_list[0], [staff_members[0]], [12, 9, 2022], "19:00", 30)
     ]
-    
-
 
 class Data():
     ''' Our Database Dummy'''
