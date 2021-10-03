@@ -89,9 +89,9 @@ class Wrapper:
         staff_involved = []
         for staff_member in self.__staff:
             for assignee_ssn in data["staff"]:
-                staff_member = staff_member.get_staff_member()
-                if staff_member["ssn"] == assignee_ssn:
-                    staff_involved.append(staff_member)
+                staff_member1 = staff_member.get_staff() # T breytti úr get_staff_member()
+                if staff_member1 == assignee_ssn:
+                    staff_involved.append(staff_member) # skilar semsagt object í stað dict
 
         if len(staff_involved) == 0:
             return '{"At least one staff member whose social security number was input does not exist."}'
@@ -112,7 +112,10 @@ class Wrapper:
             new_appointment = Appointment(appointment_patient, staff_involved, data["date"], data["time"], duration, treatment, data["description"])
             self.__appointments.append(new_appointment)
             new_appointment = new_appointment.get_info()
-            return json.dumps(new_appointment)
+            new_appointment["staff"] = len(new_appointment["staff"]) #T breytti
+            message = {}
+            message["msg"] = new_appointment
+            return json.dumps(message)
 
         except:
             return '{"Appoinment was not created"}'
@@ -166,19 +169,21 @@ class Wrapper:
             return '{"msg": No Patient Info"}'
 
     def delete_patient(self,data):
-        
         """Deletes a patient with a particular ssn"""
-        # x = json.loads(data)
-        # print(data)
-        index = 0
-        for patient in self.__patients:
-            if( data["username"] == patient.get_patient_id()):
-                return_msg = patient.get_patient()
-                self.__patients.pop(index)
-                return json.dumps(return_msg)
-            index += 1
-        else:
-            return '{"msg":"No Patient with the id"}'
+        try:
+            index = 0
+            return_msg = {}
+            for patient in self.__patients:
+                if( data["username"] == patient.get_patient_id()):
+                    return_msg["msg"] = patient.get_patient()
+                    print(index)
+                    self.__patients.pop(index)
+                    return json.dumps(return_msg)
+                index += 1
+            else:
+                return '{"msg":"No Patient with the id"}'
+        except:
+            return '{ "msg": "Deleting this patient was unsuccessful, please try again." }'
     
     def create_staff(self, data):
         """Takes a json object and turns into a dictionary that is then passed
@@ -206,11 +211,13 @@ class Wrapper:
                 for appoint in self.__appointments:
                     if appoint.check_appointments(str(data["staff_ssn"])):
                         x = appoint.get_info()
-                        patient = x["patient"]
-                        x["patient"] = patient.get_patient()
+                        # iterate over patients
+                        
+                        #change the staff object list to number of staff assigned
                         x["staff"] = len(x["staff"])
                         appointments_list.append(x)
                         id_counter += 1
+
                 if len(appointments_list) != 0:
                     message["msg"] = appointments_list
                     return json.dumps(message)
