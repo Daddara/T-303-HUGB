@@ -21,9 +21,9 @@ staff_members = [
     Staff("Hanna Hannesardottir", "0707891399", "receptionist", "Hamraborg 60", "8566858")]
 
 appointments = [
-    Appointment(patients_list[0], [staff_members[0], staff_members[2]], [10, 8, 2022], "13:00", 60, 2, "Surgery on shoulder"), 
-    Appointment(patients_list[0], [staff_members[2]], [12, 9, 2022], "09:00", 30),
-    Appointment(patients_list[0], [staff_members[0]], [12, 9, 2022], "19:00", 30)
+    Appointment("icehot", [staff_members[0], staff_members[3]], [10, 8, 2022], "13:00", 60, 2, "Surgery on shoulder"), 
+    Appointment("icehot", [staff_members[2]], [12, 9, 2022], "09:00", 30),
+    Appointment("icehot", [staff_members[0]], [12, 9, 2022], "19:00", 30)
     ]
 
 class Data():

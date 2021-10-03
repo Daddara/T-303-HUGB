@@ -114,6 +114,20 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_checkup["description"], "")
         self.assertEquals(self.appointment_checkup.check_appointments("1010661399"), True)
         self.assertEquals(self.appointment_checkup.check_appointments("2202002020"), False)
+    
+    def test_wrapper_appointments_success(self):
+
+        #create appointment and try to fetch it and assert equal.
+        wrapper = Wrapper()
+        #creating appointment
+        app_data = data = '{"patient_username": "icehot", "staff": ["0909691399"], "date": "[12, 9, 2022]", "time": "09:00", "duration": "30", "treatment": "checkup", "description": "testing purposes"}'
+        create_app_message = wrapper.assign_treatment(app_data)
+        print(create_app_message)
+
+        data = '{"staff_ssn": "0909691399"}'
+        message = wrapper.get_appointments(data)
+        self.assertEqual(1, 1)
+        print(message)
 
 
     # tear down method - is run after each test case

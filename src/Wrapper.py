@@ -144,7 +144,7 @@ class Wrapper:
             index += 1
         else:
             return '{"msg":"No Patient with the id"}'
-    
+
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
         if "staff_ssn" in data:
@@ -156,11 +156,15 @@ class Wrapper:
                 for appoint in self.__appointments:
                     if appoint.check_appointments(str(data["staff_ssn"])):
                         x = appoint.get_info()
-                        patient = x["patient"]
-                        x["patient"] = patient.get_patient()
+                        # iterate over patients
+                        for patient in self.__patients:
+                            if patient.get_patient_id() == x["patient"]:
+                                x["patient"] = patient.get_patient()
+                        #change the staff object list to number of staff assigned
                         x["staff"] = len(x["staff"])
                         appointments_list.append(x)
                         id_counter += 1
+                        
                 if len(appointments_list) != 0:
                     message["msg"] = appointments_list
                     return json.dumps(message)
