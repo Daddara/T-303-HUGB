@@ -78,7 +78,7 @@ class Wrapper:
         patient_found = False
         for patient in self.__patients:
             patient = patient.get_patient()
-            if patient["ssn"] == data["patient_ssn"]:
+            if patient["username"] == data["patient_username"]:
                 appointment_patient = patient
                 patient_found = True
 
