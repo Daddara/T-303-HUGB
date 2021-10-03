@@ -22,8 +22,8 @@ class TestStationMethods(unittest.TestCase):
         self.doctor = Staff("Anna Önnudóttir", "1010661399", "doctor", "Hamraborg 20", "8992345")
         self.nurse = Staff("Gunnar Gunnarsson", "0909691399", "nurse", "Hamraborg 10", "7883456")
 
-        self.appoinment_surgery = Appointment(self.patient, [self.doctor, self.nurse], [10,10,2022], "08:00", 120, 2, "Surgery on shoulder.")
-        self.appointment_checkup = Appointment(self.patient, [self.doctor], [10,10,2022], "12:00", 60)
+        self.appoinment_surgery = Appointment("icehot", [self.doctor, self.nurse], [10,10,2022], "08:00", 120, 2, "Surgery on shoulder.")
+        self.appointment_checkup = Appointment("gudrun1", [self.doctor], [10,10,2022], "12:00", 60)
 
     def test_wrapper(self):
         wrapper = Wrapper()
@@ -91,6 +91,8 @@ class TestStationMethods(unittest.TestCase):
         """Testing wether the appointment class works correctly"""
         appointment_surgery = self.appoinment_surgery.get_info()
         self.assertIsInstance(appointment_surgery, dict)
+        self.assertIsInstance(appointment_surgery["patient"], str)
+        self.assertEqual(appointment_surgery["patient"], "icehot")
         doctor = appointment_surgery["staff"][0].get_staff_member()
         nurse = appointment_surgery["staff"][1].get_staff_member()
         self.assertEqual(len(appointment_surgery["staff"]), 2)
@@ -104,6 +106,8 @@ class TestStationMethods(unittest.TestCase):
 
         appointment_checkup = self.appointment_checkup.get_info()
         self.assertIsInstance(appointment_checkup, dict)
+        self.assertIsInstance(appointment_checkup["patient"], str)
+        self.assertEqual(appointment_checkup["patient"], "gudrun1")
         doctor = appointment_checkup["staff"][0].get_staff_member()
         self.assertEqual(len(appointment_checkup["staff"]), 1)
         self.assertEqual(doctor["ssn"], "1010661399")
