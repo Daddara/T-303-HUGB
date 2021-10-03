@@ -26,12 +26,20 @@ class Wrapper:
                 for patient in self.__patients:
                     username = data["username"]
                     if patient.get_patient_id() == username:
-                        new_username = data["email"].split("@")
-                        emails.remove(patient.get_patient_id())
-                        if new_username[0] not in emails:
-                            updated_patient = patient.update_patient(new_username[0], data["name"], data["email"], data["note"])
+                        if "@" in data["email"]:
+                            new_username = data["email"].split("@")
+                            print(str(new_username))
+                            if new_username[1] != '':
+                                emails.remove(patient.get_patient_id())
+                                if new_username[0] not in emails:
+                                    updated_patient = patient.update_patient(new_username[0], data["name"], data["email"], data["note"])
+                                else:
+                                    updated_patient = patient.update_patient(patient.get_patient_id(), data["name"], patient.get_patient_email(), data["note"])
+                            else:
+                                print("Now here!!")
                         else:
-                            updated_patient = patient.update_patient(patient.get_patient_id(), data["name"], patient.get_patient_email(), data["note"])
+                            print("Here!")
+                        json.dumps(message)
                 message["msg"] = updated_patient
                 return json.dumps(message)
 
