@@ -21,9 +21,9 @@ class HospitalsystemInterface:
         """Returns all apointments which a staff member is assigned to"""
         return self.wrapper.get_appointments(data)
 
-    # def read_patient(self, data):
-    #     """"""
-    #     return self.wrapper.get_patient_info(data)
+    def read_patient(self, data):
+        """Returns all info to the frontend about a specific patient"""
+        return self.wrapper.get_patient_info(data)
     
     def update_patient(self, data):
         """Updates information about a patient"""
