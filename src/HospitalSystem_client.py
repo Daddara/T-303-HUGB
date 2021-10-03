@@ -67,6 +67,24 @@ async def get_patient_list():
     return await send_msg("get_patient_list", '{"doctor_id":"" }')
 
 
+###Arnar
+
+async def create_staff():
+    staff_name = input("Please enter the staff member full name: ")
+    staff_ssn = input("Please enter the staff member SSN: ")
+    staff_address = input("Please enter the staff member address: ")
+    staff_phone = input("Please enter the staff member phone: ")
+    staff_title = input("Please enter the staff member title: ")
+    data = {"name": staff_name, "ssn": staff_ssn, "address": staff_address, "phone": staff_phone,
+     "title": staff_title}
+    message = {"data": data}
+    data = json.dumps(message)
+    return await send_msg("create_staff", message)
+
+
+#####
+
+
 async def assign_treatment():
     patient_username = input("Please enter the username of an existing patient: ")
     list_of_staff_ssn = input("Please enter the social security number of the overseer/doctor of the appointment: ")
@@ -102,6 +120,7 @@ if __name__ == "__main__":
             Enter 5 to send a prescription to a patient\n\
             Enter 6 to delete a patient\n\
             Enter 7 to delete a staff member\n\
+            Enter 8 to add a staff member\n\
             Enter q to quit\n\
             "
     while True:
@@ -123,6 +142,8 @@ if __name__ == "__main__":
             print(asyncio.run(delete_patient()))
         elif user_input == "7":
             print(asyncio.run(delete_staff_member()))
+        elif user_input == "8":
+            print(asyncio.run(create_staff()))
         else:
             print("Please enter a valid number")
     
