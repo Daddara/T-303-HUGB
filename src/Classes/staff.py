@@ -1,25 +1,25 @@
 class Staff():
 
-    def __init__(self, name:str, ssn:str, title:str, address=None, phone=None):
-        self.__name = name
-        self.__ssn = ssn
-        self.__title = title
-        self.__address = address
-        self.__phone = phone        # can be empty (þarf kannski að vera fyrir starfsmann)
+    def __init__(self, s_name:str, s_ssn:str, s_title:str, s_address=None, s_phone=None):
+        self.__s_name = s_name
+        self.__s_ssn = s_ssn
+        self.__s_title = s_title
+        self.__s_address = s_address
+        self.__s_phone = s_phone
 
     def get_staff_member(self):
         ''' Searches for staff member on ssn and then returns json of all it's attributes'''
         staff_dict = {
-            "name": self.__name,
-            "ssn": self.__ssn,  
-            "address": self.__address, 
-            "phone": self.__phone, 
-            "title": self.__title,
+            "name": self.__s_name,
+            "ssn": self.__s_ssn,  
+            "address": self.__s_address, 
+            "phone": self.__s_phone, 
+            "title": self.__s_title,
         }
         return staff_dict
     
-    def get_ssn(self):
-        return self.__ssn
+    def get_staff(self):
+        return self.__s_ssn
 
-    def get_name(self):
-        return self.__name
+    def get_staff_name(self):
+        return self.__s_name

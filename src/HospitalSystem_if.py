@@ -15,7 +15,6 @@ class HospitalsystemInterface:
         return_msg = self.wrapper.get_patient_info(data)
         return return_msg
 
-            
     def get_patient_appointments (self, data):
         return self.wrapper.get_appointments(data)
 
@@ -46,3 +45,7 @@ class HospitalsystemInterface:
 
     def delete_staff_member(self, data):
         return self.wrapper.delete_staff_member(data)
+
+    def create_staff(self, data):     
+        return_msg = self.wrapper.create_staff(data)
+        return return_msg

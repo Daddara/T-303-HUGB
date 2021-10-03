@@ -77,8 +77,10 @@ async def create_staff():
     staff_title = input("Please enter the staff member title: ")
     data = {"name": staff_name, "ssn": staff_ssn, "address": staff_address, "phone": staff_phone,
      "title": staff_title}
-    data = json.dumps(data)
-    return await send_msg("create_staff", data)
+    message = {"data": data}
+    data = json.dumps(message)
+    return await send_msg("create_staff", message)
+
 
 #####
 
@@ -118,6 +120,7 @@ if __name__ == "__main__":
             Enter 5 to send a prescription to a patient\n\
             Enter 6 to delete a patient\n\
             Enter 7 to delete a staff member\n\
+            Enter 8 to add a staff member\n\
             Enter q to quit\n\
             "
     while True:
@@ -139,6 +142,8 @@ if __name__ == "__main__":
             print(asyncio.run(delete_patient()))
         elif user_input == "7":
             print(asyncio.run(delete_staff_member()))
+        elif user_input == "8":
+            print(asyncio.run(create_staff()))
         else:
             print("Please enter a valid number")
     
