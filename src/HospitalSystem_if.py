@@ -56,3 +56,7 @@ class HospitalsystemInterface:
     def delete_staff_member(self, data):
         """Deletes a staff member"""
         return self.wrapper.delete_staff_member(data)
+
+    def create_staff(self, data):     
+        return_msg = self.wrapper.create_staff(data)
+        return return_msg
