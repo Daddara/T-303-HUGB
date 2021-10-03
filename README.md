@@ -12,7 +12,7 @@ Clone the gitlab repository https://gitlab.com/hugb_21_g_1/hugb-21-g-1.git to an
 Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository
 
 
-# Running the project
+## Running the project
 
 * Websockets must be installed `pip install websockets`
 
@@ -24,7 +24,13 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 * Run the server in another terminal window: 
 `python src/HospitalSystem_ctrl.py`
 
-# Testing
+## Running the frontend
+
+The frontend is provided only as a built web application, without the clear-text source code. You execute the frontend by opening the `build/index.html` file in a browser (Tested on Firefox, Chrome and Safari).
+
+The frontend assumes that your backend is listening on `localhost` port `8888` (Note: `localhost` is identical to `127.0.0.1`).
+
+## Testing
 
 * First you must install coverage and unittest with the following commands:
     `pip install coverage`
@@ -39,7 +45,7 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
     and to see the coverage you must run: `coverage report`
     which will show the test coverage
 
-# Dependencies
+## Dependencies
 
 * `Python`
 * `Pip`
