@@ -13,7 +13,7 @@ TREATMENTS = {
 
 class Appointment:
     """This class keeps track of appointments."""
-    def __init__(self, patient:Patient, list_of_staff:list, date:list, time:str, duration:int, treatment=None, description=None) -> None:
+    def __init__(self, patient:str, list_of_staff:list, date:list, time:str, duration:int, treatment=None, description=None) -> None:
         if treatment == None:
             treatment = TREATMENTS[1]
         else:

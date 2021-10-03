@@ -16,20 +16,23 @@ async def send_msg(op, data):
 
 
 async def get_patient_info():
+    """Returns a dictionary of a patient's info"""
     try:
-        request = input("Please input patient id: ")
+        request = input("Please input patient username: ")
         return await send_msg("get_patient_info", request)
     except:
         return {"msg":"Enter a proper SSN"}
 
 
 async def get_patient_appointments():
+    """Returns appointments which a specific staff member is assigned to"""
     staff_ssn = input("Enter your social security number(ssn): ")
     data = json.dumps({"staff_ssn":staff_ssn})
     return await send_msg("get_patient_appointments", data)
 
 
 async def delete_patient():
+    """Deletes a specific patient"""
     request = input("Please input patient id: ")
     patient_dict = {
         "patient_id": request,
@@ -37,6 +40,7 @@ async def delete_patient():
     return await send_msg("delete_patient", json.dumps(patient_dict))
 
 async def send_presription ():
+    """Creates a prescription"""
     try:
         request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")
         data = request.split()
@@ -51,6 +55,7 @@ async def send_presription ():
         return '{"msg": "Not valid input"}'
 
 async def create_patient():
+    """Creates a new patient"""
     patient_name = input("Please enter the patients full name: ")
     patient_email = input("Please enter the patients current email: ")
     patient_note = ""
@@ -64,10 +69,12 @@ async def create_patient():
 
 
 async def get_patient_list():
+    """Lists all patients"""
     return await send_msg("get_patient_list", '{"doctor_id":"" }')
 
 
 async def assign_treatment():
+    """Assigns a patient to an appointment"""
     patient_username = input("Please enter the username of an existing patient: ")
     list_of_staff_ssn = input("Please enter the social security number of the overseer/doctor of the appointment: ")
     list_of_staff_ssn = list_of_staff_ssn.split(" ")
@@ -84,6 +91,7 @@ async def assign_treatment():
     return await send_msg("assign_treatment", data)
 
 async def delete_staff_member():
+    """Deletes a specific staff member"""
     request = input("Please input staff member's social security number: ")
     staff_dict = {
         "staff_ssn": request,
