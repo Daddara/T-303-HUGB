@@ -192,7 +192,7 @@ class Wrapper:
         # testing
         index = 0
         for staff_member in self.__staff:
-            if( the_data["staff_ssn"] == staff_member.get_ssn()):
+            if( the_data["staff_ssn"] == staff_member.get_staff()):
                 return_msg = staff_member.get_staff_member()
                 self.__patients.pop(index)
                 return json.dumps(return_msg)

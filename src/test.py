@@ -74,17 +74,17 @@ class TestStationMethods(unittest.TestCase):
         self.assertIsInstance(doctor, dict)
         self.assertIsInstance(nurse, dict)
 
-        self.assertEquals(doctor["ssn"], "1010661399")
-        self.assertEquals(doctor["name"], "Anna Önnudóttir")
-        self.assertEquals(doctor["title"], "doctor")
-        self.assertEquals(doctor["address"], "Hamraborg 20")
-        self.assertEquals(doctor["phone"], "8992345")
+        self.assertEqual(doctor["ssn"], "1010661399")
+        self.assertEqual(doctor["name"], "Anna Önnudóttir")
+        self.assertEqual(doctor["title"], "doctor")
+        self.assertEqual(doctor["address"], "Hamraborg 20")
+        self.assertEqual(doctor["phone"], "8992345")
 
-        self.assertEquals(nurse["ssn"], "0909691399")
-        self.assertEquals(nurse["name"], "Gunnar Gunnarsson")
-        self.assertEquals(nurse["title"], "nurse")
-        self.assertEquals(nurse["address"], "Hamraborg 10")
-        self.assertEquals(nurse["phone"],"7883456")
+        self.assertEqual(nurse["ssn"], "0909691399")
+        self.assertEqual(nurse["name"], "Gunnar Gunnarsson")
+        self.assertEqual(nurse["title"], "nurse")
+        self.assertEqual(nurse["address"], "Hamraborg 10")
+        self.assertEqual(nurse["phone"],"7883456")
 
 
     def test_appointment_class(self):
@@ -112,8 +112,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_checkup["duration"], 60)
         self.assertEqual(appointment_checkup["treatment"], "Checkup")
         self.assertEqual(appointment_checkup["description"], "")
-        self.assertEquals(self.appointment_checkup.check_appointments("1010661399"), True)
-        self.assertEquals(self.appointment_checkup.check_appointments("2202002020"), False)
+        self.assertEqual(self.appointment_checkup.check_appointments("1010661399"), True)
+        self.assertEqual(self.appointment_checkup.check_appointments("2202002020"), False)
 
 
     # tear down method - is run after each test case
