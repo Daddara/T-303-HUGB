@@ -66,9 +66,9 @@ class Wrapper:
         staff_involved = []
         for staff_member in self.__staff:
             for assignee_ssn in data["staff"]:
-                staff_member = staff_member.get_staff_member()
-                if staff_member["ssn"] == assignee_ssn:
-                    staff_involved.append(staff_member)
+                staff_member1 = staff_member.get_ssn() # T breytti úr get_staff_member()
+                if staff_member1 == assignee_ssn:
+                    staff_involved.append(staff_member) # skilar semsagt object í stað dict
 
         if len(staff_involved) == 0:
             return '{"At least one staff member whose social security number was input does not exist."}'
@@ -89,7 +89,10 @@ class Wrapper:
             new_appointment = Appointment(appointment_patient, staff_involved, data["date"], data["time"], duration, treatment, data["description"])
             self.__appointments.append(new_appointment)
             new_appointment = new_appointment.get_info()
-            return json.dumps(new_appointment)
+            new_appointment["staff"] = len(new_appointment["staff"]) #T breytti
+            message = {}
+            message["msg"] = new_appointment
+            return json.dumps(message)
 
         except:
             return '{"Appoinment was not created"}'
@@ -157,14 +160,12 @@ class Wrapper:
                     if appoint.check_appointments(str(data["staff_ssn"])):
                         x = appoint.get_info()
                         # iterate over patients
-                        for patient in self.__patients:
-                            if patient.get_patient_id() == x["patient"]:
-                                x["patient"] = patient.get_patient()
+                        
                         #change the staff object list to number of staff assigned
                         x["staff"] = len(x["staff"])
                         appointments_list.append(x)
                         id_counter += 1
-                        
+
                 if len(appointments_list) != 0:
                     message["msg"] = appointments_list
                     return json.dumps(message)
