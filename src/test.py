@@ -22,8 +22,8 @@ class TestStationMethods(unittest.TestCase):
         self.doctor = Staff("Anna Önnudóttir", "1010661399", "doctor", "Hamraborg 20", "8992345")
         self.nurse = Staff("Gunnar Gunnarsson", "0909691399", "nurse", "Hamraborg 10", "7883456")
 
-        self.appoinment_surgery = Appointment(self.patient, [self.doctor, self.nurse], [10,10,2022], "08:00", 120, 2, "Surgery on shoulder.")
-        self.appointment_checkup = Appointment(self.patient, [self.doctor], [10,10,2022], "12:00", 60)
+        self.appoinment_surgery = Appointment("icehot", [self.doctor, self.nurse], [10,10,2022], "08:00", 120, 2, "Surgery on shoulder.")
+        self.appointment_checkup = Appointment("gudrun1", [self.doctor], [10,10,2022], "12:00", 60)
 
     def test_wrapper(self):
         wrapper = Wrapper()
@@ -74,23 +74,25 @@ class TestStationMethods(unittest.TestCase):
         self.assertIsInstance(doctor, dict)
         self.assertIsInstance(nurse, dict)
 
-        self.assertEquals(doctor["ssn"], "1010661399")
-        self.assertEquals(doctor["name"], "Anna Önnudóttir")
-        self.assertEquals(doctor["title"], "doctor")
-        self.assertEquals(doctor["address"], "Hamraborg 20")
-        self.assertEquals(doctor["phone"], "8992345")
+        self.assertEqual(doctor["ssn"], "1010661399")
+        self.assertEqual(doctor["name"], "Anna Önnudóttir")
+        self.assertEqual(doctor["title"], "doctor")
+        self.assertEqual(doctor["address"], "Hamraborg 20")
+        self.assertEqual(doctor["phone"], "8992345")
 
-        self.assertEquals(nurse["ssn"], "0909691399")
-        self.assertEquals(nurse["name"], "Gunnar Gunnarsson")
-        self.assertEquals(nurse["title"], "nurse")
-        self.assertEquals(nurse["address"], "Hamraborg 10")
-        self.assertEquals(nurse["phone"],"7883456")
+        self.assertEqual(nurse["ssn"], "0909691399")
+        self.assertEqual(nurse["name"], "Gunnar Gunnarsson")
+        self.assertEqual(nurse["title"], "nurse")
+        self.assertEqual(nurse["address"], "Hamraborg 10")
+        self.assertEqual(nurse["phone"],"7883456")
 
 
     def test_appointment_class(self):
         """Testing wether the appointment class works correctly"""
         appointment_surgery = self.appoinment_surgery.get_info()
         self.assertIsInstance(appointment_surgery, dict)
+        self.assertIsInstance(appointment_surgery["patient"], str)
+        self.assertEqual(appointment_surgery["patient"], "icehot")
         doctor = appointment_surgery["staff"][0].get_staff_member()
         nurse = appointment_surgery["staff"][1].get_staff_member()
         self.assertEqual(len(appointment_surgery["staff"]), 2)
@@ -104,6 +106,8 @@ class TestStationMethods(unittest.TestCase):
 
         appointment_checkup = self.appointment_checkup.get_info()
         self.assertIsInstance(appointment_checkup, dict)
+        self.assertIsInstance(appointment_checkup["patient"], str)
+        self.assertEqual(appointment_checkup["patient"], "gudrun1")
         doctor = appointment_checkup["staff"][0].get_staff_member()
         self.assertEqual(len(appointment_checkup["staff"]), 1)
         self.assertEqual(doctor["ssn"], "1010661399")
@@ -112,8 +116,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_checkup["duration"], 60)
         self.assertEqual(appointment_checkup["treatment"], "Checkup")
         self.assertEqual(appointment_checkup["description"], "")
-        self.assertEquals(self.appointment_checkup.check_appointments("1010661399"), True)
-        self.assertEquals(self.appointment_checkup.check_appointments("2202002020"), False)
+        self.assertEqual(self.appointment_checkup.check_appointments("1010661399"), True)
+        self.assertEqual(self.appointment_checkup.check_appointments("2202002020"), False)
 
 
     # tear down method - is run after each test case

@@ -13,7 +13,7 @@ TREATMENTS = {
 
 class Appointment:
     """This class keeps track of appointments."""
-    def __init__(self, patient:Patient, list_of_staff:list, date:list, time:str, duration:int, treatment=None, description=None) -> None:
+    def __init__(self, patient:str, list_of_staff:list, date:list, time:str, duration:int, treatment=None, description=None) -> None:
         if treatment == None:
             treatment = TREATMENTS[1]
         else:
@@ -40,6 +40,6 @@ class Appointment:
     def check_appointments(self, staff_ssn) -> bool:
         """Returns a boolean value on wether a certain staff member is assigned to an appointment"""
         for staff in self.staff_involved:
-            if staff.get_ssn() == staff_ssn:
+            if staff.get_staff() == staff_ssn:
                 return True
         return False
