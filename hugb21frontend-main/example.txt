@@ -1,20 +1,20 @@
-1. Reading all patients
+PATIENTS
 
+1. Reading all patients
 Frontend request:
-{"op":"readAll_patient", "data": {}}`
+{"op":"readAll_patient", "data": {}}
 
 Backend response:
 {"msg": [{"name": "Patient 1", "email": "patient1@email.com", "note": "Dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}, {"name": "patient 2", "email": "patient2@email.com", "note": "this is a dummy note", "username": "patient2", "doctor_id": "null", "nurse_id": null}]}
 
 2. Creating a patient
-
 Frontend request: 
 {"op":"create_patient", "data": {"name":"Grischa","note":"","email":"grischa@grischa.de","username":"grischa"}}
 
-Backend response: {{"name":"Grischa","note":"","email":"grischa@grischa.de","username":"grischa", "doctor_id": null, "nurse_id": null}
+Backend response: 
+{{"name":"Grischa","note":"","email":"grischa@grischa.de","username":"grischa", "doctor_id": null, "nurse_id": null}
 
 3. Updating a patient
-
 Frontend request: 
 {"op":"update_patient", "data":{"name":"Edited name","email": "patient1@email.com", "note": "this is a dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}}
 
@@ -22,8 +22,91 @@ Backend response:
 {"msg": {"name":"Edited name","email": "patient1@email.com", "note": "this is a dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}}
 
 4. Deleting a patient
-
 Frontend request: 
 {"op":"delete_patient", "data": {"username": "patient1"}}
 
-Backend response: {"msg": {"name": "Patient 1", "email": "patient1@email.com", "note": "Dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}}
+Backend response: 
+{"msg": {"name": "Patient 1", "email": "patient1@email.com", "note": "Dummy note", "username": "patient1", "doctor_id": "null", "nurse_id": "null"}}
+
+5. Reading a single patient
+Frontend request:
+{"op":"read_patient", "data": {"username": "patient2"}}
+
+Backend response:
+{"msg": {"name": "patient 2", "email": "patient2@email.com", "note": "this is a dummy note 2", "username": "patient2", "doctor_id": "john.smith", "nurse_id": null}}
+
+
+DOCTORS
+
+1. Reading all doctors
+Frontend request:
+{"op":"readAll_doctor", "data": {}}
+
+Backend response:
+{"msg": [{"name": "Alice doe", "email": "alice.doe@email.com", "note": "head of department", "username": "alice.doe", "department": "Infectious Diseases"}, {"name": "Unnamed assitant doc", "email": "assistant@email.com", "note": "Has no responsibilities", "username": "assistant", "department": "Cardiology"}]}
+
+2. Creating a doctor
+Frontend request:
+{"op":"create_doctor", "data": {"name":"New doc","note":" ","email":"newdoc@gmail.com","username":"newdoc"}}
+
+Backend response: 
+{"name": "New doc", "email": "newdoc@gmail.com", "note": " ", "username": "newdoc", "department": null}
+
+3. Updating a doctor
+Frontend request: 
+{"op":"update_doctor", "data": {"name":"New doc","email":"newdoc@gmail.com","note":"Moved departments.","username":"newdoc","department":"Internal medicine"}}
+
+Backend response: 
+{"msg": {"name": "New doc", "email": "newdoc@gmail.com", "note": "Moved departments.", "username": "newdoc", "department": "Internal medicine"}}
+
+4. Deleting a doctor
+Frontend request:
+{"op":"delete_doctor", "data": {"username": "newdoc"}}
+
+Backend response: 
+{"msg": {"name": "New doc", "email": "newdoc@gmail.com", "note": "Moved departments.", "username": "newdoc", "department": "Internal medicine"}}
+
+5. Reading a single doctor
+Frontend request:
+{"op":"read_doctor", "data": {"username": "second.doctor"}}
+
+Backend response:
+{"msg": {"name": "Second doctor", "email": "second.doctor@email.com", "note": "this is a dummy note asdfasdfasdf", "username": "second.doctor", "department": "Cardiology"}}
+
+
+NURSES
+
+1. Reading all nurses
+Frontend request:
+{"op":"readAll_nurse", "data": {}}
+
+Backend response:
+{"msg": [{"name": "jane doe", "email": "jane.doe@email.com", "note": "this is a dummy note", "username": "jane.doe"}, {"name": "peter pan", "email": "peter.pan@email.com", "note": " ", "username": "peter.pan"}]}
+
+2. Creating a nurse
+Frontend request: 
+{"op":"create_nurse", "data": {"name":"Jon Jónsson","note":"Jon is awesome","email":"jon1687@siminn.is","username":"jon1687"}}
+
+Backend response: 
+{"name": "Jon J\u00f3nsson", "email": "jon1687@siminn.is", "note": "Jon is awesome", "username": "jon1687"}
+
+3. Updating a nurse
+Frontend request: 
+{"op":"update_nurse", "data": {"name":"Jon Jonsson","email":"jon1687@siminn.is","note":"Jon is awesome","username":"jon1687"}}
+
+Backend response: 
+{"msg": {"name": "Jon Jonsson", "email": "jon1687@siminn.is", "note": "Jon is awesome", "username": "jon1687"}}
+
+4. Deleting a nurse
+Frontend request:
+{"op":"delete_nurse", "data": {"username": "jon1687"}}
+
+Backend response: 
+{"msg": {"name": "Jon Jonsson", "email": "jon1687@siminn.is", "note": "Jon is awesome", "username": "jon1687"}}
+
+5. Reading a single nurse
+Frontend request:
+{"op":"read_nurse", "data": {"username": "john.smith"}}
+
+Backend response:
+{"msg": {"name": "john smith", "email": "john.smith@email.com", "note": "this is a dummy note", "username": "john.smith"}}
