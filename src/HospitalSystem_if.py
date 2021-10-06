@@ -60,3 +60,11 @@ class HospitalsystemInterface:
     def create_staff(self, data):     
         return_msg = self.wrapper.create_staff(data)
         return return_msg
+
+    # here comes doctors and nurses
+
+    def readAll_doctor(self, data):
+        return self.wrapper.get_doctors_list()
+    
+    def readAll_nurse(self, data):
+        return self.wrapper.get_nurses_list()

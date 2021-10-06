@@ -12,6 +12,8 @@ class Wrapper:
         self.__staff = self.__data.get_staff()  #
         self.__appointments = self.__data.get_appointments()
         self.__prescriptions = self.__data.get_prescriptions()
+        self.__doctors = self.__data.get_doctors()
+        self.__nurses = self.__data.get_nurses()
 
     def update_patient(self, data):
         '''Updates information about an existing patient.'''
@@ -241,3 +243,21 @@ class Wrapper:
             index += 1
         else:
             return '{"msg":"No staff member with this ssn"}'
+
+
+    def get_doctors_list(self):
+        message = {}
+        doc_list = []
+        for doctor in self.__doctors:
+            doc_list.append(doctor.get_info())
+        message["msg"] = doc_list
+        return json.dumps(message)
+
+    def get_nurses_list(self):
+        message = {}
+        nurse_list = []
+        for nurse in self.__nurses:
+            nurse_list.append(nurse.get_info())
+        message["msg"] = nurse_list
+        return json.dumps(message)
+
