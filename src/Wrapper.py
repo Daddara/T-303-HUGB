@@ -245,7 +245,10 @@ class Wrapper:
             return '{"msg":"No staff member with this ssn"}'
 
 
+    # doctor methods
+
     def get_doctors_list(self):
+        """returns list of all nurses"""
         message = {}
         doc_list = []
         for doctor in self.__doctors:
@@ -253,11 +256,44 @@ class Wrapper:
         message["msg"] = doc_list
         return json.dumps(message)
 
+    def get_doctor(self, data):
+        """returns doctor if it is listed in the system"""
+        try:
+            message = {}
+            for doctor in self.__doctors:
+                print(doctor.get_username())
+                print(data["username"])
+                if doctor.get_username() == data["username"]:
+                    new_doctor = doctor.get_info()
+                    message["msg"] = new_doctor
+                    return json.dumps(message)     
+            return '{"msg": "No Doctor Info"}'        
+        except:
+            return '{"msg": No Doctor Info"}'
+
+
+
+    # nurse methods
+
     def get_nurses_list(self):
+        """returns list of all nurses"""
         message = {}
         nurse_list = []
         for nurse in self.__nurses:
             nurse_list.append(nurse.get_info())
         message["msg"] = nurse_list
         return json.dumps(message)
+
+    def get_nurse(self, data):
+        """Prints out nurse if it is listed in the system"""
+        try:
+            message = {}
+            for nurse in self.__nurses:
+                if nurse.get_username() == data["username"]:
+                    new_nurse = nurse.get_info()
+                    message["msg"] = new_nurse
+                    return json.dumps(message)     
+            return '{"msg": "No nurse Info"}'        
+        except:
+            return '{"msg": No nurse Info"}'
 
