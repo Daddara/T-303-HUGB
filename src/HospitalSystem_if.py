@@ -68,6 +68,9 @@ class HospitalsystemInterface:
     
     def read_doctor(self, data):
         return self.wrapper.get_doctor(data)
+
+    def update_doctor (self, data):
+        return self.wrapper.update_doctor(data)
     
     # Nurses
 
@@ -76,3 +79,6 @@ class HospitalsystemInterface:
 
     def read_nurse(self, data):
         return self.wrapper.get_nurse(data)
+
+    def update_nurse (self, data):
+        return self.wrapper.update_nurse(data)
