@@ -7,6 +7,7 @@ from Classes.staff import Staff
 from Classes.patient import *
 from Wrapper import Wrapper
 from data import Data
+import json
 
 # You have to create a new class inheriting from unittest.TestCase
 # All methods in this class will be run by the unittest runner!
@@ -116,8 +117,26 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_checkup["duration"], 60)
         self.assertEqual(appointment_checkup["treatment"], "Checkup")
         self.assertEqual(appointment_checkup["description"], "")
-        self.assertEqual(self.appointment_checkup.check_appointments("1010661399"), True)
-        self.assertEqual(self.appointment_checkup.check_appointments("2202002020"), False)
+        self.assertEquals(self.appointment_checkup.check_appointments("1010661399"), True)
+        self.assertEquals(self.appointment_checkup.check_appointments("2202002020"), False)
+    
+    def test_wrapper_appointments_success(self):
+
+        #create appointment and try to fetch it and assert equal.
+        wrapper = Wrapper()
+        #creating appointment
+        app_data = data = '{"patient_username": "icehot", "staff": ["0909691399"], "date": "[12, 9, 2022]", "time": "09:00", "duration": "30", "treatment": "checkup", "description": "testing purposes"}'
+        create_app_message = wrapper.assign_treatment(app_data)
+        create_app_message = json.loads(create_app_message)
+
+
+
+        data = '{"staff_ssn": "0909691399"}'
+        message = wrapper.get_appointments(data)
+        message = json.loads(message)
+
+        self.assertEqual(create_app_message["msg"], message["msg"][0])
+        
 
 
     # tear down method - is run after each test case

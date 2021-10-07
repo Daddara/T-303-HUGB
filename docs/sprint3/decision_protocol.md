@@ -50,6 +50,14 @@ Attending: Arnar, Daníel, Hörður, Ingunn, Rúnar, Tryggvi
 
 The group decided to get together on sunday at time 15:30-16:00 to finish this sprint. The group fixed some git merge conflicts.
 
+_____________________
 
+Meeting 6 (03.10.2021)
+time 15:30
+scrum master: Daníel
+secretary: Hörður
+Attending: Arnar, Daníel, Hörður, Ingunn, Rúnar, Tryggvi
+
+The group finished the sprint together and decided to meet next on Wednesday.
 
 
