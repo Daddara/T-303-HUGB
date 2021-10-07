@@ -1,12 +1,14 @@
 # Interface Description Hospital Frontend #
 
 ## Version ##
-Current version: s3\_1\_0
+Current version: s4\_2\_0
 
-Date: 19th September 2021
+Date: 1st October 2021
 
 ## Change log ##
 - s3\_1\_0: Initial version, Sprint 3.
+- s4\_2\_0: Sprint 4 version. Added doctors and nurses, and option to change doctor when updating patients. Readme, examples, and interface files have been updated accordingly.
+- s4\_2\_1: Added the individual read methods that were forgotten before (`read_patient`, `read_doctor`, `read_nurse`).
 
 ## Protocol ##
 The frontend communicates in a client-server fashion with the backend, where the frontend is the client. That means the backend only answers, and never sends messages independently to the frontend.
@@ -29,8 +31,21 @@ The following operations are currently supported. Note that the data model is de
 | ----------- | ----------- | ----------- | ----------- |
 | **readAll_patient** | None | [Patient] | Returns an array of all existing patients in the system. If no patient exists, an empty array is returned. |
 | **create_patient** | name:String, note:String, email:String, username:String | Patient | Creates a patient with the provided parameters. The username has to be unique. If successful, returns the created patient object. `doctor_id` and `nurse_id` are expected to be **null** on creation. |
-| **update_patient** | name:String, note:String, email:String, username:String, doctor\_id: String, nurse\_id: String | Patient | Updates the patient with the provided username according to the provided parameters. If successful, returns the updated patient object. Currently, the frontend always provides null values for `doctor_id` and `nurse_id`.|
+| **update_patient** | name:String, note:String, email:String, username:String, doctor\_id: String, nurse\_id: String | Patient | Updates the patient with the provided username according to the provided parameters. If successful, returns the updated patient object. Currently, the frontend always provides a null value for `nurse_id`.|
 | **delete_patient** | username:String | Patient | Deletes the patient with the provided username. If successful, returns the deleted patient object. |
+| **read_patient** | username:String | Patient | Returns the patient with the provided username. Returns an error if the patient does not exist. |
+| ----------- | ----------- | ----------- | ----------- |
+| **readAll_doctor** | None | [Doctor] | Returns an array of all existing doctors in the system. If no doctor exists, an empty array is returned. |
+| **create_doctor** | name:String, note:String, email:String, username:String | Doctor | Creates a doctor with the provided parameters. The username has to be unique. If successful, returns the created doctor object. The department is expected to be null on creation. |
+| **update_doctor** | name:String, note:String, email:String, username:String, department: String | Doctor | Updates the doctor with the provided username according to the provided parameters. If successful, returns the updated patient object. |
+| **delete_doctor** | username:String | Doctor | Deletes the doctor with the provided username. If successful, returns the deleted doctor object. |
+| **read_doctor** | username:String | Doctor | Returns the doctor with the provided username. Returns an error if the doctor does not exist. |
+| ----------- | ----------- | ----------- | ----------- |
+| **readAll_nurse** | None | [Nurse] | Returns an array of all existing nurses in the system. If no nurse exists, an empty array is returned. |
+| **create_nurse** | name:String, note:String, email:String, username:String | Nurse | Creates a nurse with the provided parameters. The username has to be unique. If successful, returns the created nurse object. |
+| **update_nurse** | name:String, note:String, email:String, username:String, doctor\_id: String, nurse\_id: String | Nurse | Updates the nurse with the provided username according to the provided parameters. If successful, returns the updated nurse object. |
+| **delete_nurse** | username:String | Nurse | Deletes the nurse with the provided username. If successful, returns the deleted nurse object. |
+| **read_nurse** | username:String | Nurse | Returns the nurse with the provided username. Returns an error if the nurse does not exist. |
 
 ## Data Model ##
 The following data model is used for the return parameters. Please make sure to use the exact naming described below.
@@ -45,7 +60,27 @@ The following data model is used for the return parameters. Please make sure to 
 - nurse_id: string
 
 Describes a patient. The username is derived in the frontend by using the part of the email before the `@` symbol (or the entire email, if no `@` is present).
-The `doctor_id` and `nurse_id` are currently unused and are expected to be **null**.
+The `nurse_id` is currently unused and is expected to be **null**.
+
+### Doctor: ###
+
+- username: string **(unique)**
+- name: string
+- email: string
+- note: string
+- department: string
+
+Describes a doctor. The username is derived in the frontend by using the part of the email before the `@` symbol (or the entire email, if no `@` is present).
+The `department` is **null** when creating a new doctor and is not supplied in the `create_doctor` method.
+
+### Nurse: ###
+
+- username: string **(unique)**
+- name: string
+- email: string
+- note: string
+
+Describes a nurse. The username is derived in the frontend by using the part of the email before the `@` symbol (or the entire email, if no `@` is present).
 
 ## Running the Frontend ##
 The frontend is provided only as a built web application, without the clear-text source code. You execute the frontend by opening the `build/index.html` file in a browser (we tested Firefox and Chrome, but others should work).
