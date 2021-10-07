@@ -168,10 +168,11 @@ class Wrapper:
     def delete_patient(self,data):
         
         """Deletes a patient with a particular ssn"""
-        x = json.loads(data)
+        # x = json.loads(data)
+        # print(data)
         index = 0
         for patient in self.__patients:
-            if( x["patient_id"] == patient.get_patient_id()):
+            if( data["username"] == patient.get_patient_id()):
                 return_msg = patient.get_patient()
                 self.__patients.pop(index)
                 return json.dumps(return_msg)
