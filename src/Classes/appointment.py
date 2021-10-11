@@ -43,3 +43,9 @@ class Appointment:
             if staff.get_staff() == staff_ssn:
                 return True
         return False
+
+    def check_doctor(self, username) -> bool:
+        for doctor in self.staff_involved:
+            if doctor.get_username() == username:
+                return True
+        return False

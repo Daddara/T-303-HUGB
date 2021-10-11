@@ -30,6 +30,16 @@ async def get_patient_appointments():
     data = json.dumps({"staff_ssn":staff_ssn})
     return await send_msg("get_patient_appointments", data)
 
+async def get_appointments_at_date():
+    """Returns all appointments that a doctor has for a specific period"""
+    doctor_username = input("Enter username for a doctor: ")
+    first_date = input("Enter from date on the format DD MM YY, separated by space: ")
+    first_date.split(" ")
+    second_date = input("Enter to date on the format DD MM YY, separated by space: ")
+    second_date.split(" ")
+    data = json.dumps({"doctor": doctor_username, "from_date": first_date, "to_date": second_date})
+    return await send_msg("get_appointments_at_date", data)
+
 
 async def delete_patient():
     """Deletes a specific patient"""

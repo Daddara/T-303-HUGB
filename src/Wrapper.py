@@ -230,6 +230,75 @@ class Wrapper:
         else:
             return '{"msg":"Missing arguments: staff_ssn"}'
 
+    def get_appointments_at_date(self, data):
+        data = json.loads(data)
+
+        doctor_found = False
+        for doctor in self.__doctors:
+            if doctor.get_username() == data["doctor"]:
+                doctor_found = True
+        
+        if doctor_found == False:
+            return '{"msg" : "No doctor has this username"}'
+
+        from_date = data["from_date"]
+        if len(from_date) != 3:
+            return '{"msg" : "From date not of valid format"}'
+
+        to_date = data["to_date"]
+        if len(to_date) != 3:
+            return '{"msg" : "From date not of valid format"}'
+
+        try:
+            int(from_date[0])
+            int(from_date[1])
+            int(from_date[2])
+            int(to_date[0])
+            int(to_date[1])
+            int(to_date[2])
+        except:
+            return '{"msg" : "Please write date on integer format"}'
+        
+        id_counter = 1
+        appointments_list = []
+        message = {}
+        for appoint in self.__appointments:
+            appoint_dict = appoint.get_info()
+            date = appoint_dict["date"]
+            if appoint_dict["staff_involved"][0].get_username() != data["doctor"]:
+                continue
+
+            if (date[2] > from_date[3]) and (date[2] < to_date):
+                #Year within limit
+                appointments_list.append(appoint)
+                continue
+            elif (date[2] < from_date[3]) or (date[2] > to_date):
+                #Year not within limit
+                continue
+            else:
+                if (date[1] > from_date[1]) and (date[1] < to_date):
+                    #month witin limit
+                    appointments_list.append(appoint)
+                    continue
+                elif (date[1] < from_date[1]) or (date[1] > to_date):
+                    #Month not within limit
+                    continue
+                else: 
+                    if (date[0] > from_date[0]) and (date[0] < to_date):
+                        #day within limit
+                        appointments_list.append(appoint)
+                        continue
+                    elif (date[0] < from_date[0]) or (date[0] > to_date):
+                        #day within limit
+                        continue
+                    else:
+                        continue
+ 
+        if len(appointments_list) != 0:
+            message["msg"] = appointments_list
+            return json.dumps(message)
+        else:
+            return '{"msg":"No appointments"}'
 
     def delete_staff_member(self,data):
         the_data = json.loads(data)
