@@ -31,6 +31,6 @@ Meeting 3 (12.10.2021)
 
 Time 10:00
 
-Attending: Arnar, Daníel, Hörður, Ingunn, Rúnar, Tryggvi
+Attending: All members attending
 
 Went over what each member has done of their tasks. We have been comunicating with the group that we are supposed to review, but have not received any emails from the group that is supposed to review us. 
