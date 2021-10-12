@@ -268,27 +268,27 @@ class Wrapper:
             if appoint_dict["staff_involved"][0].get_username() != data["doctor"]:
                 continue
 
-            if (date[2] > from_date[3]) and (date[2] < to_date):
+            if (int(date[2]) > int(from_date[2])) and (int(date[2]) < int(to_date[2])):
                 #Year within limit
                 appointments_list.append(appoint)
                 continue
-            elif (date[2] < from_date[3]) or (date[2] > to_date):
+            elif (int(date[2]) < int(from_date[2])) or (int(date[2]) > int(to_date[1])):
                 #Year not within limit
                 continue
             else:
-                if (date[1] > from_date[1]) and (date[1] < to_date):
+                if (int(date[1]) > int(from_date[1])) and (int(date[1]) < int(to_date[1])):
                     #month witin limit
                     appointments_list.append(appoint)
                     continue
-                elif (date[1] < from_date[1]) or (date[1] > to_date):
+                elif (int(date[1]) < int(from_date[1])) or (int(date[1]) > int(to_date[1])):
                     #Month not within limit
                     continue
                 else: 
-                    if (date[0] > from_date[0]) and (date[0] < to_date):
+                    if (int(date[0]) > int(from_date[0])) and (int(date[0]) < int(to_date[0])):
                         #day within limit
                         appointments_list.append(appoint)
                         continue
-                    elif (date[0] < from_date[0]) or (date[0] > to_date):
+                    elif (int(date[0]) < int(from_date[0])) or (int(date[0]) > int(to_date[0])):
                         #day within limit
                         continue
                     else:
