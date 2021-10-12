@@ -24,3 +24,13 @@ Attending: All members attending
 
 Went over the distribution of tasks. Discussed how we would change all the wrapper functions that use the Staff class to make them use the Doctor or Nurse class. We will first change the staff class to call the doctor or nurse class, instead of deleting the staff class, in order to prevent errors. Later we will remove the staff class all together.
 Next meeting planned for thursday at 10:00.
+
+_____________________
+
+Meeting 3 (12.10.2021)
+
+Time 10:00
+
+Attending: Arnar, Daníel, Hörður, Ingunn, Rúnar, Tryggvi
+
+Went over what each member has done of their tasks. We have been comunicating with the group that we are supposed to review, but have not received any emails from the group that is supposed to review us. 
