@@ -19,3 +19,6 @@ class Doctor:
     
     def get_username(self):
         return self.__username
+
+    def get_email(self):
+        return self.__email

@@ -67,6 +67,18 @@ async def create_patient():
     data = json.dumps(message)
     return await send_msg("create_patient", message)
 
+async def create_doctor():
+    """Creates a new doctor"""
+    doctor_name = input("Please enter the patients full name: ")
+    doctor_email = input("Please enter the patients current email: ")
+    doctor_username = ""
+    data = {"name": doctor_name, "note": "", "email": doctor_email, "username": doctor_username
+    }
+    message = {"data": data}
+    data = json.dumps(message)
+    return await send_msg("create_doctor", message)
+
+
 
 async def get_patient_list():
     """Lists all patients"""
