@@ -34,3 +34,14 @@ Time 10:00
 Attending: All members attending
 
 Went over what each member has done of their tasks. We have been comunicating with the group that we are supposed to review, but have not received any emails from the group that is supposed to review us. 
+
+_____________________
+
+Meeting 4 (13.10.2021)
+
+Time 10:20
+
+Attending: All members attending
+
+Discussed how we are going to divide the review parts between us. Decided that we will have a doc file where we can see what and how other members in our team have reviewed what code, in order to prevent going over the same code, and keeping the style and methods the same between members.
+Next meeting 14.10.2021 at 14:20.
