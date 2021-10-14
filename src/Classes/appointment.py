@@ -49,3 +49,6 @@ class Appointment:
             if doctor.get_username() == username:
                 return True
         return False
+
+    def get_date(self) -> list:
+        return self.date

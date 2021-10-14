@@ -240,6 +240,8 @@ class Wrapper:
         
         if doctor_found == False:
             return '{"msg" : "No doctor has this username"}'
+        
+        print("Doctor found")
 
         from_date = data["from_date"]
         if len(from_date) != 3:
@@ -258,42 +260,49 @@ class Wrapper:
             int(to_date[2])
         except:
             return '{"msg" : "Please write date on integer format"}'
+
+        print("Dates OK")
         
-        id_counter = 1
         appointments_list = []
         message = {}
         for appoint in self.__appointments:
+            print("for entered")
             appoint_dict = appoint.get_info()
-            date = appoint_dict["date"]
-            if appoint_dict["staff_involved"][0].get_username() != data["doctor"]:
+            doctor = appoint_dict["staff"][0]
+            if doctor != data["doctor"]:
+                print("doctor in appointment")
                 continue
+            
+            date = appoint.get_date()
 
             if (int(date[2]) > int(from_date[2])) and (int(date[2]) < int(to_date[2])):
                 #Year within limit
-                appointments_list.append(appoint)
+                appointments_list.append(appoint_dict)
                 continue
-            elif (int(date[2]) < int(from_date[2])) or (int(date[2]) > int(to_date[1])):
+
+            elif (int(date[2]) < int(from_date[2])) or (int(date[2]) > int(to_date[2])):
                 #Year not within limit
                 continue
             else:
+                # Check month
                 if (int(date[1]) > int(from_date[1])) and (int(date[1]) < int(to_date[1])):
                     #month witin limit
-                    appointments_list.append(appoint)
+                    appointments_list.append(appoint_dict)
                     continue
                 elif (int(date[1]) < int(from_date[1])) or (int(date[1]) > int(to_date[1])):
                     #Month not within limit
                     continue
                 else: 
-                    if (int(date[0]) > int(from_date[0])) and (int(date[0]) < int(to_date[0])):
+                    if (int(date[0]) >= int(from_date[0])) and (int(date[0]) <= int(to_date[0])):
                         #day within limit
-                        appointments_list.append(appoint)
+                        appointments_list.append(appoint_dict)
                         continue
                     elif (int(date[0]) < int(from_date[0])) or (int(date[0]) > int(to_date[0])):
-                        #day within limit
+                        #day not within limit
                         continue
                     else:
                         continue
- 
+        print(appointments_list)
         if len(appointments_list) != 0:
             message["msg"] = appointments_list
             return json.dumps(message)
