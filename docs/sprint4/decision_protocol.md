@@ -45,3 +45,14 @@ Attending: All members attending
 
 Discussed how we are going to divide the review parts between us. Decided that we will have a doc file where we can see what and how other members in our team have reviewed what code, in order to prevent going over the same code, and keeping the style and methods the same between members.
 Next meeting 14.10.2021 at 14:20.
+
+
+_____________________
+
+Meeting 5 (14.10.2021)
+
+Time 14:20
+
+Attending: Arnar, Daníel, Hörður, Ingunn, Rúnar, Tryggvi
+
+Discussed how the other teams code was put up, so we all understood how it works. Discussed where we were located in out own tasks. No major decisions made. Next and hopefully final sprint meeting set up for Sunday at 16:00.
