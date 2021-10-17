@@ -44,7 +44,7 @@ class TestStationMethods(unittest.TestCase):
         # get appointments for arnaa
         self.assertEqual(wrapper.get_appointments('{"username": "arnaa"}'), '{"msg": [{"patient": "icehot", "staff": ["arnaa"], "date": [10, 8, 2022], "time": "13:00", "duration": 60, "treatment": "Surgery", "description": "Surgery on shoulder"}, {"patient": "icehot", "staff": ["arnaa"], "date": [12, 9, 2022], "time": "09:00", "duration": 30, "treatment": "Checkup", "description": ""}, {"patient": "icehot", "staff": ["arnaa"], "date": [12, 9, 2022], "time": "19:00", "duration": 30, "treatment": "Checkup", "description": ""}]}')
 
-        # get appointments for jojo from 2.2.2020 - 28.2.2020
+        # get appointments for jojo from 2.2.2020 - 28.2.2020 and 3.2.2020 - 4.2.2020
         self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["2","2","2020"], "to_date":["28","2","2020"]}'), '{"msg": [{"patient": "gudrun1", "staff": ["jojo"], "date": [2, 2, 2020], "time": "8:00", "duration": 60, "treatment": "Checkup", "description": ""}]}')
         self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["3","2","2020"], "to_date":["4","2","2020"]}'), '{"msg":"No appointments"}')
 
