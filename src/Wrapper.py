@@ -100,6 +100,19 @@ class Wrapper:
             duration = int(data["duration"])
         except:
             return '{"Duration must be a number (minutes)"}'
+        
+        # See if the time is valid
+        try:
+            time = data["time"].split(":")
+            hour = int(time[0])
+            minute = int(time[1])
+        except:
+            return '{"Time not of valid format"}'
+
+        if hour < 0 or hour > 24:
+            return '{"Time not valid. Hour needs to be between 00 - 24"}'
+        if minute < 0 or minute > 59:
+            return '{"Time not valid. Minutes need to be between 00 - 59"}'
 
         # See if date is valid
         date = data["date"]

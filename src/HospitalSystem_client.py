@@ -123,6 +123,7 @@ async def delete_staff_member():
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
 ## If this file is run, the user can test the functionalities that have been implemented
+## These are only the functions that are not covered by the frontend
 
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
