@@ -83,9 +83,8 @@ async def get_patient_list():
     return await send_msg("get_patient_list", '{"doctor_id":"" }')
 
 
-###Arnar
-
 async def create_staff():
+    """Creates a new staff member"""
     staff_name = input("Please enter the staff member full name: ")
     staff_ssn = input("Please enter the staff member SSN: ")
     staff_address = input("Please enter the staff member address: ")
@@ -96,9 +95,6 @@ async def create_staff():
     message = {"data": data}
     data = json.dumps(message)
     return await send_msg("create_staff", message)
-
-
-#####
 
 
 async def assign_treatment():
@@ -129,7 +125,7 @@ async def delete_staff_member():
 
 
 
-## If the file is run, the user can test the functionalities that have been implemented
+## If this file is run, the user can test the functionalities that have been implemented
 
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
