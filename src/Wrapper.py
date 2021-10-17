@@ -1,5 +1,6 @@
 import json
 from Classes.appointment import Appointment
+from Classes.doctor import Doctor
 from Classes.prescription import Prescription
 from data import Data
 from Classes.patient import Patient
@@ -152,12 +153,54 @@ class Wrapper:
                 self.__patients.append(new_patient)
                 new_patient = new_patient.get_patient()
                 message["msg"] = new_patient
+                print(message)
                 return json.dumps(message)
             else:
                 return '{ "msg": "Not a valid email or email in use." }'
         except:
             return  '{ "msg": "Creating this patient was unsuccessful, please try again." }'
         
+
+    def create_doctor(self, data):
+        """Takes a json object and turns into a dictionary that is then passed
+            to create a Patient object with the data. Returns a json value"""
+        
+        try:
+            message = {}
+            # data = json.loads(data)
+            print(data)
+            # p_data = data["data"]
+            # print(p_data)
+            d_split = data["email"].split("@")
+            
+            # if "@" not in p_split:
+            #     return '{ "msg": "Please enter a valid email" }'
+            # d_username = d_split[0]
+            emails = []
+            for doctor in self.__doctors:
+                email = doctor.get_email()
+                email_username = email.split("@")
+                emails.append(email_username[0])
+
+            print(emails)
+            # if p_username == "":
+            #     return '{ "msg": "Please enter a valid email" }'
+            if str(data["username"]) not in emails:
+                print("INSIDE")
+                new_doctor = Doctor(str(data["username"]), str(data["name"]), str(data["email"]), str(data["note"]), "")
+                print(new_doctor)
+                self.__doctors.append(new_doctor)
+                new_doctor = new_doctor.get_info()
+                print(new_doctor)
+                message["msg"] = new_doctor
+                print(message)
+                return json.dumps(message)
+            else:
+                return '{ "msg": "Not a valid email or email in use." }'
+        except:
+            return  '{ "msg": "Creating this doctor was unsuccessful, please try again." }'
+    
+
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
         try:
