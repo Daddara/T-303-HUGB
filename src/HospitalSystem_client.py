@@ -21,7 +21,7 @@ async def get_patient_info():
         request = input("Please input patient username: ")
         return await send_msg("get_patient_info", request)
     except:
-        return {"msg":"Enter a proper SSN"}
+        return {"msg":"Please enter a valid patient username."}
 
 
 async def get_patient_appointments():
@@ -69,8 +69,8 @@ async def create_patient():
 
 async def create_doctor():
     """Creates a new doctor"""
-    doctor_name = input("Please enter the patients full name: ")
-    doctor_email = input("Please enter the patients current email: ")
+    doctor_name = input("Please enter the doctors full name: ")
+    doctor_email = input("Please enter the doctors current email: ")
     doctor_username = ""
     data = {"name": doctor_name, "note": "", "email": doctor_email, "username": doctor_username
     }
