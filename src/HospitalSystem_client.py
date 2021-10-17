@@ -26,8 +26,8 @@ async def get_patient_info():
 
 async def get_patient_appointments():
     """Returns appointments which a specific staff member is assigned to"""
-    staff_ssn = input("Enter staff member's social security number(ssn): ")
-    data = json.dumps({"staff_ssn":staff_ssn})
+    username = input("Enter a doctor's username: ")
+    data = json.dumps({"username":username})
     return await send_msg("get_patient_appointments", data)
 
 async def get_appointments_at_date():
@@ -122,24 +122,18 @@ async def delete_staff_member():
     }
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
-
-
-
 ## If this file is run, the user can test the functionalities that have been implemented
 
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
     print("\t\tWelcome to the Hospital System\n")
     menu = "\n\
-            Enter 1 to create a new patient for the system\n\
-            Enter 2 to get a patients info\n\
-            Enter 3 to list all appointments for a doctor\n\
-            Enter 4 to assign a treatment to a patient \n\
-            Enter 5 to send a prescription to a patient\n\
-            Enter 6 to delete a patient\n\
-            Enter 7 to delete a staff member\n\
-            Enter 8 to add a staff member\n\
-            Enter 9 to list all appointments a doctor has for a certain time period\n\
+            Enter 1 to list all appointments for a doctor\n\
+            Enter 2 to assign a treatment to a patient \n\
+            Enter 3 to send a prescription to a patient\n\
+            Enter 4 to delete a staff member\n\
+            Enter 5 to add a staff member\n\
+            Enter 6 to list all appointments a doctor has for a certain time period\n\
             Enter q to quit\n\
             "
     while True:
@@ -148,22 +142,16 @@ if __name__ == "__main__":
         if user_input == "q" or user_input == "Q":
             break
         elif user_input == "1":
-            print(asyncio.run(create_patient()))
-        elif user_input == "2":
-            print(asyncio.run(get_patient_info()))
-        elif user_input == "3":
             print(asyncio.run(get_patient_appointments()))
-        elif user_input == "4":
+        elif user_input == "2":
             print(asyncio.run(assign_treatment()))
-        elif user_input == "5":
+        elif user_input == "3":
             print(asyncio.run(send_presription()))
-        elif user_input == "6":
-            print(asyncio.run(delete_patient()))
-        elif user_input == "7":
+        elif user_input == "4":
             print(asyncio.run(delete_staff_member()))
-        elif user_input == "8":
+        elif user_input == "5":
             print(asyncio.run(create_staff()))
-        elif user_input == "9":
+        elif user_input == "6":
             print(asyncio.run(get_appointments_at_date()))
         else:
             print("Please enter a valid number")

@@ -209,19 +209,16 @@ class Wrapper:
     
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
-        if "staff_ssn" in data:
+        if "username" in data:
             try:
                 data = json.loads(data)
                 id_counter = 1
                 appointments_list = []
                 message = {}
                 for appoint in self.__appointments:
-                    if appoint.check_appointments(str(data["staff_ssn"])):
+                    if appoint.check_doctor(data["username"]):
                         x = appoint.get_info()
                         # iterate over patients
-                        
-                        #change the staff object list to number of staff assigned
-                        x["staff"] = len(x["staff"])
                         appointments_list.append(x)
                         id_counter += 1
 
