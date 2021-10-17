@@ -73,7 +73,7 @@ async def get_patient_list():
     return await send_msg("get_patient_list", '{"doctor_id":"" }')
 
 
-###Arnar
+
 
 async def create_staff():
     staff_name = input("Please enter the staff member full name: ")
@@ -87,8 +87,20 @@ async def create_staff():
     data = json.dumps(message)
     return await send_msg("create_staff", message)
 
+async def create_nurse():
+    """Creates a new nurse"""
+    nurse_name = input("Please enter full name: ")
+    nurse_email = input("Please enter email: ")
+    nurse_note = ""
+    nurse_note = input("Please enter any nurse's notes: ")
+    nurse_username = ""
+    data = {"username": nurse_username, "name": nurse_name, "email": nurse_email,
+     "note": nurse_note}
+    message = {"data": data}
+    data = json.dumps(message)
+    return await send_msg("create_nurse", message)
 
-#####
+
 
 
 async def assign_treatment():

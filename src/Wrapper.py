@@ -4,6 +4,7 @@ from Classes.prescription import Prescription
 from data import Data
 from Classes.patient import Patient
 from Classes.staff import Staff
+from Classes.nurse import Nurse
 
 class Wrapper:
     def __init__(self):
@@ -201,6 +202,40 @@ class Wrapper:
             return json.dumps(message)
         except:
             return  '{"msg": "Creating this staff member was unsuccessful, please try again." }'
+    
+    ## ARNAR  
+    """creates a Nurse"""
+    def create_nurse(self, data):
+
+        try:
+            message = {}
+            nurse_data = data
+            n_split = nurse_data["email"].split("@")
+            #print("n_split:", n_split)
+            emails = []
+            for nurse in self.__nurses:
+                email = nurse.get_nurse_email()
+                email_username = email.split("@")
+                emails.append(email_username[0])
+            
+            #print("emails: ", emails)
+            
+            if str(nurse_data["username"]) not in emails and len(n_split) == 2 and n_split[1] != "" :
+                #print("if working")
+                new_nurse = Nurse(str(nurse_data["username"]), str(nurse_data["name"]), str(nurse_data["email"]), str(nurse_data["note"]))
+                print(new_nurse)
+                self.__nurses.append(new_nurse)
+                new_nurse = new_nurse.get_info()
+                message["msg"] = new_nurse
+                return json.dumps(message)
+            else:
+                #print("not working email")
+                return '{ "msg": "Not a valid email or email in use." }'
+        except:
+            #print("not working")
+            return  '{"msg": "Creating this nurse was unsuccessful, please try again." }'
+        
+    ##
     
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
