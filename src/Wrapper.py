@@ -340,3 +340,18 @@ class Wrapper:
         except:
             return '{"msg": No nurse Info"}'
 
+    def delete_doctor(self,data):
+        """Deletes a doctor with a particular ssn"""
+        the_data = json.loads(data)
+        # testing
+        index = 0
+        for doctor in self.__staff:
+            if (the_data["doctor_ssn"] == doctor.get_doctors()):
+                return_msg = doctor.get_doctors()
+                self.__doctors.pop(index)
+                return json.dumps(return_msg)
+            index += 1
+        else:
+            return '{"msg":"No doctor with this ssn"}'
+
+
