@@ -15,6 +15,9 @@ class Nurse:
         }
         return nurse_info_dict
     
+    def get_nurse_email(self):
+        return self.__email
+    
     def get_username(self):
         return self.__username
     

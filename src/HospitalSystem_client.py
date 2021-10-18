@@ -21,19 +21,29 @@ async def get_patient_info():
         request = input("Please input patient username: ")
         return await send_msg("get_patient_info", request)
     except:
-        return {"msg":"Enter a proper SSN"}
+        return {"msg":"Please enter a valid patient username."}
 
 
 async def get_patient_appointments():
     """Returns appointments which a specific staff member is assigned to"""
-    staff_ssn = input("Enter your social security number(ssn): ")
-    data = json.dumps({"staff_ssn":staff_ssn})
+    username = input("Enter a doctor's username: ")
+    data = json.dumps({"username":username})
     return await send_msg("get_patient_appointments", data)
+
+async def get_appointments_at_date():
+    """Returns all appointments that a doctor has for a specific period"""
+    doctor_username = input("Enter username for a doctor: ")
+    first_date = input("Enter from date on the format DD MM YYYY, separated by space: ")
+    first_date = first_date.split(" ")
+    second_date = input("Enter to date on the format DD MM YYYY, separated by space: ")
+    second_date = second_date.split(" ")
+    data = json.dumps({"doctor": doctor_username, "from_date": first_date, "to_date": second_date})
+    return await send_msg("get_appointments_at_date", data)
 
 
 async def delete_patient():
     """Deletes a specific patient"""
-    request = input("Please input patient id: ")
+    request = input("Please input patient username: ")
     patient_dict = {
         "patient_id": request,
     }
@@ -67,15 +77,28 @@ async def create_patient():
     data = json.dumps(message)
     return await send_msg("create_patient", message)
 
+async def create_doctor():
+    """Creates a new doctor"""
+    doctor_name = input("Please enter the doctors full name: ")
+    doctor_email = input("Please enter the doctors current email: ")
+    doctor_username = ""
+    data = {"name": doctor_name, "note": "", "email": doctor_email, "username": doctor_username
+    }
+    message = {"data": data}
+    data = json.dumps(message)
+    return await send_msg("create_doctor", message)
+
+
 
 async def get_patient_list():
     """Lists all patients"""
     return await send_msg("get_patient_list", '{"doctor_id":"" }')
 
 
-###Arnar
+
 
 async def create_staff():
+    """Creates a new staff member"""
     staff_name = input("Please enter the staff member full name: ")
     staff_ssn = input("Please enter the staff member SSN: ")
     staff_address = input("Please enter the staff member address: ")
@@ -87,24 +110,36 @@ async def create_staff():
     data = json.dumps(message)
     return await send_msg("create_staff", message)
 
+async def create_nurse():
+    """Creates a new nurse"""
+    nurse_name = input("Please enter full name: ")
+    nurse_email = input("Please enter email: ")
+    nurse_note = ""
+    nurse_note = input("Please enter any nurse's notes: ")
+    nurse_username = ""
+    data = {"username": nurse_username, "name": nurse_name, "email": nurse_email,
+     "note": nurse_note}
+    message = {"data": data}
+    data = json.dumps(message)
+    return await send_msg("create_nurse", message)
 
-#####
+
 
 
 async def assign_treatment():
     """Assigns a patient to an appointment"""
     patient_username = input("Please enter the username of an existing patient: ")
-    list_of_staff_ssn = input("Please enter the social security number of the overseer/doctor of the appointment: ")
-    list_of_staff_ssn = list_of_staff_ssn.split(" ")
-    print(list_of_staff_ssn)
+    doctor = input("Please enter the username of the overseer/doctor of the appointment: ")
+    list_of_staff = [] 
+    list_of_staff.append(doctor)
     date = input("Please enter the date of the appointment. Write it in the format 'DD MM YYYY': ")
     date = date.split(" ")
     time = input("Please enter the set time of the appointment. Enter in format '00:00' : ")
     duration = input("Please enter the estimated duration of the appointment in minutes: ")
-    print("Here are the available treatments:\n 1: Checkup\n2: Surgery\n3: Catscan\n4: x-rays\n5: Bloodworks")
+    print("Here are the available treatments:\n1: Checkup\n2: Surgery\n3: Catscan\n4: x-rays\n5: Bloodworks")
     treatment = input("Please enter the number of the treatment for the appointment: ")
     description = input("Please enter the descpription of the appointment if there is one, otherwise press enter: ")
-    data = {"patient_username": patient_username, "staff": list_of_staff_ssn, "date": date, "time": time, "duration": duration, "treatment":treatment, "description": description}
+    data = {"patient_username": patient_username, "staff": list_of_staff, "date": date, "time": time, "duration": duration, "treatment":treatment, "description": description}
     data = json.dumps(data)
     return await send_msg("assign_treatment", data)
 
@@ -116,19 +151,19 @@ async def delete_staff_member():
     }
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
+## If this file is run, the user can test the functionalities that have been implemented
+## These are only the functions that are not covered by the frontend
 
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
     print("\t\tWelcome to the Hospital System\n")
     menu = "\n\
-            Enter 1 to create a new patient for the system\n\
-            Enter 2 to get a patients info\n\
-            Enter 3 to list all appointments for a doctor\n\
-            Enter 4 to assign a treatment to a patient \n\
-            Enter 5 to send a prescription to a patient\n\
-            Enter 6 to delete a patient\n\
-            Enter 7 to delete a staff member\n\
-            Enter 8 to add a staff member\n\
+            Enter 1 to list all appointments for a doctor\n\
+            Enter 2 to assign a treatment to a patient \n\
+            Enter 3 to send a prescription to a patient\n\
+            Enter 4 to delete a staff member\n\
+            Enter 5 to add a staff member\n\
+            Enter 6 to list all appointments a doctor has for a certain time period\n\
             Enter q to quit\n\
             "
     while True:
@@ -137,26 +172,17 @@ if __name__ == "__main__":
         if user_input == "q" or user_input == "Q":
             break
         elif user_input == "1":
-            print(asyncio.run(create_patient()))
-        elif user_input == "2":
-            print(asyncio.run(get_patient_info()))
-        elif user_input == "3":
             print(asyncio.run(get_patient_appointments()))
-        elif user_input == "4":
+        elif user_input == "2":
             print(asyncio.run(assign_treatment()))
-        elif user_input == "5":
+        elif user_input == "3":
             print(asyncio.run(send_presription()))
-        elif user_input == "6":
-            print(asyncio.run(delete_patient()))
-        elif user_input == "7":
+        elif user_input == "4":
             print(asyncio.run(delete_staff_member()))
-        elif user_input == "8":
+        elif user_input == "5":
             print(asyncio.run(create_staff()))
+        elif user_input == "6":
+            print(asyncio.run(get_appointments_at_date()))
         else:
             print("Please enter a valid number")
     
-    
-    
-    
-    # print(asyncio.run( assign_treatment()))
-    # print(asyncio.run(get_patient_list()))

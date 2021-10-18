@@ -43,3 +43,5 @@ class Doctor:
         "department": self.__department
         }
         return doctor_dict
+    def get_email(self):
+        return self.__email

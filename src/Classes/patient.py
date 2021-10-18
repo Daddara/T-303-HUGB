@@ -19,12 +19,13 @@ class Patient:
     """Returns the name of a patient"""
     return self.__p_name
 
-  def update_patient(self, username, name, email, note):
+  def update_patient(self, username, name, email, note, doctor_id):
     """Updates a patient and returns his info as a dictionary"""
     self.__p_username = username
     self.__p_name = name
     self.p_email = email
     self.__p_note = note
+    self.p_doctor_id = doctor_id
     return self.get_patient()
 
 
