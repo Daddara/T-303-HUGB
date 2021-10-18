@@ -1,10 +1,11 @@
 import json
-from Classes.appointment import Appointment
-from Classes.doctor import Doctor
-from Classes.prescription import Prescription
+
+from appointment import Appointment
+from doctor import Doctor
+from prescription import Prescription
 from data import Data
-from Classes.patient import Patient
-from Classes.staff import Staff
+from patient import Patient
+from staff import Staff
 
 class Wrapper:
     def __init__(self):
@@ -313,6 +314,20 @@ class Wrapper:
             return '{"msg": "No Doctor Info"}'        
         except:
             return '{"msg": No Doctor Info"}'
+    
+    def delete_doctor(self,data):
+        """Deletes a doctor with a particular ssn"""
+        the_data = json.loads(data)
+        # testing
+        index = 0
+        for doctor in self.__staff:
+            if (the_data["doctor_ssn"] == doctor.get_doctors()):
+                return_msg = doctor.get_doctors()
+                self.__doctors.pop(index)
+                return json.dumps(return_msg)
+            index += 1
+        else:
+            return '{"msg":"No doctor with this ssn"}'
 
 
 
@@ -340,18 +355,5 @@ class Wrapper:
         except:
             return '{"msg": No nurse Info"}'
 
-    def delete_doctor(self,data):
-        """Deletes a doctor with a particular ssn"""
-        the_data = json.loads(data)
-        # testing
-        index = 0
-        for doctor in self.__staff:
-            if (the_data["doctor_ssn"] == doctor.get_doctors()):
-                return_msg = doctor.get_doctors()
-                self.__doctors.pop(index)
-                return json.dumps(return_msg)
-            index += 1
-        else:
-            return '{"msg":"No doctor with this ssn"}'
 
 
