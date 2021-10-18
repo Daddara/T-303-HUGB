@@ -14,6 +14,7 @@ TREATMENTS = {
 class Appointment:
     """This class keeps track of appointments."""
     def __init__(self, patient:str, list_of_staff:list, date:list, time:str, duration:int, treatment=None, description=None) -> None:
+        # If a treatment is not declared it is automatically a checkup
         if treatment == None:
             treatment = TREATMENTS[1]
         else:
@@ -43,3 +44,12 @@ class Appointment:
             if staff.get_staff() == staff_ssn:
                 return True
         return False
+
+    def check_doctor(self, username) -> bool:
+        for doctor in self.staff_involved:
+            if doctor == username:
+                return True
+        return False
+
+    def get_date(self) -> list:
+        return self.date
