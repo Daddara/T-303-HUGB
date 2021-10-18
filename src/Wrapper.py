@@ -288,10 +288,13 @@ class Wrapper:
                             new_username = data["email"].split("@")
                             print(str(new_username))
                             if new_username[1] != '':
+                                print("1")
                                 emails.remove(doctor.get_username())
                                 if new_username[0] not in emails:
+                                    print("2")
                                     updated_doctor = doctor.update_doctor(new_username[0], data["name"], data["email"], data["note"], data["department"])
                                 else:
+                                    print("3")
                                     updated_doctor = doctor.update_doctor(doctor.get_username(), data["name"], doctor.get_doctor_email(), data["note"], data["department"])
                             else:
                                 print("Now here!!")
@@ -350,10 +353,15 @@ class Wrapper:
                             new_username = data["email"].split("@")
                             print(str(new_username))
                             if new_username[1] != '':
+                                print(str(emails))
+                                print(nurse.get_username())
                                 emails.remove(nurse.get_username())
+                                print("1")
                                 if new_username[0] not in emails:
+                                    print("2")
                                     updated_nurse = nurse.update_nurse(new_username[0], data["name"], data["email"], data["note"])
                                 else:
+                                    print("3")
                                     updated_nurse = nurse.update_nurse(nurse.get_username(), data["name"], nurse.get_nurse_email(), data["note"])
                             else:
                                 print("Now here!!")
