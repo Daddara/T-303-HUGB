@@ -49,6 +49,11 @@ async def delete_patient():
     }
     return await send_msg("delete_patient", json.dumps(patient_dict))
 
+async def delete_nurse():
+    username = input("Nurse's username: ")
+    nurse_dict = {"username": username}
+    return await send_msg("delete_nurse", json.dumps(nurse_dict))
+
 async def send_presription ():
     """Creates a prescription"""
     try:
@@ -88,14 +93,9 @@ async def create_doctor():
     data = json.dumps(message)
     return await send_msg("create_doctor", message)
 
-
-
 async def get_patient_list():
     """Lists all patients"""
     return await send_msg("get_patient_list", '{"doctor_id":"" }')
-
-
-
 
 async def create_staff():
     """Creates a new staff member"""
@@ -122,8 +122,6 @@ async def create_nurse():
     message = {"data": data}
     data = json.dumps(message)
     return await send_msg("create_nurse", message)
-
-
 
 
 async def assign_treatment():

@@ -445,3 +445,21 @@ class Wrapper:
         except:
             return '{"msg": No nurse Info"}'
 
+    
+    def delete_nurse(self, data):
+        """
+        Gets the username of a nurse to be deleted and deletes the nurse.
+        """
+        try:
+            counter = 0
+            for nurse in self.__nurses:
+                nurse_name = nurse.get_username()
+                if(data["username"] == nurse_name):
+                    return_message = nurse.get_info()
+                    self.__nurses.pop(counter)
+                    return json.dumps(return_message)
+            else:
+                return '{"msg": "There is no nurse with this username"}'
+        except:
+            return '{ "msg": "It was unsuccessful at deleting the nurse." }'
+
