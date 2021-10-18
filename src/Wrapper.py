@@ -392,7 +392,7 @@ class Wrapper:
         the_data = json.loads(data)
         index = 0
         for staff_member in self.__staff:
-            if the_data["staff_ssn"] == staff_member.get_staff():
+            if (the_data["staff_ssn"] == staff_member.get_staff()):
                 return_msg = staff_member.get_staff_member()
                 self.__staff.pop(index)
                 return json.dumps(return_msg)
@@ -422,7 +422,7 @@ class Wrapper:
             return '{"msg": "No Doctor Info"}'        
         except:
             return '{"msg": No Doctor Info"}'
-
+    
     def delete_doctor(self,data):
         """Deletes a doctor with a particular ssn"""
         the_data = json.loads(data)
@@ -458,6 +458,3 @@ class Wrapper:
             return '{"msg": "No nurse Info"}'        
         except:
             return '{"msg": No nurse Info"}'
-
-
-
