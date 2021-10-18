@@ -1,9 +1,9 @@
-from appointment import Appointment
-from prescription import Prescription
-from patient import Patient
-from staff import Staff
-from doctor import Doctor
-from nurse import Nurse
+from Classes.appointment import Appointment
+from Classes.prescription import Prescription
+from Classes.patient import Patient
+from Classes.staff import Staff
+from Classes.doctor import Doctor
+from Classes.nurse import Nurse
 
 
 prescriptions_list = [
