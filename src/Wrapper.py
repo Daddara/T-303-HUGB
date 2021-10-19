@@ -34,18 +34,11 @@ class Wrapper:
                         if "@" in data["email"]:
                             new_username = data["email"].split("@")
                             if new_username[1] != '':
-                                # print(emails)
                                 emails.remove(patient.get_patient_id())
-                                # print(emails)
-                                # print("22:" + new_username[0])
                                 if new_username[0] not in emails:
-                                    # print("1: " + data["doctor_id"])
                                     updated_patient = patient.update_patient(new_username[0], data["name"], data["email"], data["note"], data["doctor_id"])
-                                    # print(updated_patient)
                                 else:
-                                    # print("2: " + data["doctor_id"])
                                     updated_patient = patient.update_patient(patient.get_patient_id(), data["name"], patient.get_patient_email(), data["note"], data["doctor_id"])
-                                    # print(updated_patient)
                         json.dumps(message)
                 message["msg"] = updated_patient
                 return json.dumps(message)
@@ -538,3 +531,22 @@ class Wrapper:
                 return '{"msg": "username needed!"}'
         except:
             return  '{ "msg": "Updating this nurse was unsuccessful, please try again." }'
+    
+    def delete_nurse(self, data):
+        """
+        Gets the username of a nurse to be deleted and deletes the nurse.
+        """
+        try:
+            counter = 0
+            for nurse in self.__nurses:
+                nurse_name = nurse.get_username()
+                if(data["username"] == nurse_name):
+                    return_message = nurse.get_info()
+                    self.__nurses.pop(counter)
+                    return json.dumps(return_message)
+                counter += 1
+            else:
+                return '{"msg": "There is no nurse with this username"}'
+        except:
+            return '{ "msg": "It was unsuccessful at deleting the nurse." }'
+

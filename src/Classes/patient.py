@@ -36,7 +36,7 @@ class Patient:
       "name": self.__p_name,
       "email" : self.p_email,
       "note" : self.__p_note,
-      "doctorid" : self.p_doctor_id,
+      "doctor_id" : self.p_doctor_id,
       "nurseid" : self.p_nurse_id
     }
     return patient_dict

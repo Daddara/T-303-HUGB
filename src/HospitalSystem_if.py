@@ -78,6 +78,9 @@ class HospitalsystemInterface:
         return return_msg
     ##
 
+    def delete_nurse(self, data):
+        return self.wrapper.delete_nurse(data)
+
     # Doctors
 
     def readAll_doctor(self, data):
