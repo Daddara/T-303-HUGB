@@ -32,7 +32,7 @@ doctors = [
 # username: string, name: string, email: string, note: string
 nurses = [
     Nurse("hanna21", "Hanna Hannesardottir", "hanna21@simnet.is", "Great human"),
-    Nurse("GunGun", "Gunnar Gunnarsson", "GunGun21@gmail.com", "works slow")
+    Nurse("GunGun", "Gunnar Gunnarsson", "GunGun@gmail.com", "works slow")
 ]
 
 

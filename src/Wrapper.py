@@ -34,18 +34,18 @@ class Wrapper:
                         if "@" in data["email"]:
                             new_username = data["email"].split("@")
                             if new_username[1] != '':
-                                print(emails)
+                                # print(emails)
                                 emails.remove(patient.get_patient_id())
-                                print(emails)
-                                print("22:" + new_username[0])
+                                # print(emails)
+                                # print("22:" + new_username[0])
                                 if new_username[0] not in emails:
-                                    print("1: " + data["doctor_id"])
+                                    # print("1: " + data["doctor_id"])
                                     updated_patient = patient.update_patient(new_username[0], data["name"], data["email"], data["note"], data["doctor_id"])
-                                    print(updated_patient)
+                                    # print(updated_patient)
                                 else:
-                                    print("2: " + data["doctor_id"])
+                                    # print("2: " + data["doctor_id"])
                                     updated_patient = patient.update_patient(patient.get_patient_id(), data["name"], patient.get_patient_email(), data["note"], data["doctor_id"])
-                                    print(updated_patient)
+                                    # print(updated_patient)
                         json.dumps(message)
                 message["msg"] = updated_patient
                 return json.dumps(message)
