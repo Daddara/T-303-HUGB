@@ -21,6 +21,7 @@ class Wrapper:
         '''Updates information about an existing patient.'''
         try:
             if "username" in data:
+                print(data)
                 message = {}
                 emails = []
                 for patient in self.__patients:
@@ -35,9 +36,9 @@ class Wrapper:
                             if new_username[1] != '':
                                 emails.remove(patient.get_patient_id())
                                 if new_username[0] not in emails:
-                                    updated_patient = patient.update_patient(new_username[0], data["name"], data["email"], data["note"])
+                                    updated_patient = patient.update_patient(new_username[0], data["name"], data["email"], data["note"], data["doctor_id"])
                                 else:
-                                    updated_patient = patient.update_patient(patient.get_patient_id(), data["name"], patient.get_patient_email(), data["note"])
+                                    updated_patient = patient.update_patient(patient.get_patient_id(), data["name"], patient.get_patient_email(), data["note"], data["doctor_id"])
                         json.dumps(message)
                 message["msg"] = updated_patient
                 return json.dumps(message)
@@ -68,6 +69,7 @@ class Wrapper:
         message = {}
         pat_list = []
         for patient in self.__patients:
+            # print(patient.get_patient())
             pat_list.append(patient.get_patient())
         message["msg"] = pat_list
         return json.dumps(message)
@@ -207,10 +209,12 @@ class Wrapper:
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
         try:
+            print(data)
             message = {}
             for patient in self.__patients:
                 if patient.get_patient_id() == data["username"]:
                     new_patient = patient.get_patient()
+                    print(new_patient)
                     message["msg"] = new_patient
                     return json.dumps(message)     
             return '{"msg": "No Patient Info"}'        
@@ -437,6 +441,49 @@ class Wrapper:
         else:
             return '{"msg":"No doctor with this ssn"}'
 
+    def update_doctor (self, data):
+        print(data)
+        try:
+            if "username" in data:
+                message = {}
+                emails = []
+                for doctor in self.__doctors:
+                    email = doctor.get_doctor_email()
+                    email_username = email.split("@")
+                    emails.append(email_username[0])
+                for doctor in self.__doctors:
+                    username = data["username"]
+                    if doctor.get_username() == username:
+                        if "@" in data["email"]:
+                            new_username = data["email"].split("@")
+                            print(str(new_username))
+                            if new_username[1] != '':
+                                print("1")
+                                emails.remove(doctor.get_username())
+                                if new_username[0] not in emails:
+                                    print("2")
+                                    updated_doctor = doctor.update_doctor(new_username[0], data["name"], data["email"], data["note"], data["department"])
+                                else:
+                                    print("3")
+                                    updated_doctor = doctor.update_doctor(doctor.get_username(), data["name"], doctor.get_doctor_email(), data["note"], data["department"])
+                            else:
+                                print("Now here!!")
+                        else:
+                            print("Here!")
+                        json.dumps(message)
+                message["msg"] = updated_doctor
+                return json.dumps(message)
+
+            else:
+                return '{"msg": "username needed!"}'
+        except:
+            return  '{ "msg": "Updating this doctor was unsuccessful, please try again." }'
+
+
+
+
+    # nurse methods
+
     def get_nurses_list(self):
         """returns list of all nurses"""
         message = {}
@@ -458,3 +505,65 @@ class Wrapper:
             return '{"msg": "No nurse Info"}'        
         except:
             return '{"msg": No nurse Info"}'
+<<<<<<< HEAD
+=======
+
+    def update_nurse(self, data):
+        print(data)
+        try:
+            if "username" in data:
+                message = {}
+                emails = []
+                for nurse in self.__nurses:
+                    email = nurse.get_nurse_email()
+                    email_username = email.split("@")
+                    emails.append(email_username[0])
+                for nurse in self.__nurses:
+                    username = data["username"]
+                    if nurse.get_username() == username:
+                        if "@" in data["email"]:
+                            new_username = data["email"].split("@")
+                            print(str(new_username))
+                            if new_username[1] != '':
+                                print(str(emails))
+                                print(nurse.get_username())
+                                emails.remove(nurse.get_username())
+                                print("1")
+                                if new_username[0] not in emails:
+                                    print("2")
+                                    updated_nurse = nurse.update_nurse(new_username[0], data["name"], data["email"], data["note"])
+                                else:
+                                    print("3")
+                                    updated_nurse = nurse.update_nurse(nurse.get_username(), data["name"], nurse.get_nurse_email(), data["note"])
+                            else:
+                                print("Now here!!")
+                        else:
+                            print("Here!")
+                        json.dumps(message)
+                message["msg"] = updated_nurse
+                return json.dumps(message)
+
+            else:
+                return '{"msg": "username needed!"}'
+        except:
+            return  '{ "msg": "Updating this nurse was unsuccessful, please try again." }'
+    
+    def delete_nurse(self, data):
+        """
+        Gets the username of a nurse to be deleted and deletes the nurse.
+        """
+        try:
+            counter = 0
+            for nurse in self.__nurses:
+                nurse_name = nurse.get_username()
+                if(data["username"] == nurse_name):
+                    return_message = nurse.get_info()
+                    self.__nurses.pop(counter)
+                    return json.dumps(return_message)
+                counter += 1
+            else:
+                return '{"msg": "There is no nurse with this username"}'
+        except:
+            return '{ "msg": "It was unsuccessful at deleting the nurse." }'
+
+>>>>>>> 677e4f571714d8d020801430a785f8aa1c285341
