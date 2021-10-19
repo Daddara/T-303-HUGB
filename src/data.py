@@ -32,14 +32,18 @@ doctors = [
 # username: string, name: string, email: string, note: string
 nurses = [
     Nurse("hanna21", "Hanna Hannesardottir", "hanna21@simnet.is", "Great human"),
-    Nurse("GunGun", "Gunnar Gunnarsson", "GunGun21@gmail.com", "works slow")
+    Nurse("GunGun", "Gunnar Gunnarsson", "GunGun@gmail.com", "works slow")
 ]
 
 
 appointments = [
-    Appointment("icehot", [staff_members[0], staff_members[3]], [10, 8, 2022], "13:00", 60, 2, "Surgery on shoulder"), 
-    Appointment("icehot", [staff_members[2]], [12, 9, 2022], "09:00", 30),
-    Appointment("icehot", [staff_members[0]], [12, 9, 2022], "19:00", 30)
+    Appointment("icehot", ["arnaa"], [10, 8, 2022], "13:00", 60, 2, "Surgery on shoulder"), 
+    Appointment("icehot", ["arnaa"], [12, 9, 2022], "09:00", 30),
+    Appointment("icehot", ["arnaa"], [12, 9, 2022], "19:00", 30),
+    Appointment("gudrun1", ["jojo"], [1, 1, 2020], "8:00", 60),
+    Appointment("gudrun1", ["jojo"], [2, 2, 2020], "8:00", 60),
+    Appointment("gudrun1", ["jojo"], [30, 2, 2020], "8:00", 60),
+    Appointment("gudrun1", ["jojo"], [3, 3, 2020], "8:00", 60)
     ]
 
 class Data():
