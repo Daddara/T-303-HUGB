@@ -30,18 +30,4 @@ class Doctor:
         self.__email = email
         self.__note = note
         self.__department = department
-        return self.get_doctor()
-
-
-    def get_doctor(self):
-        """Returns information about a patient in a dictionary"""
-        doctor_dict = {
-        "username": self.__username,
-        "name": self.__name,
-        "email" : self.__email,
-        "note" : self.__note,
-        "department": self.__department
-        }
-        return doctor_dict
-    def get_email(self):
-        return self.__email
+        return self.get_info()
