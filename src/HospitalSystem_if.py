@@ -71,6 +71,10 @@ class HospitalsystemInterface:
         """Creates a doctor"""
         return_msg = self.wrapper.create_doctor(data)
         return return_msg
+
+    def delete_doctor(self, data):
+        """deletes a doctor"""
+        return self.wrapper.delete_doctor(data)
     
     # Nurses
 

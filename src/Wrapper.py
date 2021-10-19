@@ -466,9 +466,6 @@ class Wrapper:
         except:
             return  '{ "msg": "Updating this doctor was unsuccessful, please try again." }'
 
-
-
-
     # nurse methods
 
     def get_nurses_list(self):
@@ -492,8 +489,6 @@ class Wrapper:
             return '{"msg": "No nurse Info"}'        
         except:
             return '{"msg": No nurse Info"}'
-<<<<<<< HEAD
-=======
 
     def update_nurse(self, data):
         try:
@@ -542,4 +537,3 @@ class Wrapper:
         except:
             return '{ "msg": "It was unsuccessful at deleting the nurse." }'
 
->>>>>>> 677e4f571714d8d020801430a785f8aa1c285341
