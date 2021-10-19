@@ -56,3 +56,25 @@ Time 14:20
 Attending: Arnar, Daníel, Hörður, Ingunn, Rúnar, Tryggvi
 
 Discussed how the other teams code was put up, so we all understood how it works. Discussed where we were located in out own tasks. No major decisions made. Next and hopefully final sprint meeting set up for Sunday at 16:00.
+
+_____________________
+
+Meeting 6 (17.10.2021)
+
+Time 16:00
+
+Attending: Arnar, Hörður, Ingunn, Lovísa, Rúnar, Tryggvi
+
+Went over each person's progress and worked together to get on the same page. Many members started their code review.
+
+_____________________
+
+Meeting 7 (19.10.2021)
+
+Time 9:00
+
+Attending: Arnar, Daníel, Hörður, Ingunn, Rúnar, Tryggvi
+
+Finished our code, merged everything to the back1 repository, and once it was working, merged that to master.
+
+
