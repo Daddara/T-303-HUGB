@@ -422,6 +422,20 @@ class Wrapper:
             return '{"msg": "No Doctor Info"}'        
         except:
             return '{"msg": No Doctor Info"}'
+    
+    def delete_doctor(self,data):
+        """Deletes a doctor with a particular ssn"""
+        #the_data = json.loads(data)
+        # testing
+        index = 0
+        for doctors in self.__doctors:
+            if data["username"] == doctors.get_username():
+                return_msg = doctors.get_info()
+                self.__doctors.pop(index)
+                return json.dumps(return_msg)
+            index += 1
+        else:
+            return '{"msg":"No doctor with this ssn"}'
 
     def update_doctor (self, data):
         try:
@@ -478,6 +492,8 @@ class Wrapper:
             return '{"msg": "No nurse Info"}'        
         except:
             return '{"msg": No nurse Info"}'
+<<<<<<< HEAD
+=======
 
     def update_nurse(self, data):
         try:
@@ -526,3 +542,4 @@ class Wrapper:
         except:
             return '{ "msg": "It was unsuccessful at deleting the nurse." }'
 
+>>>>>>> 677e4f571714d8d020801430a785f8aa1c285341
