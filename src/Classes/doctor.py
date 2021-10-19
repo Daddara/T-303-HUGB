@@ -20,5 +20,14 @@ class Doctor:
     def get_username(self):
         return self.__username
 
-    def get_email(self):
+    def get_doctor_email(self):
         return self.__email
+
+    def update_doctor(self, username, name, email, note, department):
+        """Updates a patient and returns his info as a dictionary"""
+        self.__username = username
+        self.__name = name
+        self.__email = email
+        self.__note = note
+        self.__department = department
+        return self.get_info()

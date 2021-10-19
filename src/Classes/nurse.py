@@ -20,3 +20,11 @@ class Nurse:
     
     def get_username(self):
         return self.__username
+
+    def update_nurse(self, username, name, email, note):
+        """Updates a patient and returns his info as a dictionary"""
+        self.__username = username
+        self.__name = name
+        self.__email = email
+        self.__note = note
+        return self.get_info()
