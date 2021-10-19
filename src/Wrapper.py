@@ -425,12 +425,12 @@ class Wrapper:
     
     def delete_doctor(self,data):
         """Deletes a doctor with a particular ssn"""
-        the_data = json.loads(data)
+        #the_data = json.loads(data)
         # testing
         index = 0
-        for doctor in self.__doctors:
-            if the_data["username"] == doctor.get_username():
-                return_msg = doctor.get_info()
+        for doctors in self.__doctors:
+            if data["username"] == doctors.get_username():
+                return_msg = doctors.get_info()
                 self.__doctors.pop(index)
                 return json.dumps(return_msg)
             index += 1
