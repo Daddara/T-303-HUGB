@@ -49,6 +49,11 @@ async def delete_patient():
     }
     return await send_msg("delete_patient", json.dumps(patient_dict))
 
+async def delete_nurse():
+    username = input("Nurse's username: ")
+    nurse_dict = {"username": username}
+    return await send_msg("delete_nurse", json.dumps(nurse_dict))
+
 async def send_presription ():
     """Creates a prescription"""
     try:
@@ -88,12 +93,9 @@ async def create_doctor():
     data = json.dumps(message)
     return await send_msg("create_doctor", message)
 
-
-
 async def get_patient_list():
     """Lists all patients"""
     return await send_msg("get_patient_list", '{"doctor_id":"" }')
-
 
 async def create_staff():
     """Creates a new staff member"""
@@ -107,6 +109,19 @@ async def create_staff():
     message = {"data": data}
     data = json.dumps(message)
     return await send_msg("create_staff", message)
+
+async def create_nurse():
+    """Creates a new nurse"""
+    nurse_name = input("Please enter full name: ")
+    nurse_email = input("Please enter email: ")
+    nurse_note = ""
+    nurse_note = input("Please enter any nurse's notes: ")
+    nurse_username = ""
+    data = {"username": nurse_username, "name": nurse_name, "email": nurse_email,
+     "note": nurse_note}
+    message = {"data": data}
+    data = json.dumps(message)
+    return await send_msg("create_nurse", message)
 
 
 async def assign_treatment():
@@ -135,6 +150,7 @@ async def delete_staff_member():
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
 ## If this file is run, the user can test the functionalities that have been implemented
+## These are only the functions that are not covered by the frontend
 
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.

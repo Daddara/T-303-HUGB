@@ -41,6 +41,12 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "0808701399"}'), '{"name": "Arna Arnadottir", "ssn": "0808701399", "address": "Hamraborg 30", "phone": "5991234", "title": "specialist"}')
         self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "2202002020"}'), '{"msg":"No staff member with this ssn"}')
 
+        # get appointments for arnaa
+        self.assertEqual(wrapper.get_appointments('{"username": "arnaa"}'), '{"msg": [{"patient": "icehot", "staff": ["arnaa"], "date": [10, 8, 2022], "time": "13:00", "duration": 60, "treatment": "Surgery", "description": "Surgery on shoulder"}, {"patient": "icehot", "staff": ["arnaa"], "date": [12, 9, 2022], "time": "09:00", "duration": 30, "treatment": "Checkup", "description": ""}, {"patient": "icehot", "staff": ["arnaa"], "date": [12, 9, 2022], "time": "19:00", "duration": 30, "treatment": "Checkup", "description": ""}]}')
+
+        # get appointments for jojo from 2.2.2020 - 28.2.2020 and 3.2.2020 - 4.2.2020
+        self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["2","2","2020"], "to_date":["28","2","2020"]}'), '{"msg": [{"patient": "gudrun1", "staff": ["jojo"], "date": [2, 2, 2020], "time": "8:00", "duration": 60, "treatment": "Checkup", "description": ""}]}')
+        self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["3","2","2020"], "to_date":["4","2","2020"]}'), '{"msg":"No appointments"}')
 
     def test_prescription_class(self):
         # First one needs to be change due to the difference in the patient class
@@ -64,6 +70,10 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(patient_one["note"], "")
         self.assertEqual(patient_one["doctorid"], "")
         self.assertEqual(patient_one["nurseid"], "")
+        self.assertEqual(self.patient.get_patient_name(), patient_one["name"])
+        self.assertEqual(self.patient.get_patient_records(), patient_one["note"])
+        self.assertEqual(self.patient.get_patient_id(), patient_one["username"])
+        self.assertEqual(self.patient.get_patient_email(), patient_one["email"])
 
         self.assertEqual(patient_two["username"], "gudrun1")
         self.assertEqual(patient_two["name"], "Gudrun Hognadottir")
@@ -71,6 +81,10 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(patient_two["note"], '{"Allergies": ["lactose", "nut", "latex"], "Surgeries": ["hip surgery", "brain surgery"]}')
         self.assertEqual(patient_two["doctorid"], "")
         self.assertEqual(patient_two["nurseid"], "")
+        self.assertEqual(self.patient_with_allergy.get_patient_name(), patient_two["name"])
+        self.assertEqual(self.patient_with_allergy.get_patient_records(), patient_two["note"])
+        self.assertEqual(self.patient_with_allergy.get_patient_id(), patient_two["username"])
+        self.assertEqual(self.patient_with_allergy.get_patient_email(), patient_two["email"])
 
 
 

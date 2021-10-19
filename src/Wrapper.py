@@ -5,6 +5,7 @@ from Classes.prescription import Prescription
 from data import Data
 from Classes.patient import Patient
 from Classes.staff import Staff
+from Classes.nurse import Nurse
 
 class Wrapper:
     def __init__(self):
@@ -101,6 +102,19 @@ class Wrapper:
             duration = int(data["duration"])
         except:
             return '{"Duration must be a number (minutes)"}'
+        
+        # See if the time is valid
+        try:
+            time = data["time"].split(":")
+            hour = int(time[0])
+            minute = int(time[1])
+        except:
+            return '{"Time not of valid format"}'
+
+        if hour < 0 or hour > 24:
+            return '{"Time not valid. Hour needs to be between 00 - 24"}'
+        if minute < 0 or minute > 59:
+            return '{"Time not valid. Minutes need to be between 00 - 59"}'
 
         # See if date is valid
         date = data["date"]
@@ -159,7 +173,6 @@ class Wrapper:
                 self.__patients.append(new_patient)
                 new_patient = new_patient.get_patient()
                 message["msg"] = new_patient
-                print(message)
                 return json.dumps(message)
             else:
                 return '{ "msg": "Not a valid email or email in use." }'
@@ -173,33 +186,17 @@ class Wrapper:
         
         try:
             message = {}
-            # data = json.loads(data)
-            print(data)
-            # p_data = data["data"]
-            # print(p_data)
             d_split = data["email"].split("@")
-            
-            # if "@" not in p_split:
-            #     return '{ "msg": "Please enter a valid email" }'
-            # d_username = d_split[0]
             emails = []
             for doctor in self.__doctors:
                 email = doctor.get_email()
                 email_username = email.split("@")
                 emails.append(email_username[0])
-
-            print(emails)
-            # if p_username == "":
-            #     return '{ "msg": "Please enter a valid email" }'
             if str(data["username"]) not in emails:
-                print("INSIDE")
                 new_doctor = Doctor(str(data["username"]), str(data["name"]), str(data["email"]), str(data["note"]), "")
-                print(new_doctor)
                 self.__doctors.append(new_doctor)
                 new_doctor = new_doctor.get_info()
-                print(new_doctor)
                 message["msg"] = new_doctor
-                print(message)
                 return json.dumps(message)
             else:
                 return '{ "msg": "Not a valid email or email in use." }'
@@ -249,6 +246,31 @@ class Wrapper:
             return json.dumps(message)
         except:
             return  '{"msg": "Creating this staff member was unsuccessful, please try again." }'
+    
+    """creates a Nurse"""
+    def create_nurse(self, data):
+
+        try:
+            message = {}
+            nurse_data = data
+            n_split = nurse_data["email"].split("@")
+            emails = []
+            for nurse in self.__nurses:
+                email = nurse.get_nurse_email()
+                email_username = email.split("@")
+                emails.append(email_username[0])
+            
+            if str(nurse_data["username"]) not in emails and len(n_split) == 2 and n_split[1] != "" :
+                new_nurse = Nurse(str(nurse_data["username"]), str(nurse_data["name"]), str(nurse_data["email"]), str(nurse_data["note"]))
+                self.__nurses.append(new_nurse)
+                new_nurse = new_nurse.get_info()
+                message["msg"] = new_nurse
+                return json.dumps(message)
+            else:
+                return '{ "msg": "Not a valid email or email in use." }'
+        except:
+            return  '{"msg": "Creating this nurse was unsuccessful, please try again." }'
+        
     
     def get_appointments(self, data):
         ''''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
@@ -422,4 +444,22 @@ class Wrapper:
             return '{"msg": "No nurse Info"}'        
         except:
             return '{"msg": No nurse Info"}'
+
+    
+    def delete_nurse(self, data):
+        """
+        Gets the username of a nurse to be deleted and deletes the nurse.
+        """
+        try:
+            counter = 0
+            for nurse in self.__nurses:
+                nurse_name = nurse.get_username()
+                if(data["username"] == nurse_name):
+                    return_message = nurse.get_info()
+                    self.__nurses.pop(counter)
+                    return json.dumps(return_message)
+            else:
+                return '{"msg": "There is no nurse with this username"}'
+        except:
+            return '{ "msg": "It was unsuccessful at deleting the nurse." }'
 
