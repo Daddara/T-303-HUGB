@@ -25,9 +25,7 @@ class Wrapper:
                 message = {}
                 emails = []
                 for patient in self.__patients:
-                    email = patient.get_patient_email()
-                    email_username = email.split("@")
-                    emails.append(email_username[0])
+                    emails.append(patient.get_patient_id())
                 for patient in self.__patients:
                     username = data["username"]
                     if patient.get_patient_id() == username:
@@ -439,10 +437,9 @@ class Wrapper:
                 return json.dumps(return_msg)
             index += 1
         else:
-            return '{"msg":"No doctor with this ssn"}'
+            return '{"msg":"No doctor with this ID"}'
 
     def update_doctor (self, data):
-        print(data)
         try:
             if "username" in data:
                 message = {}
@@ -458,18 +455,11 @@ class Wrapper:
                             new_username = data["email"].split("@")
                             print(str(new_username))
                             if new_username[1] != '':
-                                print("1")
                                 emails.remove(doctor.get_username())
                                 if new_username[0] not in emails:
-                                    print("2")
                                     updated_doctor = doctor.update_doctor(new_username[0], data["name"], data["email"], data["note"], data["department"])
                                 else:
-                                    print("3")
                                     updated_doctor = doctor.update_doctor(doctor.get_username(), data["name"], doctor.get_doctor_email(), data["note"], data["department"])
-                            else:
-                                print("Now here!!")
-                        else:
-                            print("Here!")
                         json.dumps(message)
                 message["msg"] = updated_doctor
                 return json.dumps(message)
@@ -505,11 +495,8 @@ class Wrapper:
             return '{"msg": "No nurse Info"}'        
         except:
             return '{"msg": No nurse Info"}'
-<<<<<<< HEAD
-=======
 
     def update_nurse(self, data):
-        print(data)
         try:
             if "username" in data:
                 message = {}
@@ -523,22 +510,12 @@ class Wrapper:
                     if nurse.get_username() == username:
                         if "@" in data["email"]:
                             new_username = data["email"].split("@")
-                            print(str(new_username))
                             if new_username[1] != '':
-                                print(str(emails))
-                                print(nurse.get_username())
                                 emails.remove(nurse.get_username())
-                                print("1")
                                 if new_username[0] not in emails:
-                                    print("2")
                                     updated_nurse = nurse.update_nurse(new_username[0], data["name"], data["email"], data["note"])
                                 else:
-                                    print("3")
                                     updated_nurse = nurse.update_nurse(nurse.get_username(), data["name"], nurse.get_nurse_email(), data["note"])
-                            else:
-                                print("Now here!!")
-                        else:
-                            print("Here!")
                         json.dumps(message)
                 message["msg"] = updated_nurse
                 return json.dumps(message)
@@ -566,4 +543,3 @@ class Wrapper:
         except:
             return '{ "msg": "It was unsuccessful at deleting the nurse." }'
 
->>>>>>> 677e4f571714d8d020801430a785f8aa1c285341

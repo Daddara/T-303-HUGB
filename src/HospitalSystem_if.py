@@ -92,6 +92,9 @@ class HospitalsystemInterface:
     def update_doctor (self, data):
         return self.wrapper.update_doctor(data)
     
+    def delete_doctor(self, data):
+        return self.wrapper.delete_doctor(data)
+
     # Nurses
 
     def readAll_nurse(self, data):
