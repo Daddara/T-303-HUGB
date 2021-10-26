@@ -2,7 +2,10 @@
 import asyncio
 import websockets
 import json
-from os import system, name
+import getpass
+from dotenv import load_dotenv
+import os
+from os import error, system, name
 
 from Classes.prescription import Prescription
 
@@ -151,6 +154,27 @@ async def delete_staff_member():
     }
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
+
+async def generate_report():
+    try:
+        count = 1
+        while count <= 3:
+            print("Please enter your credentials:")
+            admin_username = input("Username: ")
+            admin_password = getpass.getpass()
+            load_dotenv()
+            real_usrnm = os.environ.get('user')
+            real_pswd = os.environ.get('password')
+            if admin_username != real_usrnm or admin_password != real_pswd:
+                print("Wrong credentials entered")
+            else:
+                return await send_msg("generate_report", admin_username)
+            count += 1
+        print("Too many failed attempts")
+    except Exception as error:
+        print(error)
+    
+
 ## If this file is run, the user can test the functionalities that have been implemented
 ## These are only the functions that are not covered by the frontend
 
@@ -164,6 +188,7 @@ if __name__ == "__main__":
             Enter 4 to delete a staff member\n\
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
+            Enter 7 to generate a report as an administrator \n\
             Enter q to quit\n\
             "
     while True:
@@ -185,6 +210,8 @@ if __name__ == "__main__":
             print(asyncio.run(create_staff()))
         elif user_input == "6":
             print(asyncio.run(get_appointments_at_date()))
+        elif user_input == "7":
+            print(asyncio.run(generate_report()))
         else:
             print("Please enter a valid number")
     
