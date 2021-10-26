@@ -537,3 +537,21 @@ class Wrapper:
         except:
             return '{ "msg": "It was unsuccessful at deleting the nurse." }'
 
+
+    
+
+
+
+
+
+
+
+
+
+
+    def generate_report(self, data):
+        """
+        Generates a PDF report that list all doctors, nurses, and patients
+        """
+        return("You made it!")
+
