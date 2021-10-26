@@ -52,24 +52,19 @@ class Wrapper:
         the Apótekið or Heilsuver'''
         try:
             theData = json.loads(data)
-            print(theData)
             for patient in self.__patients:
-                print(patient)
                 if theData["patient_id"] == patient.get_patient_id():
                     if theData["medicine"] == "Ibufen" or theData["medicine"] == "Parkodín":
                         if theData["pharmecy"] == "Apótekið" or theData["pharmecy"] == "Heilsuver":
                             newPrescription = Prescription(theData["medicine"], theData["pharmecy"], theData["patient_id"])
                             self.__prescriptions.append(newPrescription)
                             return_msg = newPrescription.get_return_str()
-                            for pre in self.__prescriptions:
-                                print(pre)
                             return return_msg
                         else:
                             return '{"msg": "Not a valid pharmecy"}'
                     else: 
                         return '{"msg": "Not a valid medicine"}'
             else:
-                print(theData)
                 return '{"msg": "Not a valid person"}'
         except:
             return '{"msg": "Order Failed"}'

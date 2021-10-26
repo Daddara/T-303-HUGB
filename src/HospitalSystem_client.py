@@ -178,10 +178,7 @@ if __name__ == "__main__":
         elif user_input == "3":
             newPrescription = asyncio.run(send_presription())
             theData = json.loads(newPrescription)
-            print(newPrescription)
-            for data in theData:
-                print(theData)
-                print("The medicine: " + theData["medicine"] + ", the pharmecy: " + theData["pharmecy"] + ", the patient username: " + theData["patient_id"])
+            print("The medicine: " + theData["medicine"] + " has been sent to the pharmecy: " + theData["pharmecy"] + " for the patient: " + theData["patient_id"])
         elif user_input == "4":
             print(asyncio.run(delete_staff_member()))
         elif user_input == "5":
