@@ -25,14 +25,14 @@ async def get_patient_info():
 
 
 async def get_patient_appointments():
-    """Returns appointments which a specific staff member is assigned to"""
+    """Returns appointments which a specific doctor is assigned to"""
     username = input("Enter a doctor's username: ")
     data = json.dumps({"username":username})
     return await send_msg("get_patient_appointments", data)
 
 async def get_appointments_at_date():
     """Returns all appointments that a doctor has for a specific period"""
-    doctor_username = input("Enter username for a doctor: ")
+    doctor_username = input("Please enter username for a doctor: ")
     first_date = input("Enter from date on the format DD MM YYYY, separated by space: ")
     first_date = first_date.split(" ")
     second_date = input("Enter to date on the format DD MM YYYY, separated by space: ")
@@ -50,7 +50,7 @@ async def delete_patient():
     return await send_msg("delete_patient", json.dumps(patient_dict))
 
 async def delete_nurse():
-    username = input("Nurse's username: ")
+    username = input("Please input a nurse's username: ")
     nurse_dict = {"username": username}
     return await send_msg("delete_nurse", json.dumps(nurse_dict))
 
@@ -71,8 +71,8 @@ async def send_presription ():
 
 async def create_patient():
     """Creates a new patient"""
-    patient_name = input("Please enter the patients full name: ")
-    patient_email = input("Please enter the patients current email: ")
+    patient_name = input("Please enter the patient's full name: ")
+    patient_email = input("Please enter the patient's current email: ")
     patient_note = ""
     patient_note = input("Please enter any patient notes: ")
     patient_username = ""
@@ -84,8 +84,8 @@ async def create_patient():
 
 async def create_doctor():
     """Creates a new doctor"""
-    doctor_name = input("Please enter the doctors full name: ")
-    doctor_email = input("Please enter the doctors current email: ")
+    doctor_name = input("Please enter the doctor's full name: ")
+    doctor_email = input("Please enter the doctor's current email: ")
     doctor_username = ""
     data = {"name": doctor_name, "note": "", "email": doctor_email, "username": doctor_username
     }
@@ -100,7 +100,7 @@ async def get_patient_list():
 async def create_staff():
     """Creates a new staff member"""
     staff_name = input("Please enter the staff member full name: ")
-    staff_ssn = input("Please enter the staff member SSN: ")
+    staff_ssn = input("Please enter the staff member Social Security Number: ")
     staff_address = input("Please enter the staff member address: ")
     staff_phone = input("Please enter the staff member phone: ")
     staff_title = input("Please enter the staff member title: ")
@@ -156,9 +156,9 @@ if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
     print("\t\tWelcome to the Hospital System\n")
     menu = "\n\
-            Enter 1 to list all appointments for a doctor\n\
+            Enter 1 to list all appointments a doctor has\n\
             Enter 2 to assign a treatment to a patient \n\
-            Enter 3 to send a prescription to a patient\n\
+            Enter 3 to create a prescription for a patient\n\
             Enter 4 to delete a staff member\n\
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\

@@ -145,8 +145,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_surgery["duration"], 120)
         self.assertEqual(appointment_surgery["treatment"], "Surgery")
         self.assertEqual(appointment_surgery["description"], "Surgery on shoulder.")
-        self.assertEquals(self.appoinment_surgery.check_doctor("arnaa"), False)
-        self.assertEquals(self.appoinment_surgery.check_doctor("jojo"), True)
+        self.assertEqual(self.appoinment_surgery.check_doctor("arnaa"), False)
+        self.assertEqual(self.appoinment_surgery.check_doctor("jojo"), True)
 
         appointment_checkup = self.appointment_checkup.get_info()
         self.assertIsInstance(appointment_checkup, dict)
@@ -160,8 +160,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_checkup["duration"], 60)
         self.assertEqual(appointment_checkup["treatment"], "Checkup")
         self.assertEqual(appointment_checkup["description"], "")
-        self.assertEquals(self.appointment_checkup.check_doctor("arnaa"), True)
-        self.assertEquals(self.appointment_checkup.check_doctor("jojo"), False)
+        self.assertEqual(self.appointment_checkup.check_doctor("arnaa"), True)
+        self.assertEqual(self.appointment_checkup.check_doctor("jojo"), False)
     
 
     # tear down method - is run after each test case
