@@ -21,10 +21,9 @@ class Wrapper:
         '''Updates information about an existing patient.'''
         try:
             if "username" in data:
-                print(data)
                 message = {}
                 emails = []
-                for patient in self.__patients:
+                for patient in self.__patients: #This forloop is to get all existing emails to make sure that the emails are not repeated.
                     emails.append(patient.get_patient_id())
                 for patient in self.__patients:
                     username = data["username"]
@@ -48,16 +47,29 @@ class Wrapper:
 
     def send_presription(self, data):
         ''' This function takes in name of medicine and pharmecy along with the id of a patient.
-        The function uses it to send a prescription for the medicine to the pharmecy for the patient. '''
+        The function uses it to send a prescription for the medicine to the pharmecy for the patient. 
+        As of now, you can only prescribe existing patients with Ibufen or Parcodine, at either 
+        the Apótekið or Heilsuver'''
         try:
-            x = json.loads(data)
+            theData = json.loads(data)
+            print(theData)
             for patient in self.__patients:
-                if x["patient_id"] == patient.get_patient_id():
-                    newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
-                    self.__prescriptions.append(newPerscription)
-                    return_msg = newPerscription.get_return_str()
-                    return return_msg
+                print(patient)
+                if theData["patient_id"] == patient.get_patient_id():
+                    if theData["medicine"] == "Ibufen" or theData["medicine"] == "Parkodín":
+                        if theData["pharmecy"] == "Apótekið" or theData["pharmecy"] == "Heilsuver":
+                            newPrescription = Prescription(theData["medicine"], theData["pharmecy"], theData["patient_id"])
+                            self.__prescriptions.append(newPrescription)
+                            return_msg = newPrescription.get_return_str()
+                            for pre in self.__prescriptions:
+                                print(pre)
+                            return return_msg
+                        else:
+                            return '{"msg": "Not a valid pharmecy"}'
+                    else: 
+                        return '{"msg": "Not a valid medicine"}'
             else:
+                print(theData)
                 return '{"msg": "Not a valid person"}'
         except:
             return '{"msg": "Order Failed"}'
@@ -67,7 +79,6 @@ class Wrapper:
         message = {}
         pat_list = []
         for patient in self.__patients:
-            # print(patient.get_patient())
             pat_list.append(patient.get_patient())
         message["msg"] = pat_list
         return json.dumps(message)
@@ -86,7 +97,7 @@ class Wrapper:
         if patient_found == False:
             return '{"Patient with this username does not exist"}'
 
-        # See if the assigned staff members exist
+        # See if the assigned doctor exist
         staff_involved = []
         for doctor in self.__doctors:
             for doc_username in data["staff"]:
@@ -147,7 +158,7 @@ class Wrapper:
             new_appointment = Appointment(appointment_patient, staff_involved, data["date"], data["time"], duration, treatment, data["description"])
             self.__appointments.append(new_appointment)
             new_appointment = new_appointment.get_info()
-            new_appointment["staff"] = len(new_appointment["staff"]) #T breytti
+            new_appointment["staff"] = len(new_appointment["staff"])
             message = {}
             message["msg"] = new_appointment
             return json.dumps(message)
@@ -189,7 +200,7 @@ class Wrapper:
             d_split = data["email"].split("@")
             emails = []
             for doctor in self.__doctors:
-                email = doctor.get_email()
+                email = doctor.get_doctor_email()
                 email_username = email.split("@")
                 emails.append(email_username[0])
             if str(data["username"]) not in emails:
@@ -207,12 +218,10 @@ class Wrapper:
     def get_patient_info(self, data):
         "Prints out patient if it is listed in the system"
         try:
-            print(data)
             message = {}
             for patient in self.__patients:
                 if patient.get_patient_id() == data["username"]:
                     new_patient = patient.get_patient()
-                    print(new_patient)
                     message["msg"] = new_patient
                     return json.dumps(message)     
             return '{"msg": "No Patient Info"}'        
@@ -249,9 +258,8 @@ class Wrapper:
         except:
             return  '{"msg": "Creating this staff member was unsuccessful, please try again." }'
     
-    """creates a Nurse"""
     def create_nurse(self, data):
-
+        """creates a Nurse"""
         try:
             message = {}
             nurse_data = data
@@ -445,16 +453,13 @@ class Wrapper:
                 message = {}
                 emails = []
                 for doctor in self.__doctors:
-                    email = doctor.get_doctor_email()
-                    email_username = email.split("@")
-                    emails.append(email_username[0])
+                    emails.append(doctor.get_username())
                 for doctor in self.__doctors:
                     username = data["username"]
                     if doctor.get_username() == username:
                         if "@" in data["email"]:
                             new_username = data["email"].split("@")
-                            print(str(new_username))
-                            if new_username[1] != '':
+                            if new_username[1] != '':    
                                 emails.remove(doctor.get_username())
                                 if new_username[0] not in emails:
                                     updated_doctor = doctor.update_doctor(new_username[0], data["name"], data["email"], data["note"], data["department"])
@@ -468,9 +473,6 @@ class Wrapper:
                 return '{"msg": "username needed!"}'
         except:
             return  '{ "msg": "Updating this doctor was unsuccessful, please try again." }'
-
-
-
 
     # nurse methods
 
@@ -502,9 +504,7 @@ class Wrapper:
                 message = {}
                 emails = []
                 for nurse in self.__nurses:
-                    email = nurse.get_nurse_email()
-                    email_username = email.split("@")
-                    emails.append(email_username[0])
+                    emails.append(nurse.get_username())
                 for nurse in self.__nurses:
                     username = data["username"]
                     if nurse.get_username() == username:

@@ -4,6 +4,8 @@ import websockets
 import json
 from os import system, name
 
+from Classes.prescription import Prescription
+
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
     uri = "ws://127.0.0.1:8888"
@@ -57,7 +59,7 @@ async def delete_nurse():
 async def send_presription ():
     """Creates a prescription"""
     try:
-        request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")
+        request = input("Please input medicine name, pharmecy name and patient id with space inbetween words: ")
         data = request.split()
         json_data = {
                 "medicine": data[0],
@@ -174,7 +176,12 @@ if __name__ == "__main__":
         elif user_input == "2":
             print(asyncio.run(assign_treatment()))
         elif user_input == "3":
-            print(asyncio.run(send_presription()))
+            newPrescription = asyncio.run(send_presription())
+            theData = json.loads(newPrescription)
+            print(newPrescription)
+            for data in theData:
+                print(theData)
+                print("The medicine: " + theData["medicine"] + ", the pharmecy: " + theData["pharmecy"] + ", the patient username: " + theData["patient_id"])
         elif user_input == "4":
             print(asyncio.run(delete_staff_member()))
         elif user_input == "5":
