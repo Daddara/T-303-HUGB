@@ -6,6 +6,7 @@ import getpass
 from dotenv import load_dotenv
 import os
 from os import error, system, name
+from passlib.context import CryptContext
 
 from Classes.prescription import Prescription
 
@@ -157,18 +158,27 @@ async def delete_staff_member():
 
 async def generate_report():
     try:
+        context = CryptContext(
+        schemes=["pbkdf2_sha256"],
+        default="pbkdf2_sha256",
+        pbkdf2_sha256__default_rounds=50000
+)
         count = 1
         while count <= 3:
             print("Please enter your credentials:")
             admin_username = input("Username: ")
             admin_password = getpass.getpass()
-            load_dotenv()
-            real_usrnm = os.environ.get('user')
-            real_pswd = os.environ.get('password')
-            if admin_username != real_usrnm or admin_password != real_pswd:
-                print("Wrong credentials entered")
-            else:
+            # adm1 = context.hash("admin")
+            # adm2 = context.hash("admin")
+            # print(adm1 + adm2)
+            f = open('data.json',)
+            data = json.load(f)
+            adm1 = data["username"]
+            adm2 = data["password"]
+            if context.verify(admin_username, adm1) and context.verify(admin_password, adm2):
                 return await send_msg("generate_report", admin_username)
+            else:
+                print("Wrong credentials entered")
             count += 1
         print("Too many failed attempts")
     except Exception as error:
