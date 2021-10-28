@@ -2,7 +2,13 @@
 import asyncio
 import websockets
 import json
-from os import system, name
+import getpass
+from dotenv import load_dotenv
+import os
+from os import error, system, name
+from passlib.context import CryptContext
+
+from Classes.prescription import Prescription
 
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
@@ -57,7 +63,7 @@ async def delete_nurse():
 async def send_presription ():
     """Creates a prescription"""
     try:
-        request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")
+        request = input("Please input medicine name, pharmecy name and patient id with space inbetween words: ")
         data = request.split()
         json_data = {
                 "medicine": data[0],
@@ -149,6 +155,36 @@ async def delete_staff_member():
     }
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
+
+async def generate_report():
+    try:
+        context = CryptContext(
+        schemes=["pbkdf2_sha256"],
+        default="pbkdf2_sha256",
+        pbkdf2_sha256__default_rounds=50000
+)
+        count = 1
+        while count <= 3:
+            print("Please enter your credentials:")
+            admin_username = input("Username: ")
+            admin_password = getpass.getpass()
+            # adm1 = context.hash("admin")
+            # adm2 = context.hash("admin")
+            # print(adm1 + adm2)
+            f = open('data.json',)
+            data = json.load(f)
+            adm1 = data["username"]
+            adm2 = data["password"]
+            if context.verify(admin_username, adm1) and context.verify(admin_password, adm2):
+                return await send_msg("generate_report", admin_username)
+            else:
+                print("Wrong credentials entered")
+            count += 1
+        print("Too many failed attempts")
+    except Exception as error:
+        print(error)
+    
+
 ## If this file is run, the user can test the functionalities that have been implemented
 ## These are only the functions that are not covered by the frontend
 
@@ -162,6 +198,7 @@ if __name__ == "__main__":
             Enter 4 to delete a staff member\n\
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
+            Enter 7 to generate a report as an administrator \n\
             Enter q to quit\n\
             "
     while True:
@@ -174,13 +211,17 @@ if __name__ == "__main__":
         elif user_input == "2":
             print(asyncio.run(assign_treatment()))
         elif user_input == "3":
-            print(asyncio.run(send_presription()))
+            newPrescription = asyncio.run(send_presription())
+            theData = json.loads(newPrescription)
+            print("The medicine: " + theData["medicine"] + " has been sent to the pharmecy: " + theData["pharmecy"] + " for the patient: " + theData["patient_id"])
         elif user_input == "4":
             print(asyncio.run(delete_staff_member()))
         elif user_input == "5":
             print(asyncio.run(create_staff()))
         elif user_input == "6":
             print(asyncio.run(get_appointments_at_date()))
+        elif user_input == "7":
+            print(asyncio.run(generate_report()))
         else:
             print("Please enter a valid number")
     

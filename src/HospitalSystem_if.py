@@ -117,3 +117,6 @@ class HospitalsystemInterface:
     def assign_treatment(self, data):
         """Assignes a treatment to a patient"""
         return self.wrapper.assign_treatment(data)
+
+    def generate_report(self, data):
+        return self.wrapper.generate_report(data)
