@@ -6,6 +6,11 @@ from data import Data
 from Classes.patient import Patient
 from Classes.staff import Staff
 from Classes.nurse import Nurse
+from tables import createTable
+
+from copy import deepcopy
+
+
 
 class Wrapper:
     def __init__(self):
@@ -26,10 +31,8 @@ class Wrapper:
             if "username" in data:
                 message = {}
                 emails = []
-                for patient in self.__patients:
-                    email = patient.get_patient_email()
-                    email_username = email.split("@")
-                    emails.append(email_username[0])
+                for patient in self.__patients: #This forloop is to get all existing emails to make sure that the emails are not repeated.
+                    emails.append(patient.get_patient_id())
                 for patient in self.__patients:
                     username = data["username"]
                     if patient.get_patient_id() == username:
@@ -336,15 +339,23 @@ class Wrapper:
 
     def send_presription(self, data):
         ''' This function takes in name of medicine and pharmecy along with the id of a patient.
-        The function uses it to send a prescription for the medicine to the pharmecy for the patient. '''
+        The function uses it to send a prescription for the medicine to the pharmecy for the patient. 
+        As of now, you can only prescribe existing patients with Ibufen or Parcodine, at either 
+        the Apótekið or Heilsuver'''
         try:
-            x = json.loads(data)
+            theData = json.loads(data)
             for patient in self.__patients:
-                if x["patient_id"] == patient.get_patient_id():
-                    newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
-                    self.__prescriptions.append(newPerscription)
-                    return_msg = newPerscription.get_return_str()
-                    return return_msg
+                if theData["patient_id"] == patient.get_patient_id():
+                    if theData["medicine"] == "Ibufen" or theData["medicine"] == "Parkodín":
+                        if theData["pharmecy"] == "Apótekið" or theData["pharmecy"] == "Heilsuver":
+                            newPrescription = Prescription(theData["medicine"], theData["pharmecy"], theData["patient_id"])
+                            self.__prescriptions.append(newPrescription)
+                            return_msg = newPrescription.get_return_str()
+                            return return_msg
+                        else:
+                            return '{"msg": "Not a valid pharmecy"}'
+                    else: 
+                        return '{"msg": "Not a valid medicine"}'
             else:
                 return '{"msg": "Not a valid person"}'
         except:
@@ -431,7 +442,29 @@ class Wrapper:
             message = {}
             message["msg"] = new_appointment
             return json.dumps(message)
-
+        except:
+            return  '{"msg": "Creating this staff member was unsuccessful, please try again." }'
+    
+    def create_nurse(self, data):
+        """creates a Nurse"""
+        try:
+            message = {}
+            nurse_data = data
+            n_split = nurse_data["email"].split("@")
+            emails = []
+            for nurse in self.__nurses:
+                email = nurse.get_nurse_email()
+                email_username = email.split("@")
+                emails.append(email_username[0])
+            
+            if str(nurse_data["username"]) not in emails and len(n_split) == 2 and n_split[1] != "" :
+                new_nurse = Nurse(str(nurse_data["username"]), str(nurse_data["name"]), str(nurse_data["email"]), str(nurse_data["note"]))
+                self.__nurses.append(new_nurse)
+                new_nurse = new_nurse.get_info()
+                message["msg"] = new_nurse
+                return json.dumps(message)
+            else:
+                return '{ "msg": "Not a valid email or email in use." }'
         except:
             return '{"Appoinment was not created"}'
     
@@ -551,7 +584,180 @@ class Wrapper:
         else:
             return '{"msg":"No appointments"}'
 
+    def delete_staff_member(self,data):
+        """Deletes a specific staff member by removing it from the data and returning it's information as a dict"""
+        the_data = json.loads(data)
+        index = 0
+        for staff_member in self.__staff:
+            if (the_data["staff_ssn"] == staff_member.get_staff()):
+                return_msg = staff_member.get_staff_member()
+                self.__staff.pop(index)
+                return json.dumps(return_msg)
+            index += 1
+        else:
+            return '{"msg":"No staff member with this ssn"}'
+
+
+    def get_doctors_list(self):
+        """returns list of all nurses"""
+        message = {}
+        doc_list = []
+        for doctor in self.__doctors:
+            doc_list.append(doctor.get_info())
+        message["msg"] = doc_list
+        return json.dumps(message)
+
+    def get_doctor(self, data):
+        """returns doctor if it is listed in the system"""
+        try:
+            message = {}
+            for doctor in self.__doctors:
+                if doctor.get_username() == data["username"]:
+                    new_doctor = doctor.get_info()
+                    message["msg"] = new_doctor
+                    return json.dumps(message)     
+            return '{"msg": "No Doctor Info"}'        
+        except:
+            return '{"msg": No Doctor Info"}'
+    
+    def delete_doctor(self,data):
+        """Deletes a doctor with a particular ssn"""
+        #the_data = json.loads(data)
+        # testing
+        index = 0
+        for doctors in self.__doctors:
+            if data["username"] == doctors.get_username():
+                return_msg = doctors.get_info()
+                self.__doctors.pop(index)
+                return json.dumps(return_msg)
+            index += 1
+        else:
+            return '{"msg":"No doctor with this ID"}'
+
+    def update_doctor (self, data):
+        try:
+            if "username" in data:
+                message = {}
+                emails = []
+                for doctor in self.__doctors:
+                    emails.append(doctor.get_username())
+                for doctor in self.__doctors:
+                    username = data["username"]
+                    if doctor.get_username() == username:
+                        if "@" in data["email"]:
+                            new_username = data["email"].split("@")
+                            if new_username[1] != '':    
+                                emails.remove(doctor.get_username())
+                                if new_username[0] not in emails:
+                                    updated_doctor = doctor.update_doctor(new_username[0], data["name"], data["email"], data["note"], data["department"])
+                                else:
+                                    updated_doctor = doctor.update_doctor(doctor.get_username(), data["name"], doctor.get_doctor_email(), data["note"], data["department"])
+                        json.dumps(message)
+                message["msg"] = updated_doctor
+                return json.dumps(message)
+
+            else:
+                return '{"msg": "username needed!"}'
+        except:
+            return  '{ "msg": "Updating this doctor was unsuccessful, please try again." }'
 
     # nurse methods
 
+    def get_nurses_list(self):
+        """returns list of all nurses"""
+        message = {}
+        nurse_list = []
+        for nurse in self.__nurses:
+            nurse_list.append(nurse.get_info())
+        message["msg"] = nurse_list
+        return json.dumps(message)
+
+    def get_nurse(self, data):
+        """Prints out nurse if it is listed in the system"""
+        try:
+            message = {}
+            for nurse in self.__nurses:
+                if nurse.get_username() == data["username"]:
+                    new_nurse = nurse.get_info()
+                    message["msg"] = new_nurse
+                    return json.dumps(message)     
+            return '{"msg": "No nurse Info"}'        
+        except:
+            return '{"msg": No nurse Info"}'
+
+    def update_nurse(self, data):
+        try:
+            if "username" in data:
+                message = {}
+                emails = []
+                for nurse in self.__nurses:
+                    emails.append(nurse.get_username())
+                for nurse in self.__nurses:
+                    username = data["username"]
+                    if nurse.get_username() == username:
+                        if "@" in data["email"]:
+                            new_username = data["email"].split("@")
+                            if new_username[1] != '':
+                                emails.remove(nurse.get_username())
+                                if new_username[0] not in emails:
+                                    updated_nurse = nurse.update_nurse(new_username[0], data["name"], data["email"], data["note"])
+                                else:
+                                    updated_nurse = nurse.update_nurse(nurse.get_username(), data["name"], nurse.get_nurse_email(), data["note"])
+                        json.dumps(message)
+                message["msg"] = updated_nurse
+                return json.dumps(message)
+
+            else:
+                return '{"msg": "username needed!"}'
+        except:
+            return  '{ "msg": "Updating this nurse was unsuccessful, please try again." }'
     
+    def delete_nurse(self, data):
+        """
+        Gets the username of a nurse to be deleted and deletes the nurse.
+        """
+        try:
+            counter = 0
+            for nurse in self.__nurses:
+                nurse_name = nurse.get_username()
+                if(data["username"] == nurse_name):
+                    return_message = nurse.get_info()
+                    self.__nurses.pop(counter)
+                    return json.dumps(return_message)
+                counter += 1
+            else:
+                return '{"msg": "There is no nurse with this username"}'
+        except:
+            return '{ "msg": "It was unsuccessful at deleting the nurse." }'
+
+    def generate_report(self, data):
+        """
+        Generates a PDF report that list all doctors, nurses, and patients
+        """
+        # Deepcopy all data since in case there are some inadvertent changes
+        doctor_data = deepcopy(self.__doctors)
+        nurse_data = deepcopy(self.__nurses)
+        patient_data = deepcopy(self.__patients)
+
+        table = createTable()
+        # Changing a list of dicts to a list of lists
+        doct_lis = table.list_of_d_to_list_of_l(doctor_data)
+        nurse_lis = table.list_of_d_to_list_of_l(nurse_data)
+        patient_lis = table.list_of_d_to_list_of_l(patient_data)
+
+        # Getting the headers of all the tables
+        p_header = table.create_header(patient_data)
+        d_header = table.create_header(doctor_data)
+        n_header = table.create_header(nurse_data)
+
+        # Creating the tables for the PDF file
+        table.create(doct_lis, d_header)
+        table.create(nurse_lis, n_header)
+        table.create(patient_lis, p_header)
+
+        # This creates the PDF file
+        table.final_pfd_creation()
+    
+        
+        return("You have successfully created a PDF report document for the hospital")
+

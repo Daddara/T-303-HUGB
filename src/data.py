@@ -48,8 +48,6 @@ appointments = [
 
 class Data():
     ''' Our Database Dummy'''
-    def __init__(self):
-        pass
     
     def get_doctors(self):
         """Returns a list of doctors created to stand in for our database"""
