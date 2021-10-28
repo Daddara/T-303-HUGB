@@ -28,10 +28,8 @@ class Wrapper:
             if "username" in data:
                 message = {}
                 emails = []
-                for patient in self.__patients:
-                    email = patient.get_patient_email()
-                    email_username = email.split("@")
-                    emails.append(email_username[0])
+                for patient in self.__patients: #This forloop is to get all existing emails to make sure that the emails are not repeated.
+                    emails.append(patient.get_patient_id())
                 for patient in self.__patients:
                     username = data["username"]
                     if patient.get_patient_id() == username:
@@ -54,15 +52,23 @@ class Wrapper:
 
     def send_presription(self, data):
         ''' This function takes in name of medicine and pharmecy along with the id of a patient.
-        The function uses it to send a prescription for the medicine to the pharmecy for the patient. '''
+        The function uses it to send a prescription for the medicine to the pharmecy for the patient. 
+        As of now, you can only prescribe existing patients with Ibufen or Parcodine, at either 
+        the Apótekið or Heilsuver'''
         try:
-            x = json.loads(data)
+            theData = json.loads(data)
             for patient in self.__patients:
-                if x["patient_id"] == patient.get_patient_id():
-                    newPerscription = Prescription(x["medicine"], x["pharmecy"], x["patient_id"])
-                    self.__prescriptions.append(newPerscription)
-                    return_msg = newPerscription.get_return_str()
-                    return return_msg
+                if theData["patient_id"] == patient.get_patient_id():
+                    if theData["medicine"] == "Ibufen" or theData["medicine"] == "Parkodín":
+                        if theData["pharmecy"] == "Apótekið" or theData["pharmecy"] == "Heilsuver":
+                            newPrescription = Prescription(theData["medicine"], theData["pharmecy"], theData["patient_id"])
+                            self.__prescriptions.append(newPrescription)
+                            return_msg = newPrescription.get_return_str()
+                            return return_msg
+                        else:
+                            return '{"msg": "Not a valid pharmecy"}'
+                    else: 
+                        return '{"msg": "Not a valid medicine"}'
             else:
                 return '{"msg": "Not a valid person"}'
         except:
@@ -252,9 +258,8 @@ class Wrapper:
         except:
             return  '{"msg": "Creating this staff member was unsuccessful, please try again." }'
     
-    """creates a Nurse"""
     def create_nurse(self, data):
-
+        """creates a Nurse"""
         try:
             message = {}
             nurse_data = data
@@ -440,7 +445,7 @@ class Wrapper:
                 return json.dumps(return_msg)
             index += 1
         else:
-            return '{"msg":"No doctor with this ssn"}'
+            return '{"msg":"No doctor with this ID"}'
 
     def update_doctor (self, data):
         try:
@@ -448,9 +453,7 @@ class Wrapper:
                 message = {}
                 emails = []
                 for doctor in self.__doctors:
-                    email = doctor.get_doctor_email()
-                    email_username = email.split("@")
-                    emails.append(email_username[0])
+                    emails.append(doctor.get_username())
                 for doctor in self.__doctors:
                     username = data["username"]
                     if doctor.get_username() == username:
@@ -501,9 +504,7 @@ class Wrapper:
                 message = {}
                 emails = []
                 for nurse in self.__nurses:
-                    email = nurse.get_nurse_email()
-                    email_username = email.split("@")
-                    emails.append(email_username[0])
+                    emails.append(nurse.get_username())
                 for nurse in self.__nurses:
                     username = data["username"]
                     if nurse.get_username() == username:
