@@ -6,6 +6,14 @@ from Classes.doctor import Doctor
 from Classes.nurse import Nurse
 
 
+treatment_prices = {
+    "checkup": 5000,
+    "surgery": 50000,
+    "catscan": 40000,
+    "xrays": 35000,
+    "bloodworks": 15000,
+}
+
 prescriptions_list = [
     Prescription("1", "23", "234")
 ]
@@ -71,4 +79,7 @@ class Data():
 
     def get_prescriptions(self):
         """Returns a list of precriptions made to stand in for our database"""
-        return prescriptions_list   
+        return prescriptions_list  
+
+    def get_treatment_prices(self):
+        return treatment_prices 

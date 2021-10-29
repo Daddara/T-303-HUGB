@@ -3,7 +3,6 @@ import asyncio
 import websockets
 import json
 import getpass
-from dotenv import load_dotenv
 import os
 from os import error, system, name
 from passlib.context import CryptContext
@@ -155,6 +154,21 @@ async def delete_staff_member():
     }
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
+async def charge_for_service():
+    """Creates a receipt for a specific treatment and/or any additional charges"""
+    patient = input("Enter username for patient to charge: ")
+    treatment = input("Please enter number of treatment you would like to charge for: ")
+    if treatment == "0":
+        reason = input("Enter what you are charging for: ")
+        price = input("What would you like to charge? Enter amount with no commas or dots: ")
+    else:
+        reason = ""
+        price = ""
+    data = {"patient":patient, "treatment":treatment, "reason":reason, "price":price}
+    data = json.dumps(data)
+    return await send_msg("charge_for_service", data)
+
+
 
 async def generate_report():
     try:
@@ -168,9 +182,6 @@ async def generate_report():
             print("Please enter your credentials:")
             admin_username = input("Username: ")
             admin_password = getpass.getpass()
-            # adm1 = context.hash("admin")
-            # adm2 = context.hash("admin")
-            # print(adm1 + adm2)
             f = open('data.json',)
             data = json.load(f)
             adm1 = data["username"]
@@ -198,7 +209,8 @@ if __name__ == "__main__":
             Enter 4 to delete a staff member\n\
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
-            Enter 7 to generate a report as an administrator \n\
+            Enter 7 to create a receipt for a patient \n\
+            Enter 8 to generate a report as an administrator \n\
             Enter q to quit\n\
             "
     while True:
@@ -221,6 +233,8 @@ if __name__ == "__main__":
         elif user_input == "6":
             print(asyncio.run(get_appointments_at_date()))
         elif user_input == "7":
+            print(asyncio.run(charge_for_service()))
+        elif user_input == "8":
             print(asyncio.run(generate_report()))
         else:
             print("Please enter a valid number")
