@@ -1,8 +1,27 @@
+PRONOUNCE = {
+    0: "Name only",
+    1: "He",
+    2: "She",
+    3: "Zie",
+    4: "Ey",
+    5 : "Ve",
+    6 : "Tey",
+    7 : "E",
+    8: "Non Specific"
+}
+
 class Patient:
   """This class keeps track of patients"""
-  def __init__(self, p_username:str, p_name:str, p_email:str, p_note:str, p_doctor_id: str, p_nurse_id: str):
+  def __init__(self, p_username:str, p_name:str, p_email:str, p_note:str, p_doctor_id: str, p_nurse_id: str, p_pronoune=None):
+    
+    if p_pronoune == None:
+        p_pronoune = PRONOUNCE[0]
+    else:
+        p_pronoune = PRONOUNCE[p_pronoune]
+    
     self.__p_username = p_username
     self.__p_name = p_name
+    self.p_pronoune = p_pronoune
     self.p_email = p_email
     self.__p_note = p_note
     self.p_doctor_id = p_doctor_id
@@ -32,6 +51,7 @@ class Patient:
   def get_patient(self):
     """Returns information about a patient in a dictionary"""
     patient_dict = {
+      "pronoune": self.p_pronoune,
       "username": self.__p_username,
       "name": self.__p_name,
       "email" : self.p_email,

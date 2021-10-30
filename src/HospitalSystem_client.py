@@ -3,10 +3,10 @@ import asyncio
 import websockets
 import json
 import getpass
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import os
 from os import error, system, name
-from passlib.context import CryptContext
+#from passlib.context import CryptContext
 
 from Classes.prescription import Prescription
 
@@ -80,10 +80,11 @@ async def create_patient():
     patient_name = input("Please enter the patients full name: ")
     patient_email = input("Please enter the patients current email: ")
     patient_note = ""
+    patient_pronoune = input("Choose what pronounce to go by:\n0: Name only\n1: He\n2: She\n3: Zie\n4: Ey\n5: Ve\n6: Tey\n7: E\n8: Non Specific")
     patient_note = input("Please enter any patient notes: ")
     patient_username = ""
-    data = {"username": patient_username, "name": patient_name, "email": patient_email,
-     "note": patient_note, "doctorid": "", "nurseid": ""}
+    data = {"username": patient_username, "name": patient_name, "email": patient_email, 
+     "note": patient_note, "pronoune": patient_pronoune, "doctorid": "", "nurseid": ""}
     message = {"data": data}
     data = json.dumps(message)
     return await send_msg("create_patient", message)
@@ -156,33 +157,33 @@ async def delete_staff_member():
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
 
-async def generate_report():
-    try:
-        context = CryptContext(
-        schemes=["pbkdf2_sha256"],
-        default="pbkdf2_sha256",
-        pbkdf2_sha256__default_rounds=50000
-)
-        count = 1
-        while count <= 3:
-            print("Please enter your credentials:")
-            admin_username = input("Username: ")
-            admin_password = getpass.getpass()
-            # adm1 = context.hash("admin")
-            # adm2 = context.hash("admin")
-            # print(adm1 + adm2)
-            f = open('data.json',)
-            data = json.load(f)
-            adm1 = data["username"]
-            adm2 = data["password"]
-            if context.verify(admin_username, adm1) and context.verify(admin_password, adm2):
-                return await send_msg("generate_report", admin_username)
-            else:
-                print("Wrong credentials entered")
-            count += 1
-        print("Too many failed attempts")
-    except Exception as error:
-        print(error)
+# async def generate_report():
+#     try:
+#         context = CryptContext(
+#         schemes=["pbkdf2_sha256"],
+#         default="pbkdf2_sha256",
+#         pbkdf2_sha256__default_rounds=50000
+# )
+#         count = 1
+#         while count <= 3:
+#             print("Please enter your credentials:")
+#             admin_username = input("Username: ")
+#             admin_password = getpass.getpass()
+#             # adm1 = context.hash("admin")
+#             # adm2 = context.hash("admin")
+#             # print(adm1 + adm2)
+#             f = open('data.json',)
+#             data = json.load(f)
+#             adm1 = data["username"]
+#             adm2 = data["password"]
+#             if context.verify(admin_username, adm1) and context.verify(admin_password, adm2):
+#                 return await send_msg("generate_report", admin_username)
+#             else:
+#                 print("Wrong credentials entered")
+#             count += 1
+#         print("Too many failed attempts")
+#     except Exception as error:
+#         print(error)
     
 
 ## If this file is run, the user can test the functionalities that have been implemented
@@ -199,6 +200,7 @@ if __name__ == "__main__":
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
             Enter 7 to generate a report as an administrator \n\
+            Enter 8 to add a patient \n\
             Enter q to quit\n\
             "
     while True:
@@ -220,8 +222,10 @@ if __name__ == "__main__":
             print(asyncio.run(create_staff()))
         elif user_input == "6":
             print(asyncio.run(get_appointments_at_date()))
-        elif user_input == "7":
-            print(asyncio.run(generate_report()))
+        # elif user_input == "7":
+        #     print(asyncio.run(generate_report()))
+        elif user_input == "8":
+            print(asyncio.run(create_patient()))
         else:
             print("Please enter a valid number")
     
