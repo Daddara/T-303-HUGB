@@ -14,15 +14,15 @@ Here is how: https://docs.github.com/en/github/creating-cloning-and-archiving-re
 
 ## Running the project
 
-* Websockets must be installed `pip install websockets`
+* Websockets must be installed `pip install -r requirements.txt`
 
-* Open two terminals while in program's directory:
+* Open two terminals while in src directory:
 
 * Run the client in one terminal window: 
-`python src/HospitalSystem_client.py`
+`python HospitalSystem_client.py`
 
 * Run the server in another terminal window: 
-`python src/HospitalSystem_ctrl.py`
+`python HospitalSystem_ctrl.py`
 
 ## Running the frontend
 
@@ -31,10 +31,6 @@ The frontend is provided only as a built web application, without the clear-text
 The frontend assumes that your backend is listening on `localhost` port `8888` (Note: `localhost` is identical to `127.0.0.1`).
 
 ## Testing
-
-* First you must install coverage and unittest with the following commands:
-    `pip install coverage`
-    `pip install unittes`
 
 * To test you must run the following command:
     
