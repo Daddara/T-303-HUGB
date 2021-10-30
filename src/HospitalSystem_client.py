@@ -156,14 +156,16 @@ async def delete_staff_member():
 
 async def charge_for_service():
     """Creates a receipt for a specific treatment and/or any additional charges"""
-    patient = input("Enter username for patient to charge: ")
+    print("\nReason\nChoose treatment to charge for:\n0: Other/Write manually\n1: Checkup\n2: Surgery\n3: Catscan\n4: X-rays\n5: Bloodworks")
     treatment = input("Please enter number of treatment you would like to charge for: ")
+
     if treatment == "0":
         reason = input("Enter what you are charging for: ")
         price = input("What would you like to charge? Enter amount with no commas or dots: ")
     else:
         reason = ""
         price = ""
+    patient = input("Enter username for patient to charge: ")
     data = {"patient":patient, "treatment":treatment, "reason":reason, "price":price}
     data = json.dumps(data)
     return await send_msg("charge_for_service", data)

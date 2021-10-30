@@ -563,8 +563,8 @@ class Wrapper:
 
     def charge_for_service(self, data):
         """Checks and creates the data needed for the receipt"""
-        receipt_text = []
-        price_list = []
+        receipt_text = ""
+        price = ""
         try:
             data = json.loads(data)
 
@@ -582,29 +582,43 @@ class Wrapper:
 
             
             if data["treatment"] == "1":
-                receipt_text.append("Checkup")
-                price_list.append(self.__treatment_prices["checkup"])
+                receipt_text = "Checkup"
+                price = (self.__treatment_prices["checkup"])
             elif data["treatment"] == "2":
-                receipt_text.append("Surgery")
-                price_list.append(self.__treatment_prices["surgery"])
+                receipt_text = "Surgery"
+                price = (self.__treatment_prices["surgery"])
             elif data["treatment"] == "3":
-                receipt_text.append("Catscan")
-                price_list.append(self.__treatment_prices["catscan"])
+                receipt_text = "Catscan"
+                price = (self.__treatment_prices["catscan"])
             elif data["treatment"] == "4":
-                receipt_text.append("X-rays")
-                price_list.append(self.__treatment_prices["xrays"])
+                receipt_text = "X-rays"
+                price = (self.__treatment_prices["xrays"])
             elif data["treatment"] == "5":
-                receipt_text.append("Bloodworks")
-                price_list.append(self.__treatment_prices["bloodworks"])
-            else:
+                receipt_text = "Bloodworks"
+                price = (self.__treatment_prices["bloodworks"])
+            elif data["treatment"] == "0":
                 try:
                     price = int(data["price"])
                 except:
                     return '{"msg":"Price needs to be on number format (no commas or dots either)"}'
-                receipt_text.append(data["reason"])
-                price_list.append(price)
+                
+                try:
+                    receipt_text = (data["reason"])
+                except:
+                    return '{"msg":"Creating manual receipt unsuccessful"}'
+            else:
+                try:
+                    treatment = int(data["treatment"])
+                except:
+                    return '{"msg":"Incorrect input when selecting reason for receipt"}'
+                
+                if treatment > 5 or treatment < 0:
+                    return '{"msg":"Please select a number from the list for reason for receipt"}'
 
-            return_msg = {"patient": the_patient, "text": receipt_text, "prices": price_list}
+                return '{"msg":"Something wrong with input for reason of receipt"}'
+                
+
+            return_msg = {"patient": the_patient, "text": receipt_text, "price": price}
             message = {}
             message["msg"] = return_msg
             return json.dumps(message)
