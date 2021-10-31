@@ -30,14 +30,14 @@ async def get_patient_info():
 
 
 async def get_patient_appointments():
-    """Returns appointments which a specific doctor is assigned to"""
+    """Returns appointments which a specific staff member is assigned to"""
     username = input("Enter a doctor's username: ")
     data = json.dumps({"username":username})
     return await send_msg("get_patient_appointments", data)
 
 async def get_appointments_at_date():
     """Returns all appointments that a doctor has for a specific period"""
-    doctor_username = input("Please enter username for a doctor: ")
+    doctor_username = input("Enter username for a doctor: ")
     first_date = input("Enter from date on the format DD MM YYYY, separated by space: ")
     first_date = first_date.split(" ")
     second_date = input("Enter to date on the format DD MM YYYY, separated by space: ")
@@ -55,7 +55,7 @@ async def delete_patient():
     return await send_msg("delete_patient", json.dumps(patient_dict))
 
 async def delete_nurse():
-    username = input("Please input a nurse's username: ")
+    username = input("Nurse's username: ")
     nurse_dict = {"username": username}
     return await send_msg("delete_nurse", json.dumps(nurse_dict))
 
@@ -76,8 +76,8 @@ async def send_presription ():
 
 async def create_patient():
     """Creates a new patient"""
-    patient_name = input("Please enter the patient's full name: ")
-    patient_email = input("Please enter the patient's current email: ")
+    patient_name = input("Please enter the patients full name: ")
+    patient_email = input("Please enter the patients current email: ")
     patient_note = ""
     patient_note = input("Please enter any patient notes: ")
     patient_username = ""
@@ -89,8 +89,8 @@ async def create_patient():
 
 async def create_doctor():
     """Creates a new doctor"""
-    doctor_name = input("Please enter the doctor's full name: ")
-    doctor_email = input("Please enter the doctor's current email: ")
+    doctor_name = input("Please enter the doctors full name: ")
+    doctor_email = input("Please enter the doctors current email: ")
     doctor_username = ""
     data = {"name": doctor_name, "note": "", "email": doctor_email, "username": doctor_username
     }
@@ -105,7 +105,7 @@ async def get_patient_list():
 async def create_staff():
     """Creates a new staff member"""
     staff_name = input("Please enter the staff member full name: ")
-    staff_ssn = input("Please enter the staff member Social Security Number: ")
+    staff_ssn = input("Please enter the staff member SSN: ")
     staff_address = input("Please enter the staff member address: ")
     staff_phone = input("Please enter the staff member phone: ")
     staff_title = input("Please enter the staff member title: ")
@@ -154,23 +154,6 @@ async def delete_staff_member():
     }
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
-async def charge_for_service():
-    """Creates a receipt for a specific treatment and/or any additional charges"""
-    print("\nReason\nChoose treatment to charge for:\n0: Other/Write manually\n1: Checkup\n2: Surgery\n3: Catscan\n4: X-rays\n5: Bloodworks")
-    treatment = input("Please enter number of treatment you would like to charge for: ")
-
-    if treatment == "0":
-        reason = input("Enter what you are charging for: ")
-        price = input("What would you like to charge? Enter amount with no commas or dots: ")
-    else:
-        reason = ""
-        price = ""
-    patient = input("Enter username for patient to charge: ")
-    data = {"patient":patient, "treatment":treatment, "reason":reason, "price":price}
-    data = json.dumps(data)
-    return await send_msg("charge_for_service", data)
-
-
 
 async def generate_report():
     try:
@@ -205,17 +188,17 @@ if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
     print("\t\tWelcome to the Hospital System\n")
     menu = "\n\
-            Enter 1 to list all appointments a doctor has\n\
+            Enter 1 to list all appointments for a doctor\n\
             Enter 2 to assign a treatment to a patient \n\
-            Enter 3 to create a prescription for a patient\n\
+            Enter 3 to send a prescription to a patient\n\
             Enter 4 to delete a staff member\n\
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
-            Enter 7 to create a receipt for a patient \n\
-            Enter 8 to generate a report as an administrator \n\
+            Enter 7 to generate a report as an administrator \n\
             Enter q to quit\n\
             "
     while True:
+
         print(menu)
         user_input = input("Please enter your selection here: ")
         if user_input == "q" or user_input == "Q":
@@ -233,7 +216,9 @@ if __name__ == "__main__":
             except:
                 print(theData["msg"])
         elif user_input == "2":
-            print(asyncio.run(assign_treatment()))
+            appointment = asyncio.run(assign_treatment())
+            theData = json.loads(appointment)
+            print("The appointment for: " + theData["msg"]["patient"] + " has been set into the system. " + str(theData["msg"]["staff"]) + " will perform the " + theData["msg"]["treatment"] + " on the " +  theData["msg"]["date"][0] + "." + theData["msg"]["date"][1]  + "." + theData["msg"]["date"][2] + " at " + theData["msg"]["time"] + ". It will take aproximetly " + str(theData["msg"]["duration"]) + ".")
         elif user_input == "3":
             newPrescription = asyncio.run(send_presription())
             theData = json.loads(newPrescription)
@@ -245,19 +230,20 @@ if __name__ == "__main__":
         elif user_input == "5":
             newStaff = asyncio.run(create_staff())
             theData = json.loads(newStaff)
-            print(theData["msg"]['name'] + "has been added from the system. SSN: " + theData["msg"]["ssn"] + ", address: " +  theData["msg"]["address"] +  ", phone: "+ theData["msg"]["phone"] + ", title: " + theData["msg"]["title"])
+            print(theData["msg"]['name'] + " has been added from the system. SSN: " + theData["msg"]["ssn"] + ", address: " +  theData["msg"]["address"] +  ", phone: "+ theData["msg"]["phone"] + ", title: " + theData["msg"]["title"])
         elif user_input == "6":
             appointments = asyncio.run(get_appointments_at_date())
             theData = json.loads(appointments)
-            print("\n" + theData["msg"][1]["staff"][0] + " has the following appointments: \n")
-            for number, appointment in enumerate(theData["msg"]):
-                if theData["msg"][number]["description"] != "":
-                    print(theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
-                else: 
-                    print(theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+            if theData["msg"] != 'No appointments':
+                print("\n" + theData["msg"][1]["staff"][0] + " has the following appointments: \n")
+                for number, appointment in enumerate(theData["msg"]):
+                    if theData["msg"][number]["description"] != "":
+                        print(theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+                    else: 
+                        print(theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+            else:
+                print(theData["msg"])
         elif user_input == "7":
-            print(asyncio.run(charge_for_service()))
-        elif user_input == "8":
             print(asyncio.run(generate_report()))
         else:
             print("Please enter a valid number")

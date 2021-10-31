@@ -384,7 +384,7 @@ class Wrapper:
             for doc_username in data["staff"]:
                 doctor_user = doctor.get_username()
                 if doctor_user == doc_username:
-                    staff_involved.append(doc_username) 
+                    staff_involved.append(doctor_user) 
 
         if len(staff_involved) == 0:
             return '{"A doctor with this username does not exist."}'
@@ -436,10 +436,9 @@ class Wrapper:
             treatment = None
 
         try:
-            new_appointment = Appointment(appointment_patient, staff_involved, data["date"], data["time"], duration, treatment, data["description"])
+            new_appointment = Appointment(appointment_patient, staff_involved[0], data["date"], data["time"], duration, treatment, data["description"])
             self.__appointments.append(new_appointment)
             new_appointment = new_appointment.get_info()
-            new_appointment["staff"] = len(new_appointment["staff"])
             message = {}
             message["msg"] = new_appointment
             return json.dumps(message)
