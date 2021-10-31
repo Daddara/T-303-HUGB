@@ -108,6 +108,9 @@
                                 <a class="function" href="#HospitalsystemInterface.assign_treatment">assign_treatment</a>
                         </li>
                         <li>
+                                <a class="function" href="#HospitalsystemInterface.charge_for_service">charge_for_service</a>
+                        </li>
+                        <li>
                                 <a class="function" href="#HospitalsystemInterface.generate_report">generate_report</a>
                         </li>
                 </ul>
@@ -252,6 +255,10 @@ HospitalSystem_if    </h1>
         <span class="sd">&quot;&quot;&quot;Assignes a treatment to a patient&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">assign_treatment</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">charge_for_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a receipt for a service provided&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">charge_for_service</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">generate_report</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
@@ -385,6 +392,10 @@ HospitalSystem_if    </h1>
     <span class="k">def</span> <span class="nf">assign_treatment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Assignes a treatment to a patient&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">assign_treatment</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">charge_for_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a receipt for a service provided&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">charge_for_service</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">generate_report</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -923,6 +934,28 @@ HospitalSystem_if    </h1>
         </details>
 
             <div class="docstring"><p>Assignes a treatment to a patient</p>
+</div>
+
+
+                            </div>
+                            <div id="HospitalsystemInterface.charge_for_service" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#HospitalsystemInterface.charge_for_service">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">charge_for_service</span><span class="signature">(self, data)</span>:
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">charge_for_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a receipt for a service provided&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">charge_for_service</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Creates a receipt for a service provided</p>
 </div>
 
 

@@ -56,6 +56,9 @@
                         <li>
                                 <a class="function" href="#Data.get_prescriptions">get_prescriptions</a>
                         </li>
+                        <li>
+                                <a class="function" href="#Data.get_treatment_prices">get_treatment_prices</a>
+                        </li>
                 </ul>
 
             </li>
@@ -85,6 +88,14 @@ data    </h1>
 <span class="kn">from</span> <span class="nn">Classes.doctor</span> <span class="kn">import</span> <span class="n">Doctor</span>
 <span class="kn">from</span> <span class="nn">Classes.nurse</span> <span class="kn">import</span> <span class="n">Nurse</span>
 
+
+<span class="n">treatment_prices</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;checkup&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
+    <span class="s2">&quot;surgery&quot;</span><span class="p">:</span> <span class="mi">50000</span><span class="p">,</span>
+    <span class="s2">&quot;catscan&quot;</span><span class="p">:</span> <span class="mi">40000</span><span class="p">,</span>
+    <span class="s2">&quot;xrays&quot;</span><span class="p">:</span> <span class="mi">35000</span><span class="p">,</span>
+    <span class="s2">&quot;bloodworks&quot;</span><span class="p">:</span> <span class="mi">15000</span><span class="p">,</span>
+<span class="p">}</span>
 
 <span class="n">prescriptions_list</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">Prescription</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;23&quot;</span><span class="p">,</span> <span class="s2">&quot;234&quot;</span><span class="p">)</span>
@@ -151,7 +162,10 @@ data    </h1>
 
     <span class="k">def</span> <span class="nf">get_prescriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a list of precriptions made to stand in for our database&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">prescriptions_list</span>   
+        <span class="k">return</span> <span class="n">prescriptions_list</span>  
+
+    <span class="k">def</span> <span class="nf">get_treatment_prices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">treatment_prices</span> 
 </pre></div>
 
         </details>
@@ -193,7 +207,10 @@ data    </h1>
 
     <span class="k">def</span> <span class="nf">get_prescriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a list of precriptions made to stand in for our database&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">prescriptions_list</span>   
+        <span class="k">return</span> <span class="n">prescriptions_list</span>  
+
+    <span class="k">def</span> <span class="nf">get_treatment_prices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">treatment_prices</span> 
 </pre></div>
 
         </details>
@@ -335,7 +352,7 @@ data    </h1>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_prescriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a list of precriptions made to stand in for our database&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">prescriptions_list</span>   
+        <span class="k">return</span> <span class="n">prescriptions_list</span>  
 </pre></div>
 
         </details>
@@ -343,6 +360,25 @@ data    </h1>
             <div class="docstring"><p>Returns a list of precriptions made to stand in for our database</p>
 </div>
 
+
+                            </div>
+                            <div id="Data.get_treatment_prices" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Data.get_treatment_prices">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">get_treatment_prices</span><span class="signature">(self)</span>:
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_treatment_prices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">treatment_prices</span> 
+</pre></div>
+
+        </details>
+
+    
 
                             </div>
                 </section>
