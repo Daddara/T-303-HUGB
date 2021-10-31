@@ -85,9 +85,9 @@ async def create_patient():
     patient_note = input("Please enter any patient notes: ")
     patient_username = ""
     data = {"username": patient_username, "name": patient_name, "email": patient_email, 
-     "note": patient_note, "pronoune": patient_pronoun, "doctorid": "", "nurseid": ""}
-    data = json.dumps(data)
+     "note": patient_note, "pronoun": patient_pronoun, "doctorid": "", "nurseid": ""}
     return await send_msg("create_patient", data)
+
 
 async def create_doctor():
     """Creates a new doctor"""
