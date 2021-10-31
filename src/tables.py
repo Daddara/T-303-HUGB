@@ -39,10 +39,8 @@ class createTable:
 
         table = Table(data)
 
-        # add style
-
         style = TableStyle([
-            ('BACKGROUND', (0,0), (len(data)+1,0), colors.green),
+            ('BACKGROUND', (0,0), (len(data[0])+1,0), colors.green),
             ('TEXTCOLOR',(0,0),(-1,0),colors.whitesmoke),
 
             ('ALIGN',(0,0),(-1,-1),'CENTER'),
@@ -148,21 +146,20 @@ class createTable:
         return data
 
 if __name__ == "__main__":
-    pass
-    # main_data = Data()
-    # patient_data =main_data.get_patients()
-    # doctor_data =main_data.get_doctors()
-    # nurse_data = main_data.get_nurses()
-    # table = createTable()
-    # new_list_data = table.list_of_d_to_list_of_l(patient_data)
+    main_data = Data()
+    patient_data =main_data.get_patients()
+    doctor_data =main_data.get_doctors()
+    nurse_data = main_data.get_nurses()
+    table = createTable()
+    new_list_data = table.list_of_d_to_list_of_l(patient_data)
     # doct_lis = table.list_of_d_to_list_of_l(doctor_data)
     # nurse_lis = table.list_of_d_to_list_of_l(nurse_data)
-    # p_header = table.create_header(patient_data)
+    p_header = table.create_header(patient_data)
     # d_header = table.create_header(doctor_data)
     # n_header = table.create_header(nurse_data)
     # table.create(doct_lis, d_header)
     # table.create(nurse_lis, n_header)
-    # table.create(new_list_data, p_header)
+    table.create(new_list_data, p_header)
 
-    # table.final_pfd_creation()
+    table.final_pfd_creation()
     
