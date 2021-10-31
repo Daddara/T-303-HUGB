@@ -118,5 +118,9 @@ class HospitalsystemInterface:
         """Assignes a treatment to a patient"""
         return self.wrapper.assign_treatment(data)
 
+    def charge_for_service(self,data):
+        """Creates a receipt for a service provided"""
+        return self.wrapper.charge_for_service(data)
+
     def generate_report(self, data):
         return self.wrapper.generate_report(data)

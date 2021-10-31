@@ -3,7 +3,6 @@ import asyncio
 import websockets
 import json
 import getpass
-from dotenv import load_dotenv
 import os
 from os import error, system, name
 from passlib.context import CryptContext
@@ -31,14 +30,14 @@ async def get_patient_info():
 
 
 async def get_patient_appointments():
-    """Returns appointments which a specific staff member is assigned to"""
+    """Returns appointments which a specific doctor is assigned to"""
     username = input("Enter a doctor's username: ")
     data = json.dumps({"username":username})
     return await send_msg("get_patient_appointments", data)
 
 async def get_appointments_at_date():
     """Returns all appointments that a doctor has for a specific period"""
-    doctor_username = input("Enter username for a doctor: ")
+    doctor_username = input("Please enter username for a doctor: ")
     first_date = input("Enter from date on the format DD MM YYYY, separated by space: ")
     first_date = first_date.split(" ")
     second_date = input("Enter to date on the format DD MM YYYY, separated by space: ")
@@ -56,7 +55,7 @@ async def delete_patient():
     return await send_msg("delete_patient", json.dumps(patient_dict))
 
 async def delete_nurse():
-    username = input("Nurse's username: ")
+    username = input("Please input a nurse's username: ")
     nurse_dict = {"username": username}
     return await send_msg("delete_nurse", json.dumps(nurse_dict))
 
@@ -77,8 +76,8 @@ async def send_presription ():
 
 async def create_patient():
     """Creates a new patient"""
-    patient_name = input("Please enter the patients full name: ")
-    patient_email = input("Please enter the patients current email: ")
+    patient_name = input("Please enter the patient's full name: ")
+    patient_email = input("Please enter the patient's current email: ")
     patient_note = ""
     print("Choose what pronoune to go by")
     print("\n\tEnter 0 for: Name only\n\tEnter 1 for: He\n\tEnter 2 for: She\n\tEnter 3 for: Zie\n\tEnter 4 for: Ey\n\tEnter 5 for: Ve\n\tEnter 6 for: Tey\n\tEnter 7 for: E\n\tEnter 8 for: Non Specific\n")
@@ -92,8 +91,8 @@ async def create_patient():
 
 async def create_doctor():
     """Creates a new doctor"""
-    doctor_name = input("Please enter the doctors full name: ")
-    doctor_email = input("Please enter the doctors current email: ")
+    doctor_name = input("Please enter the doctor's full name: ")
+    doctor_email = input("Please enter the doctor's current email: ")
     doctor_username = ""
     data = {"name": doctor_name, "note": "", "email": doctor_email, "username": doctor_username
     }
@@ -108,7 +107,7 @@ async def get_patient_list():
 async def create_staff():
     """Creates a new staff member"""
     staff_name = input("Please enter the staff member full name: ")
-    staff_ssn = input("Please enter the staff member SSN: ")
+    staff_ssn = input("Please enter the staff member Social Security Number: ")
     staff_address = input("Please enter the staff member address: ")
     staff_phone = input("Please enter the staff member phone: ")
     staff_title = input("Please enter the staff member title: ")
@@ -157,6 +156,23 @@ async def delete_staff_member():
     }
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
+async def charge_for_service():
+    """Creates a receipt for a specific treatment and/or any additional charges"""
+    print("\nReason\nChoose treatment to charge for:\n0: Other/Write manually\n1: Checkup\n2: Surgery\n3: Catscan\n4: X-rays\n5: Bloodworks")
+    treatment = input("Please enter number of treatment you would like to charge for: ")
+
+    if treatment == "0":
+        reason = input("Enter what you are charging for: ")
+        price = input("What would you like to charge? Enter amount with no commas or dots: ")
+    else:
+        reason = ""
+        price = ""
+    patient = input("Enter username for patient to charge: ")
+    data = {"patient":patient, "treatment":treatment, "reason":reason, "price":price}
+    data = json.dumps(data)
+    return await send_msg("charge_for_service", data)
+
+
 
 async def generate_report():
     try:
@@ -170,9 +186,6 @@ async def generate_report():
             print("Please enter your credentials:")
             admin_username = input("Username: ")
             admin_password = getpass.getpass()
-            # adm1 = context.hash("admin")
-            # adm2 = context.hash("admin")
-            # print(adm1 + adm2)
             f = open('data.json',)
             data = json.load(f)
             adm1 = data["username"]
@@ -194,14 +207,19 @@ if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
     print("\t\tWelcome to the Hospital System\n")
     menu = "\n\
-            Enter 1 to list all appointments for a doctor\n\
+            Enter 1 to list all appointments a doctor has\n\
             Enter 2 to assign a treatment to a patient \n\
-            Enter 3 to send a prescription to a patient\n\
+            Enter 3 to create a prescription for a patient\n\
             Enter 4 to delete a staff member\n\
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
+<<<<<<< HEAD
             Enter 7 to generate a report as an administrator \n\
             Enter 8 to add a patient \n\
+=======
+            Enter 7 to create a receipt for a patient \n\
+            Enter 8 to generate a report as an administrator \n\
+>>>>>>> origin/back1
             Enter q to quit\n\
             "
     while True:
@@ -224,6 +242,8 @@ if __name__ == "__main__":
         elif user_input == "6":
             print(asyncio.run(get_appointments_at_date()))
         elif user_input == "7":
+            print(asyncio.run(charge_for_service()))
+        elif user_input == "8":
             print(asyncio.run(generate_report()))
         elif user_input == "8":
             print(asyncio.run(create_patient()))
