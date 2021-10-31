@@ -79,13 +79,13 @@ async def create_patient():
     patient_name = input("Please enter the patient's full name: ")
     patient_email = input("Please enter the patient's current email: ")
     patient_note = ""
-    print("Choose what pronoune to go by")
+    print("Choose what pronoun to go by")
     print("\n\tEnter 0 for: Name only\n\tEnter 1 for: He\n\tEnter 2 for: She\n\tEnter 3 for: Zie\n\tEnter 4 for: Ey\n\tEnter 5 for: Ve\n\tEnter 6 for: Tey\n\tEnter 7 for: E\n\tEnter 8 for: Non Specific\n")
-    patient_pronoune = input("Choose: ")
+    patient_pronoun = input("Choose: ")
     patient_note = input("Please enter any patient notes: ")
     patient_username = ""
     data = {"username": patient_username, "name": patient_name, "email": patient_email, 
-     "note": patient_note, "pronoune": patient_pronoune, "doctorid": "", "nurseid": ""}
+     "note": patient_note, "pronoune": patient_pronoun, "doctorid": "", "nurseid": ""}
     data = json.dumps(data)
     return await send_msg("create_patient", data)
 
