@@ -4,7 +4,7 @@ import websockets
 import json
 import getpass
 import os
-from os import error, system, name
+from os import error, system, name, terminal_size
 from passlib.context import CryptContext
 
 from Classes.prescription import Prescription
@@ -79,13 +79,15 @@ async def create_patient():
     patient_name = input("Please enter the patients full name: ")
     patient_email = input("Please enter the patients current email: ")
     patient_note = ""
+    print("Choose what pronoun to go by")
+    print("\n\tEnter 0 for: Name only\n\tEnter 1 for: He\n\tEnter 2 for: She\n\tEnter 3 for: Zie\n\tEnter 4 for: Ey\n\tEnter 5 for: Ve\n\tEnter 6 for: Tey\n\tEnter 7 for: E\n\tEnter 8 for: Non Specific\n")
+    patient_pronoun = input("Choose: ")
     patient_note = input("Please enter any patient notes: ")
     patient_username = ""
-    data = {"username": patient_username, "name": patient_name, "email": patient_email,
-     "note": patient_note, "doctorid": "", "nurseid": ""}
-    message = {"data": data}
-    data = json.dumps(message)
-    return await send_msg("create_patient", message)
+    data = {"username": patient_username, "name": patient_name, "email": patient_email, 
+     "note": patient_note, "pronoune": patient_pronoun, "doctorid": "", "nurseid": ""}
+    data = json.dumps(data)
+    return await send_msg("create_patient", data)
 
 async def create_doctor():
     """Creates a new doctor"""
@@ -181,8 +183,8 @@ async def generate_report():
         print(error)
     
 
-## If this file is run, the user can test the functionalities that have been implemented
-## These are only the functions that are not covered by the frontend
+# If this file is run, the user can test the functionalities that have been implemented
+# These are only the functions that are not covered by the frontend
 
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
@@ -195,6 +197,8 @@ if __name__ == "__main__":
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
             Enter 7 to generate a report as an administrator \n\
+            Enter 8 to add a patient \n\
+            Enter 9 to create a receipt for a patient \n\
             Enter q to quit\n\
             "
     while True:
@@ -218,7 +222,7 @@ if __name__ == "__main__":
         elif user_input == "2":
             appointment = asyncio.run(assign_treatment())
             theData = json.loads(appointment)
-            print("The appointment for: " + theData["msg"]["patient"] + " has been set into the system. " + str(theData["msg"]["staff"]) + " will perform the " + theData["msg"]["treatment"] + " on the " +  theData["msg"]["date"][0] + "." + theData["msg"]["date"][1]  + "." + theData["msg"]["date"][2] + " at " + theData["msg"]["time"] + ". It will take aproximetly " + str(theData["msg"]["duration"]) + ".")
+            print("\nThe appointment for: " + theData["msg"]["patient"] + " has been set into the system. " + str(theData["msg"]["staff"][0]) + " will perform the " + theData["msg"]["treatment"] + " on the " +  theData["msg"]["date"][0] + "." + theData["msg"]["date"][1]  + "." + theData["msg"]["date"][2] + " at " + theData["msg"]["time"] + ". It will take aproximetly " + str(theData["msg"]["duration"]) + ".")
         elif user_input == "3":
             newPrescription = asyncio.run(send_presription())
             theData = json.loads(newPrescription)
@@ -245,6 +249,13 @@ if __name__ == "__main__":
                 print(theData["msg"])
         elif user_input == "7":
             print(asyncio.run(generate_report()))
+        elif user_input == "8":
+            patient = asyncio.run(create_patient())
+            theData = json.loads(patient)
+            print("Patient has beem added with the following attributes: Name: " + theData["msg"]["name"] + ", username: " + theData["msg"]["username"] + ", pronoun: '" + theData["msg"]["pronoun"] + "' and with the note: " + theData["msg"]["note"] + ".")
+        elif user_input == "9":
+            bill = asyncio.run(charge_for_service())
+            theData = json.loads(bill)
+            print(theData)
         else:
             print("Please enter a valid number")
-    

@@ -69,6 +69,16 @@ class Wrapper:
             to create a Patient object with the data. Returns a json value"""
         
         try:
+            data = json.loads(data)
+        except:
+            pass
+        
+        try:
+            pronoun = int(data["pronoun"])
+        except:
+            pronoun = None
+        
+        try:
             message = {}
             p_split = data["email"].split("@")
             p_username = p_split[0]
@@ -78,7 +88,7 @@ class Wrapper:
                 email_username = email.split("@")
                 emails.append(email_username[0])
             if len(p_split) == 2 and p_split[1] != "" and p_split[0] not in emails:
-                new_patient = Patient(p_username, data["name"], data["email"], data["note"], "", "")
+                new_patient = Patient(p_username, data["name"], data["email"], data["note"], "", "", pronoun)
                 self.__patients.append(new_patient)
                 new_patient = new_patient.get_patient()
                 message["msg"] = new_patient
@@ -384,7 +394,7 @@ class Wrapper:
             for doc_username in data["staff"]:
                 doctor_user = doctor.get_username()
                 if doctor_user == doc_username:
-                    staff_involved.append(doctor_user) 
+                    staff_involved.append(doc_username) 
 
         if len(staff_involved) == 0:
             return '{"A doctor with this username does not exist."}'
@@ -436,9 +446,10 @@ class Wrapper:
             treatment = None
 
         try:
-            new_appointment = Appointment(appointment_patient, staff_involved[0], data["date"], data["time"], duration, treatment, data["description"])
+            new_appointment = Appointment(appointment_patient, staff_involved, data["date"], data["time"], duration, treatment, data["description"])
             self.__appointments.append(new_appointment)
             new_appointment = new_appointment.get_info()
+            #new_appointment["staff"] = len(new_appointment["staff"])
             message = {}
             message["msg"] = new_appointment
             return json.dumps(message)
