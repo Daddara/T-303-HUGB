@@ -20,7 +20,7 @@ async def send_msg(op, data):
 
 
 async def get_patient_info():
-    """Returns a dictionary of a patient's info"""
+    """Returns a patient's info"""
     try:
         request = input("Please input patient username: ")
         return await send_msg("get_patient_info", request)
@@ -29,7 +29,7 @@ async def get_patient_info():
 
 
 async def get_patient_appointments():
-    """Returns appointments which a specific staff member is assigned to"""
+    """Returns appointments which a specific doctor is assigned to"""
     username = input("Enter a doctor's username: ")
     data = json.dumps({"username":username})
     return await send_msg("get_patient_appointments", data)
@@ -54,6 +54,7 @@ async def delete_patient():
     return await send_msg("delete_patient", json.dumps(patient_dict))
 
 async def delete_nurse():
+    """Deletes a specific nurse"""
     username = input("Nurse's username: ")
     nurse_dict = {"username": username}
     return await send_msg("delete_nurse", json.dumps(nurse_dict))
@@ -129,9 +130,8 @@ async def create_nurse():
     data = json.dumps(message)
     return await send_msg("create_nurse", message)
 
-
 async def assign_treatment():
-    """Assigns a patient to an appointment"""
+    """Assigns a patient with an appointment"""
     patient_username = input("Please enter the username of an existing patient: ")
     doctor = input("Please enter the username of the overseer/doctor of the appointment: ")
     list_of_staff = [] 
@@ -156,7 +156,7 @@ async def delete_staff_member():
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
 async def charge_for_service():
-    """Creates a receipt for a specific treatment and/or any additional charges"""
+    """Creates a receipt for a specific treatment or a manual charge"""
     print("\nReason\nChoose treatment to charge for:\n0: Other/Write manually\n1: Checkup\n2: Surgery\n3: Catscan\n4: X-rays\n5: Bloodworks")
     treatment = input("Please enter number of treatment you would like to charge for: ")
 
@@ -173,6 +173,7 @@ async def charge_for_service():
 
 
 async def generate_report():
+    """Creates a report of all doctors, nurses and patients"""
     try:
         context = CryptContext(
         schemes=["pbkdf2_sha256"],

@@ -28,16 +28,16 @@ class Patient:
     self.p_nurse_id = p_nurse_id
 
   def get_patient_id(self):
-    """Returns the id for a patient, which is his username"""
+    """Returns the username of a patient, which is his id"""
     return self.__p_username
 
   def get_patient_email(self):
+    """Returns the email of a patient"""
     return self.p_email
 
   def get_patient_name(self):
     """Returns the name of a patient"""
     return self.__p_name
-
 
   def update_patient(self, username, name, email, note, doctor_id):
     """Updates a patient and returns his info as a dictionary"""

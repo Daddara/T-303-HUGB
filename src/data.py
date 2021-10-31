@@ -24,7 +24,7 @@ patients_list = [
     Patient("jonniminn", "Jon Gunnarsson", "jonniminn@tolfan.is", '{"Medication": ["ritalin", "Parkodin", "Astma"]}', "", "")
 ]
 
-#TODO remove staff list
+
 staff_members = [
     Staff("Johann Johannsson", "1010661399", "doctor", "Hamraborg 20", "8992345"),
     Staff("Gunnar Gunnarsson", "0909691399", "nurse", "Hamraborg 10", "7883456"), 
@@ -82,4 +82,5 @@ class Data():
         return prescriptions_list  
 
     def get_treatment_prices(self):
+        """Returns the dictionary that keeps track of treatments and their prices"""
         return treatment_prices 

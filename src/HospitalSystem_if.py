@@ -32,7 +32,6 @@ class HospitalsystemInterface:
 
     def create_patient(self, data):    
         """Creates a patient""" 
-        #Here you call the actual operation in your backend code.
         return_msg = self.wrapper.create_patient(data)
         return return_msg
 
@@ -50,7 +49,6 @@ class HospitalsystemInterface:
 
     def delete_patient(self, data):
         """Deletes a specific patient"""     
-        #Here you call the actual operation in your backend code.
         return self.wrapper.delete_patient(data)
 
     # Doctors
@@ -123,4 +121,5 @@ class HospitalsystemInterface:
         return self.wrapper.charge_for_service(data)
 
     def generate_report(self, data):
+        """Creates a report of all doctors, nurses and patients"""
         return self.wrapper.generate_report(data)

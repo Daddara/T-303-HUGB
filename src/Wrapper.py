@@ -28,7 +28,7 @@ class Wrapper:
     #### PATIENT METHODS ####
 
     def update_patient(self, data):
-        '''Updates information about an existing patient.'''
+        """Updates information about an existing patient."""
         try:
             if "username" in data:
                 message = {}
@@ -94,7 +94,7 @@ class Wrapper:
             return  '{ "msg": "Creating this patient was unsuccessful, please try again." }'
         
     def get_patient_info(self, data):
-        "Prints out patient if it is listed in the system"
+        """Returns a patient's information as a dictionary if it exists in the system"""
         try:
             message = {}
             for patient in self.__patients:
@@ -102,12 +102,12 @@ class Wrapper:
                     new_patient = patient.get_patient()
                     message["msg"] = new_patient
                     return json.dumps(message)     
-            return '{"msg": "No Patient Info"}'        
+            return '{"msg": "No patient with this"}'        
         except:
-            return '{"msg": No Patient Info"}'
+            return '{"msg": "No Patient Info"}'
 
     def delete_patient(self,data):
-        """Deletes a patient with a particular ssn"""
+        """Deletes a patient with a particular username"""
         try:
             index = 0
             return_msg = {}
@@ -149,7 +149,7 @@ class Wrapper:
             return  '{ "msg": "Creating this doctor was unsuccessful, please try again." }'
 
     def get_doctors_list(self):
-        """returns list of all nurses"""
+        """Returns a list of all doctors"""
         message = {}
         doc_list = []
         for doctor in self.__doctors:
@@ -158,7 +158,7 @@ class Wrapper:
         return json.dumps(message)
 
     def get_doctor(self, data):
-        """returns doctor if it is listed in the system"""
+        """returns doctor if it is in the system"""
         try:
             message = {}
             for doctor in self.__doctors:
@@ -166,9 +166,9 @@ class Wrapper:
                     new_doctor = doctor.get_info()
                     message["msg"] = new_doctor
                     return json.dumps(message)     
-            return '{"msg": "No Doctor Info"}'        
+            return '{"msg": "No doctor with this username"}'        
         except:
-            return '{"msg": No Doctor Info"}'
+            return '{"msg": "No Doctor Info"}'
     
     def delete_doctor(self, data):
         """Deletes a doctor with a particular username"""
@@ -183,6 +183,7 @@ class Wrapper:
             return '{"msg": "There is no doctor with this username"}'
 
     def update_doctor (self, data):
+        """Updates information about an existing doctor."""
         try:
             if "username" in data:
                 message = {}
@@ -215,7 +216,7 @@ class Wrapper:
     #### NURSE METHODS ####
 
     def create_nurse(self, data):
-        """creates a Nurse"""
+        """Creates a new instance of a Nurse"""
         try:
             message = {}
             nurse_data = data
@@ -233,12 +234,12 @@ class Wrapper:
                 message["msg"] = new_nurse
                 return json.dumps(message)
             else:
-                return '{ "msg": "Not a valid email or email in use." }'
+                return '{"msg": "Not a valid email or email in use."}'
         except:
-            return '{"Nurse not created"}'  
+            return '{"msg": "Nurse not created"}'  
 
     def get_nurses_list(self):
-        """returns list of all nurses"""
+        """Returns a list of all nurses"""
         message = {}
         nurse_list = []
         for nurse in self.__nurses:
@@ -247,7 +248,7 @@ class Wrapper:
         return json.dumps(message)
 
     def get_nurse(self, data):
-        """Prints out nurse if it is listed in the system"""
+        """Prints out nurse if it is in the system"""
         try:
             message = {}
             for nurse in self.__nurses:
@@ -255,11 +256,12 @@ class Wrapper:
                     new_nurse = nurse.get_info()
                     message["msg"] = new_nurse
                     return json.dumps(message)     
-            return '{"msg": "No nurse Info"}'        
+            return '{"msg": "No nurse with this username"}'        
         except:
             return '{"msg": No nurse Info"}'
 
     def update_nurse(self, data):
+        """Updates information about an existing nurse."""
         try:
             if "username" in data:
                 message = {}
@@ -289,9 +291,7 @@ class Wrapper:
             return  '{ "msg": "Updating this nurse was unsuccessful, please try again." }'
     
     def delete_nurse(self, data):
-        """
-        Gets the username of a nurse to be deleted and deletes the nurse.
-        """
+        """Gets the username of a nurse to be deleted and deletes the nurse."""
         try:
             counter = 0
             for nurse in self.__nurses:
@@ -307,11 +307,8 @@ class Wrapper:
             return '{ "msg": "It was unsuccessful at deleting the nurse." }'
 
 
-
-
     #### STAFF METHODS ####
 
-        
     def create_staff(self, data):
         """Takes a json object and turns into a dictionary that is then passed
             to create a staff object with the data. Returns a json value"""
@@ -338,7 +335,6 @@ class Wrapper:
             index += 1
         else:
             return '{"msg":"No staff member with this ssn"}'
-
 
 
     #### OTHER METHODS ####
@@ -452,7 +448,7 @@ class Wrapper:
             return  '{"msg": "Creating this staff member was unsuccessful, please try again." }'    
 
     def get_appointments(self, data):
-        '''iterates over all appointments and checks if the staff member ssn is in the appointment and then appends it to a list'''
+        """Returns a list of appointments that a doctor is assigned to"""
         if "username" in data:
             try:
                 data = json.loads(data)
@@ -474,7 +470,7 @@ class Wrapper:
             except:
                 return '{"msg":"Invalid arguments, please try again}'
         else:
-            return '{"msg":"Missing arguments: staff_ssn"}'
+            return '{"msg":"Missing arguments: username"}'
 
     def get_appointments_at_date(self, data):
         """

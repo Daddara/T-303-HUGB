@@ -8,7 +8,7 @@ class Staff():
         self.__s_phone = s_phone
 
     def get_staff_member(self):
-        ''' Searches for staff member on ssn and then returns json of all it's attributes'''
+        """Returns a staff member's information as a dictionary"""
         staff_dict = {
             "name": self.__s_name,
             "ssn": self.__s_ssn,  

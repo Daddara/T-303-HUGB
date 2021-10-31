@@ -39,17 +39,19 @@ class Appointment:
 
 
     def check_appointments(self, staff_ssn) -> bool:
-        """Returns a boolean value on wether a certain staff member is assigned to an appointment"""
+        """Returns a boolean value on whether a certain staff member is assigned to an appointment"""
         for staff in self.staff_involved:
             if staff.get_staff() == staff_ssn:
                 return True
         return False
 
     def check_doctor(self, username) -> bool:
+        """Returns a boolean value on whether a certain doctor is assigned to an appointment"""
         for doctor in self.staff_involved:
             if doctor == username:
                 return True
         return False
 
     def get_date(self) -> list:
+        """Returns the date of the appointment"""
         return self.date

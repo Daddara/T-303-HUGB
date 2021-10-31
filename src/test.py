@@ -18,6 +18,7 @@ import json
 class TestStationMethods(unittest.TestCase):
     # set up method - is run before each actual test case.
     def setUp(self):
+        """Sets up the class instances to be tested"""
 
         self.prescription = Prescription("Ibufen", "Heilsa", "190500-2330")
 
@@ -37,6 +38,7 @@ class TestStationMethods(unittest.TestCase):
         self.appointment_checkup = Appointment("gudrun1", ["arnaa"], [10,10,2022], "12:00", 60)
 
     def test_wrapper(self):
+        """Tests functions in the wrapper"""
         wrapper = Wrapper()
 
         # Get all appointments for arnaa
@@ -79,6 +81,7 @@ class TestStationMethods(unittest.TestCase):
 
 
     def test_prescription_class(self):
+        """Tests the functions in the prescription class"""
         # First one needs to be change due to the difference in the patient class
         # self.assertEqual(self.prescription.get_patient_id(),"")
         self.assertEqual(self.prescription.get_pharmecy_name(), "Heilsa")
@@ -86,7 +89,7 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(self.prescription.get_return_str(), '{"medicine": "Ibufen", "pharmecy": "Heilsa", "patient_id": "190500-2330"}')
 
     def test_patient_class(self):
-        """Testing wether the patient class works correctly"""
+        """Tests the functions in the patient class"""
         patient_one = self.patient.get_patient()
         patient_two = self.patient_with_allergy.get_patient()
         self.assertIsInstance(self.patient, Patient)
@@ -117,9 +120,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(self.patient_with_allergy.get_patient_email(), patient_two["email"])
 
 
-
     def test_staff_class(self):
-        """Testing wether the staff class works correctly"""
+        """Tests the functions in the staff class"""
         staff1 = self.staff1.get_staff_member()
         staff2 = self.staff2.get_staff_member()
         self.assertIsInstance(self.staff1, Staff)
@@ -140,6 +142,7 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(staff2["phone"],"7883456")
 
     def test_doctor_class(self):
+        """Tests the functions in the doctor class"""
         doctor1 = self.doctor1.get_info()
         doctor2 = self.doctor2.get_info()
         self.assertIsInstance(self.doctor1, Doctor)
@@ -149,9 +152,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(doctor1["email"], self.doctor1.get_doctor_email())
         self.assertEqual(doctor2["email"], self.doctor2.get_doctor_email())
 
-
-
     def test_nurse_cless(self):
+        """Tests the functions in the nurse class"""
         nurse1 = self.nurse1.get_info()
         nurse2 = self.nurse2.get_info()
         self.assertIsInstance(self.nurse1, Nurse)
@@ -162,7 +164,7 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(nurse2["email"], self.nurse2.get_nurse_email())
 
     def test_appointment_class(self):
-        """Testing wether the appointment class works correctly"""
+        """Tests the functions in the appointment class"""
         appointment_surgery = self.appoinment_surgery.get_info()
         self.assertIsInstance(appointment_surgery, dict)
         self.assertIsInstance(appointment_surgery["patient"], str)
