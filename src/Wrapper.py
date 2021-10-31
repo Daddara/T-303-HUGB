@@ -171,6 +171,16 @@ class Wrapper:
             to create a Patient object with the data. Returns a json value"""
         
         try:
+            data = json.loads(data)
+        except:
+            pass
+        
+        try:
+            pronoune = int(data["pronoune"])
+        except:
+            pronoune = None
+        
+        try:
             message = {}
             p_split = data["email"].split("@")
             p_username = p_split[0]
@@ -180,10 +190,11 @@ class Wrapper:
                 email_username = email.split("@")
                 emails.append(email_username[0])
             if len(p_split) == 2 and p_split[1] != "" and p_split[0] not in emails:
-                new_patient = Patient(p_username, data["name"], data["email"], data["note"], data["pronounce"], "", "")
+                new_patient = Patient(p_username, data["name"], data["email"], data["note"], "", "", pronoune)
                 self.__patients.append(new_patient)
                 new_patient = new_patient.get_patient()
                 message["msg"] = new_patient
+                print(message)
                 return json.dumps(message)
             else:
                 return '{ "msg": "Not a valid email or email in use." }'
