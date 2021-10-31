@@ -1,5 +1,7 @@
 # import unittest library - needed to run unit tests
 import unittest
+
+import websockets
 # import the proper classes - our test targets ('system under test')
 from Classes.prescription import Prescription
 from Classes.appointment import Appointment
@@ -47,6 +49,18 @@ class TestStationMethods(unittest.TestCase):
         # get appointments for Doctor jojo from 2.2.2020 - 28.2.2020 and 3.2.2020 - 4.2.2020
         self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["2","2","2020"], "to_date":["28","2","2020"]}'), '{"msg": [{"patient": "gudrun1", "staff": ["jojo"], "date": [2, 2, 2020], "time": "8:00", "duration": 60, "treatment": "Checkup", "description": ""}]}')
         self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["3","2","2020"], "to_date":["4","2","2020"]}'), '{"msg":"No appointments"}')
+
+        # Create a receipt for icehot recieving surgery
+        self.assertEqual(wrapper.charge_for_service('{"patient":"icehot", "treatment":"2", "reason":"", "price":""}'), '{"msg": {"patient": "icehot", "text": "Surgery", "price": 50000}}')
+
+        # Delete Nurse
+        self.assertEqual(wrapper.delete_nurse({"username":"Babba"}), '{"msg": "There is no nurse with this username"}')
+        self.assertEqual(wrapper.delete_nurse({"username":"hanna21"}), '{"username": "hanna21", "name": "Hanna Hannesardottir", "email": "hanna21@simnet.is", "note": "Great human"}')
+
+        # Delete Doctor
+        self.assertEqual(wrapper.delete_doctor({"username": "SaraH"}), '{"msg": "There is no doctor with this username"}')
+        self.assertEqual(wrapper.delete_doctor({"username": "jojo"}), '{"username": "jojo", "name": "Johann Johannsson", "email": "jojo@gmail.com", "note": "professional hamon user", "department": "surgeon"}')
+
 
     def test_prescription_class(self):
         # First one needs to be change due to the difference in the patient class

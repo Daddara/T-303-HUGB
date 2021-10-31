@@ -2,6 +2,7 @@ import json
 from Classes.appointment import Appointment
 from Classes.doctor import Doctor
 from Classes.prescription import Prescription
+from HospitalSystem_client import get_patient_list
 from data import Data
 from Classes.patient import Patient
 from Classes.staff import Staff
@@ -62,7 +63,6 @@ class Wrapper:
             pat_list.append(patient.get_patient())
         message["msg"] = pat_list
         return json.dumps(message)
-
 
     def create_patient(self, data):
         """Takes a json object and turns into a dictionary that is then passed
@@ -165,8 +165,8 @@ class Wrapper:
         except:
             return '{"msg": No Doctor Info"}'
     
-    def delete_doctor(self,data):
-        """Deletes a doctor with a particular ssn"""
+    def delete_doctor(self, data):
+        """Deletes a doctor with a particular username"""
         index = 0
         for doctors in self.__doctors:
             if data["username"] == doctors.get_username():
@@ -175,7 +175,7 @@ class Wrapper:
                 return json.dumps(return_msg)
             index += 1
         else:
-            return '{"msg":"No doctor with this ssn"}'
+            return '{"msg": "There is no doctor with this username"}'
 
     def update_doctor (self, data):
         try:
