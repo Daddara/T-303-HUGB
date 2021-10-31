@@ -67,12 +67,7 @@ class Wrapper:
     def create_patient(self, data):
         """Takes a json object and turns into a dictionary that is then passed
             to create a Patient object with the data. Returns a json value"""
-        
-        try:
-            data = json.loads(data)
-        except:
-            pass
-        
+                
         try:
             pronoune = int(data["pronoune"])
         except:
