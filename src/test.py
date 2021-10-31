@@ -58,6 +58,9 @@ class TestStationMethods(unittest.TestCase):
         # Create Nurse
         self.assertEqual(wrapper.create_nurse({"username": "abba", "name": "Abbadis", "email": "abba@hello.is", "note": ""}), '{"msg": {"username": "abba", "name": "Abbadis", "email": "abba@hello.is", "note": ""}}')
 
+        # Get Nurse Info
+        self.assertEqual(wrapper.get_nurse({"username": "GunGun"}), '{"msg": {"username": "GunGun", "name": "Gunnar Gunnarsson", "email": "GunGun@gmail.com", "note": "works slow"}}')
+
         # Delete Doctor
         self.assertEqual(wrapper.delete_doctor({"username": "SaraH"}), '{"msg": "There is no doctor with this username"}')
         self.assertEqual(wrapper.delete_doctor({"username": "jojo"}), '{"username": "jojo", "name": "Johann Johannsson", "email": "jojo@gmail.com", "note": "professional hamon user", "department": "surgeon"}')
@@ -65,12 +68,18 @@ class TestStationMethods(unittest.TestCase):
         # Create Doctor
         self.assertEqual(wrapper.create_doctor({"username": "abbi", "name": "Abbadis", "email": "abbi@hello.is", "note": ""}), '{"msg": {"username": "abbi", "name": "Abbadis", "email": "abbi@hello.is", "note": "", "department": ""}}')
 
+        # Get Doctor Info
+        self.assertEqual(wrapper.get_doctor({"username": "abbi"}), '{"msg": {"username": "abbi", "name": "Abbadis", "email": "abbi@hello.is", "note": "", "department": ""}}')
+
         # Delete Patient
         self.assertEqual(wrapper.delete_patient({"username": "Ingunn"}), '{"msg": "There is no patient with this username"}')
-        self.assertEqual(wrapper.delete_patient({"username": "icehot"}), '{"msg": {"username": "icehot", "name": "Bjarni Benediktsson", "email": "icehot@rikid.is", "note": "", "doctor_id": "", "nurseid": ""}}')
+        self.assertEqual(wrapper.delete_patient({"username": "icehot"}), '{"msg": {"username": "icehot", "name": "Bjarni Benediktsson", "email": "icehot@rikid.is", "note": "", "doctor_id": "", "nurseid": "", "pronoun": "Name only"}}')
 
         # Create Patient
-        self.assertEqual(wrapper.create_patient({"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": ""}), '{"msg": {"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": "", "doctor_id": "", "nurseid": ""}}')
+        self.assertEqual(wrapper.create_patient({"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": ""}), '{"msg": {"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": "", "doctor_id": "", "nurseid": "", "pronoun": "Name only"}}')
+
+        # Get Patient Info
+        self.assertEqual(wrapper.get_patient_info({"username": "abbo"}), '{"msg": {"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": "", "doctor_id": "", "nurseid": "", "pronoun": "Name only"}}')
 
         # Delete Staff Member
         self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "0808701399"}'), '{"name": "Arna Arnadottir", "ssn": "0808701399", "address": "Hamraborg 30", "phone": "5991234", "title": "specialist"}')
@@ -79,6 +88,7 @@ class TestStationMethods(unittest.TestCase):
         # Create Staff Member
         self.assertEqual(wrapper.create_staff({"data": {'name': 'Orri', 'ssn': '4444444444', 'title': 'Cleaner', 'address': 'Hambraborg', 'phone':'9898889'}}), '{"msg": {"name": "Orri", "ssn": "4444444444", "address": "Hambraborg", "phone": "9898889", "title": "Cleaner"}}')
 
+        
 
     def test_prescription_class(self):
         """Tests the functions in the prescription class"""
