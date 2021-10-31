@@ -168,9 +168,6 @@ async def generate_report():
             print("Please enter your credentials:")
             admin_username = input("Username: ")
             admin_password = getpass.getpass()
-            # adm1 = context.hash("admin")
-            # adm2 = context.hash("admin")
-            # print(adm1 + adm2)
             f = open('data.json',)
             data = json.load(f)
             adm1 = data["username"]
@@ -207,7 +204,17 @@ if __name__ == "__main__":
         if user_input == "q" or user_input == "Q":
             break
         elif user_input == "1":
-            print(asyncio.run(get_patient_appointments()))
+            appointments = asyncio.run(get_patient_appointments())
+            theData = json.loads(appointments)
+            try:
+                print("\n" + theData["msg"][1]["staff"][0] + " has the following appointments: \n")
+                for number, appointment in enumerate(theData["msg"]):
+                    if theData["msg"][number]["description"] != "":
+                        print(theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+                    else: 
+                        print(theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+            except:
+                print(theData["msg"])
         elif user_input == "2":
             print(asyncio.run(assign_treatment()))
         elif user_input == "3":
@@ -215,11 +222,22 @@ if __name__ == "__main__":
             theData = json.loads(newPrescription)
             print("The medicine: " + theData["medicine"] + " has been sent to the pharmecy: " + theData["pharmecy"] + " for the patient: " + theData["patient_id"])
         elif user_input == "4":
-            print(asyncio.run(delete_staff_member()))
+            staffMember = asyncio.run(delete_staff_member())
+            theData = json.loads(staffMember)
+            print(theData['name'] + ", with ssn: " + theData['ssn'] + ", has been deleted from the system.")
         elif user_input == "5":
-            print(asyncio.run(create_staff()))
+            newStaff = asyncio.run(create_staff())
+            theData = json.loads(newStaff)
+            print(theData["msg"]['name'] + "has been added from the system. SSN: " + theData["msg"]["ssn"] + ", address: " +  theData["msg"]["address"] +  ", phone: "+ theData["msg"]["phone"] + ", title: " + theData["msg"]["title"])
         elif user_input == "6":
-            print(asyncio.run(get_appointments_at_date()))
+            appointments = asyncio.run(get_appointments_at_date())
+            theData = json.loads(appointments)
+            print("\n" + theData["msg"][1]["staff"][0] + " has the following appointments: \n")
+            for number, appointment in enumerate(theData["msg"]):
+                if theData["msg"][number]["description"] != "":
+                    print(theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+                else: 
+                    print(theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
         elif user_input == "7":
             print(asyncio.run(generate_report()))
         else:
