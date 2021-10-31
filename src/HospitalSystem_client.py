@@ -7,7 +7,6 @@ import os
 from os import error, system, name, terminal_size
 from passlib.context import CryptContext
 
-from Classes.prescription import Prescription
 
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
@@ -156,6 +155,22 @@ async def delete_staff_member():
     }
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
+async def charge_for_service():
+    """Creates a receipt for a specific treatment and/or any additional charges"""
+    print("\nReason\nChoose treatment to charge for:\n0: Other/Write manually\n1: Checkup\n2: Surgery\n3: Catscan\n4: X-rays\n5: Bloodworks")
+    treatment = input("Please enter number of treatment you would like to charge for: ")
+
+    if treatment == "0":
+        reason = input("Enter what you are charging for: ")
+        price = input("What would you like to charge? Enter amount with no commas or dots: ")
+    else:
+        reason = ""
+        price = ""
+    patient = input("Enter username for patient to charge: ")
+    data = {"patient":patient, "treatment":treatment, "reason":reason, "price":price}
+    data = json.dumps(data)
+    return await send_msg("charge_for_service", data)
+
 
 async def generate_report():
     try:
@@ -242,9 +257,9 @@ if __name__ == "__main__":
                 print("\n" + theData["msg"][1]["staff"][0] + " has the following appointments: \n")
                 for number, appointment in enumerate(theData["msg"]):
                     if theData["msg"][number]["description"] != "":
-                        print(theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+                        print("\n" + theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
                     else: 
-                        print(theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+                        print("\n" + theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
             else:
                 print(theData["msg"])
         elif user_input == "7":
@@ -252,10 +267,10 @@ if __name__ == "__main__":
         elif user_input == "8":
             patient = asyncio.run(create_patient())
             theData = json.loads(patient)
-            print("Patient has beem added with the following attributes: Name: " + theData["msg"]["name"] + ", username: " + theData["msg"]["username"] + ", pronoun: '" + theData["msg"]["pronoun"] + "' and with the note: " + theData["msg"]["note"] + ".")
+            print("\nPatient has beem added with the following attributes: Name: " + theData["msg"]["name"] + ", username: " + theData["msg"]["username"] + ", pronoun: '" + theData["msg"]["pronoun"] + "' and with the note: " + theData["msg"]["note"] + ".")
         elif user_input == "9":
             bill = asyncio.run(charge_for_service())
             theData = json.loads(bill)
-            print(theData)
+            print("\nThe patient " + theData["msg"]["patient"] + " was charged " + str(theData["msg"]["price"]) + " for " + theData["msg"]["text"] + ".")
         else:
             print("Please enter a valid number")
