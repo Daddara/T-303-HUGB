@@ -51,6 +51,10 @@ class HospitalsystemInterface:
         """Deletes a specific patient"""     
         return self.wrapper.delete_patient(data)
 
+    def get_medical_history(self, data):
+        """Gets a patients previous medical history"""
+        return self.wrapper.get_medical_history(data)
+
     # Doctors
 
     def readAll_doctor(self, data):

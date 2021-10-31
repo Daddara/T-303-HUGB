@@ -122,6 +122,22 @@ class Wrapper:
         except:
             return '{ "msg": "Deleting this patient was unsuccessful, please try again." }'
 
+    def get_medical_history(self, data):
+        """Returns a patients medical history if he has any"""
+        try:
+            data = json.loads(data)
+            message = {}
+            for patient in self.__patients:
+                patient_id = patient.get_patient_id()
+                if(data["patient"] == patient_id):
+                    patient_records = patient.get_patient_records()
+                    if patient_records == "":
+                        patient_records = "No medical records"
+                    message["msg"] = patient_records
+                    return json.dumps(message)     
+            return '{"msg": "There is no patient with this username"}'        
+        except:
+            return '{"msg": "Retrieval of medical history unsuccessful"}'
 
     #### DOCTOR METHODS ####
 

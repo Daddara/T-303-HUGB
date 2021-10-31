@@ -171,6 +171,16 @@ async def charge_for_service():
     data = json.dumps(data)
     return await send_msg("charge_for_service", data)
 
+async def get_medical_history():
+    """Gets a patients previous medical history"""
+    try:
+        patient_id = input("Please input patients username: ")
+        data = {"patient": patient_id}
+        data = json.dumps(data)
+        return await send_msg("get_medical_history", data)
+    except:
+        return {"msg":"There is no patient with this username."}
+
 
 async def generate_report():
     """Creates a report of all doctors, nurses and patients"""
@@ -215,6 +225,7 @@ if __name__ == "__main__":
             Enter 7 to generate a report as an administrator \n\
             Enter 8 to add a patient \n\
             Enter 9 to create a receipt for a patient \n\
+            Enter 10 to get a patient's medical history\n\
             Enter q to quit\n\
             "
     while True:
@@ -273,5 +284,7 @@ if __name__ == "__main__":
             bill = asyncio.run(charge_for_service())
             theData = json.loads(bill)
             print("\nThe patient " + theData["msg"]["patient"] + " was charged " + str(theData["msg"]["price"]) + " for " + theData["msg"]["text"] + ".")
+        elif user_input == "10":
+            print(asyncio.run(get_medical_history()))
         else:
             print("Please enter a valid number")
