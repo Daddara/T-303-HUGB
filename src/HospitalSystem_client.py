@@ -213,13 +213,9 @@ if __name__ == "__main__":
             Enter 4 to delete a staff member\n\
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
-<<<<<<< HEAD
             Enter 7 to generate a report as an administrator \n\
             Enter 8 to add a patient \n\
-=======
-            Enter 7 to create a receipt for a patient \n\
-            Enter 8 to generate a report as an administrator \n\
->>>>>>> origin/back1
+            Enter 9 to create a receipt for a patient \n\
             Enter q to quit\n\
             "
     while True:
@@ -242,10 +238,10 @@ if __name__ == "__main__":
         elif user_input == "6":
             print(asyncio.run(get_appointments_at_date()))
         elif user_input == "7":
-            print(asyncio.run(charge_for_service()))
-        elif user_input == "8":
             print(asyncio.run(generate_report()))
         elif user_input == "8":
             print(asyncio.run(create_patient()))
+        elif user_input == "9":
+            print(asyncio.run(charge_for_service()))
         else:
             print("Please enter a valid number")
