@@ -3,7 +3,6 @@ import asyncio
 import websockets
 import json
 import getpass
-from dotenv import load_dotenv
 import os
 from os import error, system, name
 from passlib.context import CryptContext
