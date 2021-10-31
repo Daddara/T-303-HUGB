@@ -113,7 +113,7 @@ class Wrapper:
                     return json.dumps(return_msg)
                 index += 1
             else:
-                return '{"msg":"No Patient with the id"}'
+                return '{"msg": "There is no patient with this username"}'
         except:
             return '{ "msg": "Deleting this patient was unsuccessful, please try again." }'
 
@@ -657,4 +657,3 @@ class Wrapper:
     
         
         return("You have successfully created a PDF report document for the hospital")
-

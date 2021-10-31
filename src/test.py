@@ -39,27 +39,43 @@ class TestStationMethods(unittest.TestCase):
     def test_wrapper(self):
         wrapper = Wrapper()
 
-        # delete staff member
-        self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "0808701399"}'), '{"name": "Arna Arnadottir", "ssn": "0808701399", "address": "Hamraborg 30", "phone": "5991234", "title": "specialist"}')
-        self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "2202002020"}'), '{"msg":"No staff member with this ssn"}')
-        
-        # get appointments for arnaa
+        # Get all appointments for arnaa
         self.assertEqual(wrapper.get_appointments('{"username": "arnaa"}'), '{"msg": [{"patient": "icehot", "staff": ["arnaa"], "date": [10, 8, 2022], "time": "13:00", "duration": 60, "treatment": "Surgery", "description": "Surgery on shoulder"}, {"patient": "icehot", "staff": ["arnaa"], "date": [12, 9, 2022], "time": "09:00", "duration": 30, "treatment": "Checkup", "description": ""}, {"patient": "icehot", "staff": ["arnaa"], "date": [12, 9, 2022], "time": "19:00", "duration": 30, "treatment": "Checkup", "description": ""}]}')
 
-        # get appointments for Doctor jojo from 2.2.2020 - 28.2.2020 and 3.2.2020 - 4.2.2020
+        # Get appointments for Doctor jojo from 2.2.2020 - 28.2.2020 and 3.2.2020 - 4.2.2020
         self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["2","2","2020"], "to_date":["28","2","2020"]}'), '{"msg": [{"patient": "gudrun1", "staff": ["jojo"], "date": [2, 2, 2020], "time": "8:00", "duration": 60, "treatment": "Checkup", "description": ""}]}')
         self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["3","2","2020"], "to_date":["4","2","2020"]}'), '{"msg":"No appointments"}')
 
-        # Create a receipt for icehot recieving surgery
+        # Create a receipt for icehot receiving surgery
         self.assertEqual(wrapper.charge_for_service('{"patient":"icehot", "treatment":"2", "reason":"", "price":""}'), '{"msg": {"patient": "icehot", "text": "Surgery", "price": 50000}}')
 
         # Delete Nurse
         self.assertEqual(wrapper.delete_nurse({"username":"Babba"}), '{"msg": "There is no nurse with this username"}')
         self.assertEqual(wrapper.delete_nurse({"username":"hanna21"}), '{"username": "hanna21", "name": "Hanna Hannesardottir", "email": "hanna21@simnet.is", "note": "Great human"}')
+        
+        # Create Nurse
+        self.assertEqual(wrapper.create_nurse({"username": "abba", "name": "Abbadis", "email": "abba@hello.is", "note": ""}), '{"msg": {"username": "abba", "name": "Abbadis", "email": "abba@hello.is", "note": ""}}')
 
         # Delete Doctor
         self.assertEqual(wrapper.delete_doctor({"username": "SaraH"}), '{"msg": "There is no doctor with this username"}')
         self.assertEqual(wrapper.delete_doctor({"username": "jojo"}), '{"username": "jojo", "name": "Johann Johannsson", "email": "jojo@gmail.com", "note": "professional hamon user", "department": "surgeon"}')
+
+        # Create Doctor
+        self.assertEqual(wrapper.create_doctor({"username": "abbi", "name": "Abbadis", "email": "abbi@hello.is", "note": ""}), '{"msg": {"username": "abbi", "name": "Abbadis", "email": "abbi@hello.is", "note": "", "department": ""}}')
+
+        # Delete Patient
+        self.assertEqual(wrapper.delete_patient({"username": "Ingunn"}), '{"msg": "There is no patient with this username"}')
+        self.assertEqual(wrapper.delete_patient({"username": "icehot"}), '{"msg": {"username": "icehot", "name": "Bjarni Benediktsson", "email": "icehot@rikid.is", "note": "", "doctor_id": "", "nurseid": ""}}')
+
+        # Create Patient
+        self.assertEqual(wrapper.create_patient({"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": ""}), '{"msg": {"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": "", "doctor_id": "", "nurseid": ""}}')
+
+        # Delete Staff Member
+        self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "0808701399"}'), '{"name": "Arna Arnadottir", "ssn": "0808701399", "address": "Hamraborg 30", "phone": "5991234", "title": "specialist"}')
+        self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "2202002020"}'), '{"msg":"No staff member with this ssn"}')
+        
+        # Create Staff Member
+        self.assertEqual(wrapper.create_staff({"data": {'name': 'Orri', 'ssn': '4444444444', 'title': 'Cleaner', 'address': 'Hambraborg', 'phone':'9898889'}}), '{"msg": {"name": "Orri", "ssn": "4444444444", "address": "Hambraborg", "phone": "9898889", "title": "Cleaner"}}')
 
 
     def test_prescription_class(self):
