@@ -1,4 +1,4 @@
-PRONOUNE = {
+PRONOUN = {
     0: "Non Specific",
     1: "He",
     2: "She",
@@ -12,18 +12,18 @@ PRONOUNE = {
 
 class Patient:
   """This class keeps track of patients"""
-  def __init__(self, p_username:str, p_name:str, p_email:str, p_note:str, p_doctor_id: str, p_nurse_id: str, p_pronoune=None):
+  def __init__(self, p_username:str, p_name:str, p_email:str, p_note:str, p_doctor_id: str, p_nurse_id: str, p_pronoun=None):
     
-    if p_pronoune == None:
-        p_pronoune = PRONOUNE[8]
+    if p_pronoun == None:
+        p_pronoun = PRONOUN[8]
     else:
-        p_pronoune = PRONOUNE[p_pronoune]
+        p_pronoun = PRONOUN[p_pronoun]
     
     self.__p_username = p_username
     self.__p_name = p_name
     self.p_email = p_email
     self.__p_note = p_note
-    self.p_pronoune = p_pronoune
+    self.p_pronoun = p_pronoun
     self.p_doctor_id = p_doctor_id
     self.p_nurse_id = p_nurse_id
 
@@ -58,7 +58,7 @@ class Patient:
       "note" : self.__p_note,
       "doctor_id" : self.p_doctor_id,
       "nurseid" : self.p_nurse_id,
-      "pronoune": self.p_pronoune
+      "pronoun": self.p_pronoun
     }
     return patient_dict
 

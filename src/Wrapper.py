@@ -69,9 +69,9 @@ class Wrapper:
             to create a Patient object with the data. Returns a json value"""
                 
         try:
-            pronoune = int(data["pronoune"])
+            pronoun = int(data["pronoun"])
         except:
-            pronoune = None
+            pronoun = None
         
         try:
             message = {}
@@ -83,7 +83,7 @@ class Wrapper:
                 email_username = email.split("@")
                 emails.append(email_username[0])
             if len(p_split) == 2 and p_split[1] != "" and p_split[0] not in emails:
-                new_patient = Patient(p_username, data["name"], data["email"], data["note"], "", "", pronoune)
+                new_patient = Patient(p_username, data["name"], data["email"], data["note"], "", "", pronoun)
                 self.__patients.append(new_patient)
                 new_patient = new_patient.get_patient()
                 message["msg"] = new_patient
