@@ -134,6 +134,7 @@ class Wrapper:
                     if patient_records == "":
                         patient_records = "No medical records"
                     message["msg"] = patient_records
+                    message["username"] = patient_id
                     return json.dumps(message)     
             return '{"msg": "There is no patient with this username"}'        
         except:

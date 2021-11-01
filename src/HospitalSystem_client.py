@@ -285,6 +285,33 @@ if __name__ == "__main__":
             theData = json.loads(bill)
             print("\nThe patient " + theData["msg"]["patient"] + " was charged " + str(theData["msg"]["price"]) + " for " + theData["msg"]["text"] + ".")
         elif user_input == "10":
-            print(asyncio.run(get_medical_history()))
+            history = asyncio.run(get_medical_history())
+            theData = json.loads(history)
+            if theData["msg"] == "There is no patient with this username":
+                print(theData["msg"])
+            elif theData["msg"] == 'No medical records':
+                print(theData["username"] + " has no medical record")
+            else:
+                medical_history = json.loads(theData["msg"])
+                username = theData["username"]
+                Allergies = ""
+                Surgeries = ""
+                for nr, allergy in enumerate(medical_history["Allergies"]):
+                    if nr == 0:
+                        Allergies += allergy
+                    else:
+                        Allergies += ", " + allergy
+
+                for nr, surgary in enumerate(medical_history["Surgeries"]):
+                    if nr == 0:
+                        Surgeries += surgary
+                    else:
+                        Surgeries += ", " + surgary
+                if len(Allergies) != 0 and len(Surgeries):
+                    print( username + " has the following medical history/notes: Allergies: " + Allergies + " and Surgeries: " + Surgeries + ".")
+                elif len(Allergies) != 0:
+                    print( username + " has the following medical history/notes: Surgeries: " + Surgeries + ".")
+                elif len(Surgeries) != 0:
+                    print( username + " has the following medical history/notes: Allergies: " + Allergies + ".")
         else:
             print("Please enter a valid number")
