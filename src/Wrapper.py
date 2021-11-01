@@ -675,6 +675,3 @@ class Wrapper:
     
         
         return("You have successfully created a PDF report document for the hospital")
-        
-# w = Wrapper()
-# print(w.get_patient_info({"username": "gudrun1"}))
