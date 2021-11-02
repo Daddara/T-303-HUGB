@@ -6,6 +6,7 @@ class TreatmentLogic():
     def __init__(self):
         self.__data = Data()
         self.__treatment_prices = self.__data.get_treatment_prices()
+        self.__appointments = self.__data.get_appointments()
     
     def get_treatment_database(self):
         return self.__treatment_prices

@@ -55,7 +55,7 @@ appointments = [
     ]
 
 class Data():
-    ''' Our Database Dummy'''
+    """ Our Database Dummy """
     
     def get_doctors(self):
         """Returns a list of doctors created to stand in for our database"""

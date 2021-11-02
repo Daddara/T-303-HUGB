@@ -15,7 +15,7 @@ class HospitalsystemInterface:
         return self.wrapper.delete_staff_member(data)
 
     def create_staff(self, data): 
-        '''Creates a staff member'''    
+        """Creates a staff member"""   
         return_msg = self.wrapper.create_staff(data)
         return return_msg
 
@@ -93,7 +93,7 @@ class HospitalsystemInterface:
         return self.wrapper.update_nurse(data)
 
     def create_nurse(self, data): 
-        '''Creates a nurse'''    
+        """Creates a nurse"""    
         return_msg = self.wrapper.create_nurse(data)
         return return_msg
 
