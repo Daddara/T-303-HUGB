@@ -90,7 +90,7 @@ class TreatmentLogic():
             message["msg"] = new_appointment
             return json.dumps(message)
         except:
-            return  '{"msg": "Creating this staff member was unsuccessful, please try again." }'
+            return  '{"msg": "Creating this appointment was unsuccessful, please try again." }'
     
     def charge_for_service(self, data, patient_list):
         """Checks and creates the data needed for the receipt"""
