@@ -1,7 +1,9 @@
 SPRINT 5
 
 Scrum Master: Tryggvi
+
 Ritari: Arnar
+
 
 Meeting 21.10 14:20
 
@@ -58,7 +60,7 @@ Final touches on user stories. Rúnar will make the video as soon as everyone ha
 
 Meeting 2.11 20:00
 
-Attended: Rúnar, Arnar, Ingunn, Daníel
+Attended: Rúnar, Arnar, Ingunn, Daníel, Tryggvi, Hörður
 
 Final touches and merged to master!
 
