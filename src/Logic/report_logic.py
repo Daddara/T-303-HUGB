@@ -2,6 +2,7 @@ from copy import deepcopy
 from tables import createTable
 
 class ReportLogic():
+    """Creates Pdf"""
     def generate_report(self, data, doctor_list, nurse_list, patient_list):
         """
         Generates a PDF report that list all doctors, nurses, and patients

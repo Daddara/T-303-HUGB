@@ -3,7 +3,7 @@ from Logic.patient_logic import PatientLogic
 from Logic.doctor_logic import DoctorLogic
 from Logic.nurse_logic import NurseLogic
 from Logic.staff_logic import StaffLogic
-from Logic.presciption_logic import PrescriptionLogic
+from Logic.prescription_logic import PrescriptionLogic
 from Logic.appointment_logic import AppointmentLogic
 from Logic.treatment_logic import TreatmentLogic
 from Logic.report_logic import ReportLogic
@@ -13,7 +13,6 @@ from Logic.report_logic import ReportLogic
 class Wrapper:
     '''Used as a subroutine between logics'''
     def __init__(self):
-        self.__data = Data()
         self.__patient_logic = PatientLogic()
         self.__doctor_logic = DoctorLogic()
         self.__nurse_logic = NurseLogic()

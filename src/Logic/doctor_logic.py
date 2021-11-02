@@ -3,12 +3,13 @@ import json
 from Classes.doctor import Doctor
 
 class DoctorLogic():
+    """contains all Logic and Dummydata for doctors"""
     def __init__(self):
         self.__data = Data()
         self.__doctors = self.__data.get_doctors()
     
     def get_doctor_database(self):
-        '''returns list of all doctors from the database'''
+        """returns list of all doctors from the database"""
         return self.__doctors
     
     def create_doctor(self, data):

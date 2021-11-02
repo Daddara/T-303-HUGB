@@ -3,12 +3,13 @@ import json
 from Classes.nurse import Nurse
 
 class NurseLogic():
+    """contains all Logic and Dummydata for Nurse"""
     def __init__(self):
         self.__data = Data()
         self.__nurses = self.__data.get_nurses()
     
     def get_nurse_database(self):
-        '''returns list of all nurses from the database'''
+        """returns list of all nurses from the database"""
         return self.__nurses
     
     def create_nurse(self, data):

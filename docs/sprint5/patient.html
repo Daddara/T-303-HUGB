@@ -78,21 +78,41 @@ patient    </h1>
                 
                         <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Patient</span><span class="p">:</span>
+            <div class="codehilite"><pre><span></span><span class="n">PRONOUN</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Non Specific&quot;</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;He&quot;</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;She&quot;</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Zie&quot;</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Ey&quot;</span><span class="p">,</span>
+    <span class="mi">5</span> <span class="p">:</span> <span class="s2">&quot;Ve&quot;</span><span class="p">,</span>
+    <span class="mi">6</span> <span class="p">:</span> <span class="s2">&quot;Tey&quot;</span><span class="p">,</span>
+    <span class="mi">7</span> <span class="p">:</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span>
+    <span class="mi">8</span><span class="p">:</span> <span class="s2">&quot;Name only&quot;</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Patient</span><span class="p">:</span>
   <span class="sd">&quot;&quot;&quot;This class keeps track of patients&quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_username</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_note</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_doctor_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p_nurse_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_username</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_note</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_doctor_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p_nurse_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p_pronoun</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    
+    <span class="k">if</span> <span class="n">p_pronoun</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">p_pronoun</span> <span class="o">=</span> <span class="n">PRONOUN</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">p_pronoun</span> <span class="o">=</span> <span class="n">PRONOUN</span><span class="p">[</span><span class="n">p_pronoun</span><span class="p">]</span>
+    
     <span class="bp">self</span><span class="o">.</span><span class="n">__p_username</span> <span class="o">=</span> <span class="n">p_username</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__p_name</span> <span class="o">=</span> <span class="n">p_name</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">p_email</span> <span class="o">=</span> <span class="n">p_email</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__p_note</span> <span class="o">=</span> <span class="n">p_note</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">p_pronoun</span> <span class="o">=</span> <span class="n">p_pronoun</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">p_doctor_id</span> <span class="o">=</span> <span class="n">p_doctor_id</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">p_nurse_id</span> <span class="o">=</span> <span class="n">p_nurse_id</span>
 
   <span class="k">def</span> <span class="nf">get_patient_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the id for a patient, which is his username&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Returns the username of a patient, which is his id&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p_username</span>
 
   <span class="k">def</span> <span class="nf">get_patient_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the email of a patient&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_email</span>
 
   <span class="k">def</span> <span class="nf">get_patient_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -117,7 +137,8 @@ patient    </h1>
       <span class="s2">&quot;email&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_email</span><span class="p">,</span>
       <span class="s2">&quot;note&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p_note</span><span class="p">,</span>
       <span class="s2">&quot;doctor_id&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_doctor_id</span><span class="p">,</span>
-      <span class="s2">&quot;nurseid&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_nurse_id</span>
+      <span class="s2">&quot;nurseid&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_nurse_id</span><span class="p">,</span>
+      <span class="s2">&quot;pronoun&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_pronoun</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">patient_dict</span>
 
@@ -142,19 +163,27 @@ patient    </h1>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Patient</span><span class="p">:</span>
   <span class="sd">&quot;&quot;&quot;This class keeps track of patients&quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_username</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_note</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_doctor_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p_nurse_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_username</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_note</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_doctor_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p_nurse_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p_pronoun</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    
+    <span class="k">if</span> <span class="n">p_pronoun</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">p_pronoun</span> <span class="o">=</span> <span class="n">PRONOUN</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">p_pronoun</span> <span class="o">=</span> <span class="n">PRONOUN</span><span class="p">[</span><span class="n">p_pronoun</span><span class="p">]</span>
+    
     <span class="bp">self</span><span class="o">.</span><span class="n">__p_username</span> <span class="o">=</span> <span class="n">p_username</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__p_name</span> <span class="o">=</span> <span class="n">p_name</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">p_email</span> <span class="o">=</span> <span class="n">p_email</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__p_note</span> <span class="o">=</span> <span class="n">p_note</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">p_pronoun</span> <span class="o">=</span> <span class="n">p_pronoun</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">p_doctor_id</span> <span class="o">=</span> <span class="n">p_doctor_id</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">p_nurse_id</span> <span class="o">=</span> <span class="n">p_nurse_id</span>
 
   <span class="k">def</span> <span class="nf">get_patient_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the id for a patient, which is his username&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Returns the username of a patient, which is his id&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p_username</span>
 
   <span class="k">def</span> <span class="nf">get_patient_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the email of a patient&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_email</span>
 
   <span class="k">def</span> <span class="nf">get_patient_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -179,7 +208,8 @@ patient    </h1>
       <span class="s2">&quot;email&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_email</span><span class="p">,</span>
       <span class="s2">&quot;note&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p_note</span><span class="p">,</span>
       <span class="s2">&quot;doctor_id&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_doctor_id</span><span class="p">,</span>
-      <span class="s2">&quot;nurseid&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_nurse_id</span>
+      <span class="s2">&quot;nurseid&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_nurse_id</span><span class="p">,</span>
+      <span class="s2">&quot;pronoun&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_pronoun</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">patient_dict</span>
 
@@ -204,17 +234,25 @@ patient    </h1>
     p_email: str,
     p_note: str,
     p_doctor_id: str,
-    p_nurse_id: str
+    p_nurse_id: str,
+    p_pronoun=None
 )</span>
     </div>
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_username</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_note</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_doctor_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p_nurse_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_username</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_note</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">p_doctor_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p_nurse_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p_pronoun</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    
+    <span class="k">if</span> <span class="n">p_pronoun</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">p_pronoun</span> <span class="o">=</span> <span class="n">PRONOUN</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">p_pronoun</span> <span class="o">=</span> <span class="n">PRONOUN</span><span class="p">[</span><span class="n">p_pronoun</span><span class="p">]</span>
+    
     <span class="bp">self</span><span class="o">.</span><span class="n">__p_username</span> <span class="o">=</span> <span class="n">p_username</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__p_name</span> <span class="o">=</span> <span class="n">p_name</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">p_email</span> <span class="o">=</span> <span class="n">p_email</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__p_note</span> <span class="o">=</span> <span class="n">p_note</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">p_pronoun</span> <span class="o">=</span> <span class="n">p_pronoun</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">p_doctor_id</span> <span class="o">=</span> <span class="n">p_doctor_id</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">p_nurse_id</span> <span class="o">=</span> <span class="n">p_nurse_id</span>
 </pre></div>
@@ -235,13 +273,13 @@ patient    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">get_patient_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the id for a patient, which is his username&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Returns the username of a patient, which is his id&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p_username</span>
 </pre></div>
 
         </details>
 
-            <div class="docstring"><p>Returns the id for a patient, which is his username</p>
+            <div class="docstring"><p>Returns the username of a patient, which is his id</p>
 </div>
 
 
@@ -257,12 +295,15 @@ patient    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">get_patient_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the email of a patient&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_email</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Returns the email of a patient</p>
+</div>
+
 
                             </div>
                             <div id="Patient.get_patient_name" class="classattr">
@@ -332,7 +373,8 @@ patient    </h1>
       <span class="s2">&quot;email&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_email</span><span class="p">,</span>
       <span class="s2">&quot;note&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p_note</span><span class="p">,</span>
       <span class="s2">&quot;doctor_id&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_doctor_id</span><span class="p">,</span>
-      <span class="s2">&quot;nurseid&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_nurse_id</span>
+      <span class="s2">&quot;nurseid&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_nurse_id</span><span class="p">,</span>
+      <span class="s2">&quot;pronoun&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_pronoun</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">patient_dict</span>
 </pre></div>

@@ -3,11 +3,13 @@ import json
 from Classes.prescription import Prescription
 
 class PrescriptionLogic():
+    """contains all Logic and Dummydata for prescriptions"""
     def __init__(self):
         self.__data = Data()
         self.__prescriptions = self.__data.get_prescriptions()
     
     def get_prescription_database(self):
+        """returns list of all prescriptions from the database"""
         return self.__prescriptions
     
     def send_presription(self, data, patient_list):

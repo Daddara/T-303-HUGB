@@ -66,6 +66,9 @@
                                 <a class="function" href="#HospitalsystemInterface.delete_patient">delete_patient</a>
                         </li>
                         <li>
+                                <a class="function" href="#HospitalsystemInterface.get_medical_history">get_medical_history</a>
+                        </li>
+                        <li>
                                 <a class="function" href="#HospitalsystemInterface.readAll_doctor">readAll_doctor</a>
                         </li>
                         <li>
@@ -152,7 +155,7 @@ HospitalSystem_if    </h1>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">delete_staff_member</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">create_staff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> 
-        <span class="sd">&#39;&#39;&#39;Creates a staff member&#39;&#39;&#39;</span>    
+        <span class="sd">&quot;&quot;&quot;Creates a staff member&quot;&quot;&quot;</span>   
         <span class="n">return_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">create_staff</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">return_msg</span>
 
@@ -169,7 +172,6 @@ HospitalSystem_if    </h1>
 
     <span class="k">def</span> <span class="nf">create_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>    
         <span class="sd">&quot;&quot;&quot;Creates a patient&quot;&quot;&quot;</span> 
-        <span class="c1">#Here you call the actual operation in your backend code.</span>
         <span class="n">return_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">create_patient</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">return_msg</span>
 
@@ -187,8 +189,11 @@ HospitalSystem_if    </h1>
 
     <span class="k">def</span> <span class="nf">delete_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Deletes a specific patient&quot;&quot;&quot;</span>     
-        <span class="c1">#Here you call the actual operation in your backend code.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">delete_patient</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_medical_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets a patients previous medical history&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">get_medical_history</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="c1"># Doctors</span>
 
@@ -228,7 +233,7 @@ HospitalSystem_if    </h1>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">update_nurse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">create_nurse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> 
-        <span class="sd">&#39;&#39;&#39;Creates a nurse&#39;&#39;&#39;</span>    
+        <span class="sd">&quot;&quot;&quot;Creates a nurse&quot;&quot;&quot;</span>    
         <span class="n">return_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">create_nurse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">return_msg</span>
 
@@ -260,6 +265,7 @@ HospitalSystem_if    </h1>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">charge_for_service</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a report of all doctors, nurses and patients&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">generate_report</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
@@ -290,7 +296,7 @@ HospitalSystem_if    </h1>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">delete_staff_member</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">create_staff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> 
-        <span class="sd">&#39;&#39;&#39;Creates a staff member&#39;&#39;&#39;</span>    
+        <span class="sd">&quot;&quot;&quot;Creates a staff member&quot;&quot;&quot;</span>   
         <span class="n">return_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">create_staff</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">return_msg</span>
 
@@ -307,7 +313,6 @@ HospitalSystem_if    </h1>
 
     <span class="k">def</span> <span class="nf">create_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>    
         <span class="sd">&quot;&quot;&quot;Creates a patient&quot;&quot;&quot;</span> 
-        <span class="c1">#Here you call the actual operation in your backend code.</span>
         <span class="n">return_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">create_patient</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">return_msg</span>
 
@@ -325,8 +330,11 @@ HospitalSystem_if    </h1>
 
     <span class="k">def</span> <span class="nf">delete_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Deletes a specific patient&quot;&quot;&quot;</span>     
-        <span class="c1">#Here you call the actual operation in your backend code.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">delete_patient</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_medical_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets a patients previous medical history&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">get_medical_history</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="c1"># Doctors</span>
 
@@ -366,7 +374,7 @@ HospitalSystem_if    </h1>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">update_nurse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">create_nurse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> 
-        <span class="sd">&#39;&#39;&#39;Creates a nurse&#39;&#39;&#39;</span>    
+        <span class="sd">&quot;&quot;&quot;Creates a nurse&quot;&quot;&quot;</span>    
         <span class="n">return_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">create_nurse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">return_msg</span>
 
@@ -398,6 +406,7 @@ HospitalSystem_if    </h1>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">charge_for_service</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a report of all doctors, nurses and patients&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">generate_report</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
@@ -457,7 +466,7 @@ HospitalSystem_if    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">create_staff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> 
-        <span class="sd">&#39;&#39;&#39;Creates a staff member&#39;&#39;&#39;</span>    
+        <span class="sd">&quot;&quot;&quot;Creates a staff member&quot;&quot;&quot;</span>   
         <span class="n">return_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">create_staff</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">return_msg</span>
 </pre></div>
@@ -526,7 +535,6 @@ HospitalSystem_if    </h1>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">create_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>    
         <span class="sd">&quot;&quot;&quot;Creates a patient&quot;&quot;&quot;</span> 
-        <span class="c1">#Here you call the actual operation in your backend code.</span>
         <span class="n">return_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">create_patient</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">return_msg</span>
 </pre></div>
@@ -616,13 +624,34 @@ HospitalSystem_if    </h1>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">delete_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Deletes a specific patient&quot;&quot;&quot;</span>     
-        <span class="c1">#Here you call the actual operation in your backend code.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">delete_patient</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
         </details>
 
             <div class="docstring"><p>Deletes a specific patient</p>
+</div>
+
+
+                            </div>
+                            <div id="HospitalsystemInterface.get_medical_history" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#HospitalsystemInterface.get_medical_history">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">get_medical_history</span><span class="signature">(self, data)</span>:
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_medical_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets a patients previous medical history&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">get_medical_history</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Gets a patients previous medical history</p>
 </div>
 
 
@@ -815,7 +844,7 @@ HospitalSystem_if    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">create_nurse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> 
-        <span class="sd">&#39;&#39;&#39;Creates a nurse&#39;&#39;&#39;</span>    
+        <span class="sd">&quot;&quot;&quot;Creates a nurse&quot;&quot;&quot;</span>    
         <span class="n">return_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">create_nurse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">return_msg</span>
 </pre></div>
@@ -971,12 +1000,15 @@ HospitalSystem_if    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a report of all doctors, nurses and patients&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">generate_report</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Creates a report of all doctors, nurses and patients</p>
+</div>
+
 
                             </div>
                 </section>

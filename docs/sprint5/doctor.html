@@ -73,6 +73,7 @@ doctor    </h1>
                         <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Doctor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This class contains information about Doctors&quot;&quot;&quot;</span>
     <span class="c1"># username: string, name: string, email: string, note: string, department: string</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">note</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">department</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__username</span> <span class="o">=</span> <span class="n">username</span>
@@ -82,6 +83,7 @@ doctor    </h1>
         <span class="bp">self</span><span class="o">.</span><span class="n">__department</span> <span class="o">=</span> <span class="n">department</span>
     
     <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a doctor&#39;s information as a dictionary&quot;&quot;&quot;</span>
         <span class="n">doctor_info_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">,</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span><span class="p">,</span>  
@@ -92,13 +94,15 @@ doctor    </h1>
         <span class="k">return</span> <span class="n">doctor_info_dict</span>
     
     <span class="k">def</span> <span class="nf">get_username</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the username of a doctor&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__username</span>
 
     <span class="k">def</span> <span class="nf">get_doctor_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the email of a doctor&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__email</span>
 
     <span class="k">def</span> <span class="nf">update_doctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">note</span><span class="p">,</span> <span class="n">department</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Updates a patient and returns his info as a dictionary&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Updates a doctor and returns their info as a dictionary&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__username</span> <span class="o">=</span> <span class="n">username</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__email</span> <span class="o">=</span> <span class="n">email</span>
@@ -122,6 +126,7 @@ doctor    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Doctor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This class contains information about Doctors&quot;&quot;&quot;</span>
     <span class="c1"># username: string, name: string, email: string, note: string, department: string</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">note</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">department</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__username</span> <span class="o">=</span> <span class="n">username</span>
@@ -131,6 +136,7 @@ doctor    </h1>
         <span class="bp">self</span><span class="o">.</span><span class="n">__department</span> <span class="o">=</span> <span class="n">department</span>
     
     <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a doctor&#39;s information as a dictionary&quot;&quot;&quot;</span>
         <span class="n">doctor_info_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">,</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span><span class="p">,</span>  
@@ -141,13 +147,15 @@ doctor    </h1>
         <span class="k">return</span> <span class="n">doctor_info_dict</span>
     
     <span class="k">def</span> <span class="nf">get_username</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the username of a doctor&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__username</span>
 
     <span class="k">def</span> <span class="nf">get_doctor_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the email of a doctor&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__email</span>
 
     <span class="k">def</span> <span class="nf">update_doctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">note</span><span class="p">,</span> <span class="n">department</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Updates a patient and returns his info as a dictionary&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Updates a doctor and returns their info as a dictionary&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__username</span> <span class="o">=</span> <span class="n">username</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__email</span> <span class="o">=</span> <span class="n">email</span>
@@ -158,7 +166,9 @@ doctor    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>This class contains information about Doctors</p>
+</div>
+
 
                             <div id="Doctor.__init__" class="classattr">
                                         <div class="attr function"><a class="headerlink" href="#Doctor.__init__">#&nbsp;&nbsp</a>
@@ -193,6 +203,7 @@ doctor    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a doctor&#39;s information as a dictionary&quot;&quot;&quot;</span>
         <span class="n">doctor_info_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">,</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span><span class="p">,</span>  
@@ -205,7 +216,9 @@ doctor    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>Returns a doctor's information as a dictionary</p>
+</div>
+
 
                             </div>
                             <div id="Doctor.get_username" class="classattr">
@@ -219,12 +232,15 @@ doctor    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_username</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the username of a doctor&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__username</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Returns the username of a doctor</p>
+</div>
+
 
                             </div>
                             <div id="Doctor.get_doctor_email" class="classattr">
@@ -238,12 +254,15 @@ doctor    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_doctor_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the email of a doctor&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__email</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Returns the email of a doctor</p>
+</div>
+
 
                             </div>
                             <div id="Doctor.update_doctor" class="classattr">
@@ -257,7 +276,7 @@ doctor    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">update_doctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">note</span><span class="p">,</span> <span class="n">department</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Updates a patient and returns his info as a dictionary&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Updates a doctor and returns their info as a dictionary&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__username</span> <span class="o">=</span> <span class="n">username</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__email</span> <span class="o">=</span> <span class="n">email</span>
@@ -268,7 +287,7 @@ doctor    </h1>
 
         </details>
 
-            <div class="docstring"><p>Updates a patient and returns his info as a dictionary</p>
+            <div class="docstring"><p>Updates a doctor and returns their info as a dictionary</p>
 </div>
 
 

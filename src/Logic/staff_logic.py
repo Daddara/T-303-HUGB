@@ -3,12 +3,13 @@ import json
 from Classes.staff import Staff
 
 class StaffLogic():
+    """contains all Logic and Dummydata for staff"""
     def __init__(self):
         self.__data = Data()
         self.__staff = self.__data.get_staff()
 
     def get_patient_database(self):
-        '''returns list of all staff from the database'''
+        """returns list of all staff from the database"""
         return self.__staff
     
     def create_staff(self, data):
@@ -17,6 +18,33 @@ class StaffLogic():
         try:
             message = {}
             staff_data = data["data"]
+            
+            # Check if name was inserted
+            if staff_data["name"] == "":
+                return '{"msg": "Staff member must have a name" }'
+
+            # Check ssn
+            try:
+                ssn = int(staff_data["ssn"])
+            except:
+                return '{"msg": "Social security number must be numbers" }'
+
+            # Check if ssn is correct length
+            if len(staff_data["ssn"]) != 10:
+                return '{"msg": "Social security number not of correct length" }'
+
+            # Check if title was inserted
+            if staff_data["title"] == "":
+                return '{"msg": "Staff member must have a title" }'
+
+            # Check if address was inserted
+            if staff_data["address"] == "":
+                return '{"msg": "Staff member must have an address" }'
+
+            # Check if phone was inserted
+            if staff_data["phone"] == "":
+                return '{"msg": "Staff member must have a phone" }'
+
             new_staff = Staff(staff_data["name"], staff_data["ssn"], staff_data["title"], staff_data["address"], staff_data["phone"])
             self.__staff.append(new_staff)
             new_staff = new_staff.get_staff_member()

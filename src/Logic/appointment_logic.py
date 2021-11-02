@@ -3,11 +3,13 @@ import json
 from Classes.appointment import Appointment
 
 class AppointmentLogic():
+    """contains all Logic and Dummydata for appointments"""
     def __init__(self):
         self.__data = Data()
         self.__appointments = self.__data.get_appointments()
     
     def get_appointment_database(self):
+        """returns list of all appointments from the database"""
         return self.__appointments
     
     def get_appointments(self, data):

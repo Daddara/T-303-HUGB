@@ -3,13 +3,14 @@ import json
 from Classes.patient import Patient
 
 class PatientLogic():
+    """contains all Logic and Dummydata for paatients"""
     def __init__(self):
         self.__data = Data()
         self.__patients = self.__data.get_patients()
     
     def get_patient_database(self):
-        '''returns list of all patients from the database'''
-        return self.__patients # frekar sketchy en ekki með betri hugmynd a stuttum tíma
+        """returns list of all patients from the database"""
+        return self.__patients
 
     def update_patient(self, data):
         """Updates information about an existing patient."""
