@@ -3,12 +3,13 @@ import json
 from Classes.staff import Staff
 
 class StaffLogic():
+    """contains all Logic and Dummydata for staff"""
     def __init__(self):
         self.__data = Data()
         self.__staff = self.__data.get_staff()
 
     def get_patient_database(self):
-        '''returns list of all staff from the database'''
+        """returns list of all staff from the database"""
         return self.__staff
     
     def create_staff(self, data):

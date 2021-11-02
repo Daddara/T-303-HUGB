@@ -3,6 +3,7 @@ import json
 from Classes.nurse import Nurse
 
 class NurseLogic():
+    """contains all Logic and Dummydata for Nurse"""
     def __init__(self):
         self.__data = Data()
         self.__nurses = self.__data.get_nurses()

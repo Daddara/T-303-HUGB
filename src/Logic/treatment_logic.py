@@ -3,12 +3,14 @@ from data import Data
 from Classes.appointment import Appointment
 
 class TreatmentLogic():
+    """contains all Logic and Dummydata for treatments"""
     def __init__(self):
         self.__data = Data()
         self.__treatment_prices = self.__data.get_treatment_prices()
         self.__appointments = self.__data.get_appointments()
     
     def get_treatment_database(self):
+        """returns list of all treatments from the database"""
         return self.__treatment_prices
     
     def assign_treatment(self, data, patient_list, doctor_list):
