@@ -6,6 +6,14 @@ from Classes.doctor import Doctor
 from Classes.nurse import Nurse
 
 
+treatment_prices = {
+    "checkup": 5000,
+    "surgery": 50000,
+    "catscan": 40000,
+    "xrays": 35000,
+    "bloodworks": 15000,
+}
+
 prescriptions_list = [
     Prescription("1", "23", "234")
 ]
@@ -16,7 +24,7 @@ patients_list = [
     Patient("jonniminn", "Jon Gunnarsson", "jonniminn@tolfan.is", '{"Medication": ["ritalin", "Parkodin", "Astma"]}', "", "")
 ]
 
-#TODO remove staff list
+
 staff_members = [
     Staff("Johann Johannsson", "1010661399", "doctor", "Hamraborg 20", "8992345"),
     Staff("Gunnar Gunnarsson", "0909691399", "nurse", "Hamraborg 10", "7883456"), 
@@ -48,8 +56,6 @@ appointments = [
 
 class Data():
     ''' Our Database Dummy'''
-    def __init__(self):
-        pass
     
     def get_doctors(self):
         """Returns a list of doctors created to stand in for our database"""
@@ -73,4 +79,8 @@ class Data():
 
     def get_prescriptions(self):
         """Returns a list of precriptions made to stand in for our database"""
-        return prescriptions_list   
+        return prescriptions_list  
+
+    def get_treatment_prices(self):
+        """Returns the dictionary that keeps track of treatments and their prices"""
+        return treatment_prices 

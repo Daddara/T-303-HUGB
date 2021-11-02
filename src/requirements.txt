@@ -1,0 +1,5 @@
+websockets==10.0
+reportlab==3.6.2
+pdoc==8.0.0
+passlib==1.7.4
+coverage==5.5

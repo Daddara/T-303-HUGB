@@ -1,5 +1,7 @@
 # import unittest library - needed to run unit tests
 import unittest
+
+import websockets
 # import the proper classes - our test targets ('system under test')
 from Classes.prescription import Prescription
 from Classes.appointment import Appointment
@@ -8,14 +10,13 @@ from Classes.patient import Patient
 from Classes.doctor import Doctor
 from Classes.nurse import Nurse
 from Wrapper import Wrapper
-from data import Data
-import json
 
 # You have to create a new class inheriting from unittest.TestCase
 # All methods in this class will be run by the unittest runner!
 class TestStationMethods(unittest.TestCase):
     # set up method - is run before each actual test case.
     def setUp(self):
+        """Sets up the class instances to be tested"""
 
         self.prescription = Prescription("Ibufen", "Heilsa", "190500-2330")
 
@@ -35,20 +36,60 @@ class TestStationMethods(unittest.TestCase):
         self.appointment_checkup = Appointment("gudrun1", ["arnaa"], [10,10,2022], "12:00", 60)
 
     def test_wrapper(self):
+        """Tests functions in the wrapper"""
         wrapper = Wrapper()
 
-        # delete staff member
-        self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "0808701399"}'), '{"name": "Arna Arnadottir", "ssn": "0808701399", "address": "Hamraborg 30", "phone": "5991234", "title": "specialist"}')
-        self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "2202002020"}'), '{"msg":"No staff member with this ssn"}')
-        
-        # get appointments for arnaa
+        # Get all appointments for arnaa
         self.assertEqual(wrapper.get_appointments('{"username": "arnaa"}'), '{"msg": [{"patient": "icehot", "staff": ["arnaa"], "date": [10, 8, 2022], "time": "13:00", "duration": 60, "treatment": "Surgery", "description": "Surgery on shoulder"}, {"patient": "icehot", "staff": ["arnaa"], "date": [12, 9, 2022], "time": "09:00", "duration": 30, "treatment": "Checkup", "description": ""}, {"patient": "icehot", "staff": ["arnaa"], "date": [12, 9, 2022], "time": "19:00", "duration": 30, "treatment": "Checkup", "description": ""}]}')
 
-        # get appointments for Doctor jojo from 2.2.2020 - 28.2.2020 and 3.2.2020 - 4.2.2020
+        # Get appointments for Doctor jojo from 2.2.2020 - 28.2.2020 and 3.2.2020 - 4.2.2020
         self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["2","2","2020"], "to_date":["28","2","2020"]}'), '{"msg": [{"patient": "gudrun1", "staff": ["jojo"], "date": [2, 2, 2020], "time": "8:00", "duration": 60, "treatment": "Checkup", "description": ""}]}')
         self.assertEqual(wrapper.get_appointments_at_date('{"doctor": "jojo", "from_date" : ["3","2","2020"], "to_date":["4","2","2020"]}'), '{"msg":"No appointments"}')
 
+        # Create a receipt for icehot receiving surgery
+        self.assertEqual(wrapper.charge_for_service('{"patient":"icehot", "treatment":"2", "reason":"", "price":""}'), '{"msg": {"patient": "icehot", "text": "Surgery", "price": 50000}}')
+
+        # Delete Nurse
+        self.assertEqual(wrapper.delete_nurse({"username":"Babba"}), '{"msg": "There is no nurse with this username"}')
+        self.assertEqual(wrapper.delete_nurse({"username":"hanna21"}), '{"username": "hanna21", "name": "Hanna Hannesardottir", "email": "hanna21@simnet.is", "note": "Great human"}')
+        
+        # Create Nurse
+        self.assertEqual(wrapper.create_nurse({"username": "abba", "name": "Abbadis", "email": "abba@hello.is", "note": ""}), '{"msg": {"username": "abba", "name": "Abbadis", "email": "abba@hello.is", "note": ""}}')
+
+        # Get Nurse Info
+        self.assertEqual(wrapper.get_nurse({"username": "GunGun"}), '{"msg": {"username": "GunGun", "name": "Gunnar Gunnarsson", "email": "GunGun@gmail.com", "note": "works slow"}}')
+
+        # Delete Doctor
+        self.assertEqual(wrapper.delete_doctor({"username": "SaraH"}), '{"msg": "There is no doctor with this username"}')
+        self.assertEqual(wrapper.delete_doctor({"username": "jojo"}), '{"username": "jojo", "name": "Johann Johannsson", "email": "jojo@gmail.com", "note": "professional hamon user", "department": "surgeon"}')
+
+        # Create Doctor
+        self.assertEqual(wrapper.create_doctor({"username": "abbi", "name": "Abbadis", "email": "abbi@hello.is", "note": ""}), '{"msg": {"username": "abbi", "name": "Abbadis", "email": "abbi@hello.is", "note": "", "department": ""}}')
+
+        # Get Doctor Info
+        self.assertEqual(wrapper.get_doctor({"username": "abbi"}), '{"msg": {"username": "abbi", "name": "Abbadis", "email": "abbi@hello.is", "note": "", "department": ""}}')
+
+        # Delete Patient
+        self.assertEqual(wrapper.delete_patient({"username": "Ingunn"}), '{"msg": "There is no patient with this username"}')
+        self.assertEqual(wrapper.delete_patient({"username": "icehot"}), '{"msg": {"username": "icehot", "name": "Bjarni Benediktsson", "email": "icehot@rikid.is", "note": "", "doctor_id": "", "nurseid": "", "pronoun": "Name only"}}')
+
+        # Create Patient
+        self.assertEqual(wrapper.create_patient({"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": ""}), '{"msg": {"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": "", "doctor_id": "", "nurseid": "", "pronoun": "Name only"}}')
+
+        # Get Patient Info
+        self.assertEqual(wrapper.get_patient_info({"username": "abbo"}), '{"msg": {"username": "abbo", "name": "Abbadis", "email": "abbo@hello.is", "note": "", "doctor_id": "", "nurseid": "", "pronoun": "Name only"}}')
+
+        # Delete Staff Member
+        self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "0808701399"}'), '{"name": "Arna Arnadottir", "ssn": "0808701399", "address": "Hamraborg 30", "phone": "5991234", "title": "specialist"}')
+        self.assertEqual(wrapper.delete_staff_member('{"staff_ssn": "2202002020"}'), '{"msg":"No staff member with this ssn"}')
+        
+        # Create Staff Member
+        self.assertEqual(wrapper.create_staff({"data": {'name': 'Orri', 'ssn': '4444444444', 'title': 'Cleaner', 'address': 'Hambraborg', 'phone':'9898889'}}), '{"msg": {"name": "Orri", "ssn": "4444444444", "address": "Hambraborg", "phone": "9898889", "title": "Cleaner"}}')
+
+        
+
     def test_prescription_class(self):
+        """Tests the functions in the prescription class"""
         # First one needs to be change due to the difference in the patient class
         # self.assertEqual(self.prescription.get_patient_id(),"")
         self.assertEqual(self.prescription.get_pharmecy_name(), "Heilsa")
@@ -56,7 +97,7 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(self.prescription.get_return_str(), '{"medicine": "Ibufen", "pharmecy": "Heilsa", "patient_id": "190500-2330"}')
 
     def test_patient_class(self):
-        """Testing wether the patient class works correctly"""
+        """Tests the functions in the patient class"""
         patient_one = self.patient.get_patient()
         patient_two = self.patient_with_allergy.get_patient()
         self.assertIsInstance(self.patient, Patient)
@@ -87,9 +128,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(self.patient_with_allergy.get_patient_email(), patient_two["email"])
 
 
-
     def test_staff_class(self):
-        """Testing wether the staff class works correctly"""
+        """Tests the functions in the staff class"""
         staff1 = self.staff1.get_staff_member()
         staff2 = self.staff2.get_staff_member()
         self.assertIsInstance(self.staff1, Staff)
@@ -110,6 +150,7 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(staff2["phone"],"7883456")
 
     def test_doctor_class(self):
+        """Tests the functions in the doctor class"""
         doctor1 = self.doctor1.get_info()
         doctor2 = self.doctor2.get_info()
         self.assertIsInstance(self.doctor1, Doctor)
@@ -119,9 +160,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(doctor1["email"], self.doctor1.get_doctor_email())
         self.assertEqual(doctor2["email"], self.doctor2.get_doctor_email())
 
-
-
     def test_nurse_cless(self):
+        """Tests the functions in the nurse class"""
         nurse1 = self.nurse1.get_info()
         nurse2 = self.nurse2.get_info()
         self.assertIsInstance(self.nurse1, Nurse)
@@ -132,7 +172,7 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(nurse2["email"], self.nurse2.get_nurse_email())
 
     def test_appointment_class(self):
-        """Testing wether the appointment class works correctly"""
+        """Tests the functions in the appointment class"""
         appointment_surgery = self.appoinment_surgery.get_info()
         self.assertIsInstance(appointment_surgery, dict)
         self.assertIsInstance(appointment_surgery["patient"], str)
@@ -145,8 +185,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_surgery["duration"], 120)
         self.assertEqual(appointment_surgery["treatment"], "Surgery")
         self.assertEqual(appointment_surgery["description"], "Surgery on shoulder.")
-        self.assertEquals(self.appoinment_surgery.check_doctor("arnaa"), False)
-        self.assertEquals(self.appoinment_surgery.check_doctor("jojo"), True)
+        self.assertEqual(self.appoinment_surgery.check_doctor("arnaa"), False)
+        self.assertEqual(self.appoinment_surgery.check_doctor("jojo"), True)
 
         appointment_checkup = self.appointment_checkup.get_info()
         self.assertIsInstance(appointment_checkup, dict)
@@ -160,8 +200,8 @@ class TestStationMethods(unittest.TestCase):
         self.assertEqual(appointment_checkup["duration"], 60)
         self.assertEqual(appointment_checkup["treatment"], "Checkup")
         self.assertEqual(appointment_checkup["description"], "")
-        self.assertEquals(self.appointment_checkup.check_doctor("arnaa"), True)
-        self.assertEquals(self.appointment_checkup.check_doctor("jojo"), False)
+        self.assertEqual(self.appointment_checkup.check_doctor("arnaa"), True)
+        self.assertEqual(self.appointment_checkup.check_doctor("jojo"), False)
     
 
     # tear down method - is run after each test case

@@ -2,7 +2,11 @@
 import asyncio
 import websockets
 import json
-from os import system, name
+import getpass
+import os
+from os import error, system, name, terminal_size
+from passlib.context import CryptContext
+
 
 # This method just sends an arbitrary webSocket message in 'our' format (op and data)
 async def send_msg(op, data):
@@ -16,7 +20,7 @@ async def send_msg(op, data):
 
 
 async def get_patient_info():
-    """Returns a dictionary of a patient's info"""
+    """Returns a patient's info"""
     try:
         request = input("Please input patient username: ")
         return await send_msg("get_patient_info", request)
@@ -25,7 +29,7 @@ async def get_patient_info():
 
 
 async def get_patient_appointments():
-    """Returns appointments which a specific staff member is assigned to"""
+    """Returns appointments which a specific doctor is assigned to"""
     username = input("Enter a doctor's username: ")
     data = json.dumps({"username":username})
     return await send_msg("get_patient_appointments", data)
@@ -50,6 +54,7 @@ async def delete_patient():
     return await send_msg("delete_patient", json.dumps(patient_dict))
 
 async def delete_nurse():
+    """Deletes a specific nurse"""
     username = input("Nurse's username: ")
     nurse_dict = {"username": username}
     return await send_msg("delete_nurse", json.dumps(nurse_dict))
@@ -57,7 +62,7 @@ async def delete_nurse():
 async def send_presription ():
     """Creates a prescription"""
     try:
-        request = input("Please input patient id, medicine name and pharmecy name with space inbetween words: ")
+        request = input("Please input medicine name, pharmecy name and patient id with space inbetween words: ")
         data = request.split()
         json_data = {
                 "medicine": data[0],
@@ -74,13 +79,15 @@ async def create_patient():
     patient_name = input("Please enter the patients full name: ")
     patient_email = input("Please enter the patients current email: ")
     patient_note = ""
+    print("Choose what pronoun to go by")
+    print("\n\tEnter 0 for: Name only\n\tEnter 1 for: He\n\tEnter 2 for: She\n\tEnter 3 for: Zie\n\tEnter 4 for: Ey\n\tEnter 5 for: Ve\n\tEnter 6 for: Tey\n\tEnter 7 for: E\n\tEnter 8 for: Non Specific\n")
+    patient_pronoun = input("Choose: ")
     patient_note = input("Please enter any patient notes: ")
     patient_username = ""
-    data = {"username": patient_username, "name": patient_name, "email": patient_email,
-     "note": patient_note, "doctorid": "", "nurseid": ""}
-    message = {"data": data}
-    data = json.dumps(message)
-    return await send_msg("create_patient", message)
+    data = {"username": patient_username, "name": patient_name, "email": patient_email, 
+     "note": patient_note, "pronoun": patient_pronoun, "doctorid": "", "nurseid": ""}
+    return await send_msg("create_patient", data)
+
 
 async def create_doctor():
     """Creates a new doctor"""
@@ -123,9 +130,8 @@ async def create_nurse():
     data = json.dumps(message)
     return await send_msg("create_nurse", message)
 
-
 async def assign_treatment():
-    """Assigns a patient to an appointment"""
+    """Assigns a patient with an appointment"""
     patient_username = input("Please enter the username of an existing patient: ")
     doctor = input("Please enter the username of the overseer/doctor of the appointment: ")
     list_of_staff = [] 
@@ -149,8 +155,62 @@ async def delete_staff_member():
     }
     return await send_msg("delete_staff_member", json.dumps(staff_dict))
 
-## If this file is run, the user can test the functionalities that have been implemented
-## These are only the functions that are not covered by the frontend
+async def charge_for_service():
+    """Creates a receipt for a specific treatment or a manual charge"""
+    print("\nReason\nChoose treatment to charge for:\n0: Other/Write manually\n1: Checkup\n2: Surgery\n3: Catscan\n4: X-rays\n5: Bloodworks")
+    treatment = input("Please enter number of treatment you would like to charge for: ")
+
+    if treatment == "0":
+        reason = input("Enter what you are charging for: ")
+        price = input("What would you like to charge? Enter amount with no commas or dots: ")
+    else:
+        reason = ""
+        price = ""
+    patient = input("Enter username for patient to charge: ")
+    data = {"patient":patient, "treatment":treatment, "reason":reason, "price":price}
+    data = json.dumps(data)
+    return await send_msg("charge_for_service", data)
+
+async def get_medical_history():
+    """Gets a patients previous medical history"""
+    try:
+        patient_id = input("Please input patients username: ")
+        data = {"patient": patient_id}
+        data = json.dumps(data)
+        return await send_msg("get_medical_history", data)
+    except:
+        return {"msg":"There is no patient with this username."}
+
+
+async def generate_report():
+    """Creates a report of all doctors, nurses and patients"""
+    try:
+        context = CryptContext(
+        schemes=["pbkdf2_sha256"],
+        default="pbkdf2_sha256",
+        pbkdf2_sha256__default_rounds=50000
+)
+        count = 1
+        while count <= 3:
+            print("Please enter your credentials:")
+            admin_username = input("Username: ")
+            admin_password = getpass.getpass()
+            f = open('data.json',)
+            data = json.load(f)
+            adm1 = data["username"]
+            adm2 = data["password"]
+            if context.verify(admin_username, adm1) and context.verify(admin_password, adm2):
+                return await send_msg("generate_report", admin_username)
+            else:
+                print("Wrong credentials entered")
+            count += 1
+        print("Too many failed attempts")
+    except Exception as error:
+        print(error)
+    
+
+# If this file is run, the user can test the functionalities that have been implemented
+# These are only the functions that are not covered by the frontend
 
 if __name__ == "__main__":
     # Call each of the generated webSocket methods once and await results.
@@ -162,25 +222,96 @@ if __name__ == "__main__":
             Enter 4 to delete a staff member\n\
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
+            Enter 7 to generate a report as an administrator \n\
+            Enter 8 to add a patient \n\
+            Enter 9 to create a receipt for a patient \n\
+            Enter 10 to get a patient's medical history\n\
             Enter q to quit\n\
             "
     while True:
+
         print(menu)
         user_input = input("Please enter your selection here: ")
         if user_input == "q" or user_input == "Q":
             break
         elif user_input == "1":
-            print(asyncio.run(get_patient_appointments()))
+            appointments = asyncio.run(get_patient_appointments())
+            theData = json.loads(appointments)
+            try:
+                print("\n" + theData["msg"][1]["staff"][0] + " has the following appointments: \n")
+                for number, appointment in enumerate(theData["msg"]):
+                    if theData["msg"][number]["description"] != "":
+                        print(theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+                    else: 
+                        print(theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+            except:
+                print(theData["msg"])
         elif user_input == "2":
-            print(asyncio.run(assign_treatment()))
+            appointment = asyncio.run(assign_treatment())
+            theData = json.loads(appointment)
+            print("\nThe appointment for: " + theData["msg"]["patient"] + " has been set into the system. " + str(theData["msg"]["staff"][0]) + " will perform the " + theData["msg"]["treatment"] + " on the " +  theData["msg"]["date"][0] + "." + theData["msg"]["date"][1]  + "." + theData["msg"]["date"][2] + " at " + theData["msg"]["time"] + ". It will take aproximetly " + str(theData["msg"]["duration"]) + ".")
         elif user_input == "3":
-            print(asyncio.run(send_presription()))
+            newPrescription = asyncio.run(send_presription())
+            theData = json.loads(newPrescription)
+            print("The medicine: " + theData["medicine"] + " has been sent to the pharmecy: " + theData["pharmecy"] + " for the patient: " + theData["patient_id"])
         elif user_input == "4":
-            print(asyncio.run(delete_staff_member()))
+            staffMember = asyncio.run(delete_staff_member())
+            theData = json.loads(staffMember)
+            print(theData['name'] + ", with ssn: " + theData['ssn'] + ", has been deleted from the system.")
         elif user_input == "5":
-            print(asyncio.run(create_staff()))
+            newStaff = asyncio.run(create_staff())
+            theData = json.loads(newStaff)
+            print(theData["msg"]['name'] + " has been added from the system. SSN: " + theData["msg"]["ssn"] + ", address: " +  theData["msg"]["address"] +  ", phone: "+ theData["msg"]["phone"] + ", title: " + theData["msg"]["title"])
         elif user_input == "6":
-            print(asyncio.run(get_appointments_at_date()))
+            appointments = asyncio.run(get_appointments_at_date())
+            theData = json.loads(appointments)
+            if theData["msg"] != 'No appointments':
+                print("\n" + theData["msg"][1]["staff"][0] + " has the following appointments: \n")
+                for number, appointment in enumerate(theData["msg"]):
+                    if theData["msg"][number]["description"] != "":
+                        print("\n" + theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+                    else: 
+                        print("\n" + theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+            else:
+                print(theData["msg"])
+        elif user_input == "7":
+            print(asyncio.run(generate_report()))
+        elif user_input == "8":
+            patient = asyncio.run(create_patient())
+            theData = json.loads(patient)
+            print("\nPatient has beem added with the following attributes: Name: " + theData["msg"]["name"] + ", username: " + theData["msg"]["username"] + ", pronoun: '" + theData["msg"]["pronoun"] + "' and with the note: " + theData["msg"]["note"] + ".")
+        elif user_input == "9":
+            bill = asyncio.run(charge_for_service())
+            theData = json.loads(bill)
+            print("\nThe patient " + theData["msg"]["patient"] + " was charged " + str(theData["msg"]["price"]) + " for " + theData["msg"]["text"] + ".")
+        elif user_input == "10":
+            history = asyncio.run(get_medical_history())
+            theData = json.loads(history)
+            if theData["msg"] == "There is no patient with this username":
+                print(theData["msg"])
+            elif theData["msg"] == 'No medical records':
+                print(theData["username"] + " has no medical record")
+            else:
+                medical_history = json.loads(theData["msg"])
+                username = theData["username"]
+                Allergies = ""
+                Surgeries = ""
+                for nr, allergy in enumerate(medical_history["Allergies"]):
+                    if nr == 0:
+                        Allergies += allergy
+                    else:
+                        Allergies += ", " + allergy
+
+                for nr, surgary in enumerate(medical_history["Surgeries"]):
+                    if nr == 0:
+                        Surgeries += surgary
+                    else:
+                        Surgeries += ", " + surgary
+                if len(Allergies) != 0 and len(Surgeries):
+                    print( username + " has the following medical history/notes: Allergies: " + Allergies + " and Surgeries: " + Surgeries + ".")
+                elif len(Allergies) != 0:
+                    print( username + " has the following medical history/notes: Surgeries: " + Surgeries + ".")
+                elif len(Surgeries) != 0:
+                    print( username + " has the following medical history/notes: Allergies: " + Allergies + ".")
         else:
             print("Please enter a valid number")
-    
