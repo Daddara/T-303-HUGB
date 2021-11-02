@@ -15,6 +15,8 @@ from data import Data
 
 class createTable:
     def __init__(self) -> None:
+        '''Initializes the PDF report by creating the filename as well as a title
+         and some margins to where our tables are created.'''
         style = getSampleStyleSheet()
         title_style = style['Heading1']
         title_style.alignment = 1
@@ -34,7 +36,9 @@ class createTable:
         self.__elems = [Paragraph("Hospital Report", title_style)]
 
     def create(self, data: list, header):
-        
+        '''This is where the tables are created, with the first row being unique.
+        The first row is the first list in the list of lists, being the keys in the dicts.
+        The first row is styled differently as well.'''
         
 
         table = Table(data)
@@ -86,6 +90,8 @@ class createTable:
         
 
     def create_header(self, data):
+        '''Creates a header for the table, with unique headers for the classes.
+        Open for extension'''
         styles = getSampleStyleSheet()
         title_style = styles['Heading2']
         title_style.alignment = 1
@@ -108,10 +114,12 @@ class createTable:
         return title
 
     def final_pfd_creation(self):
+        '''This is where we add all the headers and tables together.'''
         self.__pdf.build(self.__elems)
 
 
     def get_keys(self, data):
+        '''Capitalizes and gets all the keys from the dictionaries.'''
         ret_list = []
         try:  
             if isinstance(data[0], Patient):
@@ -124,6 +132,7 @@ class createTable:
         return ret_list
 
     def list_of_d_to_list_of_l(self, data):
+        '''Converts the list of dictionaries to a list of lists for the PDF generator'''
         ret_list = self.get_keys(data)
         for items in data:
             if isinstance(items, Patient):
@@ -137,6 +146,7 @@ class createTable:
 
 
     def make_para_notes_patient(self, data):
+        '''Edits the notes in patient to better fit the PDF page.'''
         styles = getSampleStyleSheet()
         counter = 0
         for patient in data:
