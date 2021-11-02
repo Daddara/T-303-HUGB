@@ -10,8 +10,6 @@ from Classes.patient import Patient
 from Classes.doctor import Doctor
 from Classes.nurse import Nurse
 from Wrapper import Wrapper
-from data import Data
-import json
 
 # You have to create a new class inheriting from unittest.TestCase
 # All methods in this class will be run by the unittest runner!
