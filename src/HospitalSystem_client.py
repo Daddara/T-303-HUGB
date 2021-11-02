@@ -218,7 +218,7 @@ if __name__ == "__main__":
     menu = "\n\
             Enter 1 to list all appointments for a doctor\n\
             Enter 2 to assign a treatment to a patient \n\
-            Enter 3 to send a prescription to a patient\n\
+            Enter 3 to send a prescription to a patient (We only have 'Apótekið' and 'Heilsuver' for pharmecies and 'Ibufen' and 'Parkodín')\n\
             Enter 4 to delete a staff member\n\
             Enter 5 to add a staff member\n\
             Enter 6 to list all appointments a doctor has for a certain time period\n\
@@ -247,71 +247,95 @@ if __name__ == "__main__":
             except:
                 print(theData["msg"])
         elif user_input == "2":
-            appointment = asyncio.run(assign_treatment())
-            theData = json.loads(appointment)
-            print("\nThe appointment for: " + theData["msg"]["patient"] + " has been set into the system. " + str(theData["msg"]["staff"][0]) + " will perform the " + theData["msg"]["treatment"] + " on the " +  theData["msg"]["date"][0] + "." + theData["msg"]["date"][1]  + "." + theData["msg"]["date"][2] + " at " + theData["msg"]["time"] + ". It will take aproximetly " + str(theData["msg"]["duration"]) + ".")
+            try:
+                appointment = asyncio.run(assign_treatment())
+                theData = json.loads(appointment)
+                print("\nThe appointment for: " + theData["msg"]["patient"] + " has been set into the system. " + str(theData["msg"]["staff"][0]) + " will perform the " + theData["msg"]["treatment"] + " on the " +  theData["msg"]["date"][0] + "." + theData["msg"]["date"][1]  + "." + theData["msg"]["date"][2] + " at " + theData["msg"]["time"] + ". It will take aproximetly " + str(theData["msg"]["duration"]) + ".")
+            except:
+                print(appointment[2:-2])
         elif user_input == "3":
             newPrescription = asyncio.run(send_presription())
             theData = json.loads(newPrescription)
-            print("The medicine: " + theData["medicine"] + " has been sent to the pharmecy: " + theData["pharmecy"] + " for the patient: " + theData["patient_id"])
+            try:
+                print("The medicine: " + theData["medicine"] + " has been sent to the pharmecy: " + theData["pharmecy"] + " for the patient: " + theData["patient_id"])
+            except:
+                print(theData["msg"])
         elif user_input == "4":
             staffMember = asyncio.run(delete_staff_member())
             theData = json.loads(staffMember)
-            print(theData['name'] + ", with ssn: " + theData['ssn'] + ", has been deleted from the system.")
+            try: 
+                print(theData['name'] + ", with ssn: " + theData['ssn'] + ", has been deleted from the system.")
+            except:
+                print(theData["msg"])
         elif user_input == "5":
             newStaff = asyncio.run(create_staff())
             theData = json.loads(newStaff)
-            print(theData["msg"]['name'] + " has been added from the system. SSN: " + theData["msg"]["ssn"] + ", address: " +  theData["msg"]["address"] +  ", phone: "+ theData["msg"]["phone"] + ", title: " + theData["msg"]["title"])
+            try: 
+                print(theData["msg"]['name'] + " has been added from the system. SSN: " + theData["msg"]["ssn"] + ", address: " +  theData["msg"]["address"] +  ", phone: "+ theData["msg"]["phone"] + ", title: " + theData["msg"]["title"])
+            except:
+                print(theData["msg"])
         elif user_input == "6":
             appointments = asyncio.run(get_appointments_at_date())
             theData = json.loads(appointments)
-            if theData["msg"] != 'No appointments':
-                print("\n" + theData["msg"][1]["staff"][0] + " has the following appointments: \n")
-                for number, appointment in enumerate(theData["msg"]):
-                    if theData["msg"][number]["description"] != "":
-                        print("\n" + theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
-                    else: 
-                        print("\n" + theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
-            else:
+            try:
+                if theData["msg"] != 'No appointments':
+                    print("\n" + theData["msg"][0]["staff"][0] + " has the following appointments: \n")
+                    for number, appointment in enumerate(theData["msg"]):
+                        if theData["msg"][number]["description"] != "":
+                            print("\n" + theData["msg"][number]["patient"] + " is scheduled for " + theData["msg"][number]["description"]+ " on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+                        else: 
+                            print("\n" + theData["msg"][number]["patient"] + " is scheduled on the "  + str(theData["msg"][number]["date"][0]) + "." + str(theData["msg"][number]["date"][1])  + "." + str(theData["msg"][number]["date"][2]) + " at " + theData["msg"][number]["time"] + " should take about: " + str(theData["msg"][number]["duration"])+ " minutes \n")
+                else:
+                    print(theData["msg"])
+            except:
                 print(theData["msg"])
         elif user_input == "7":
             print(asyncio.run(generate_report()))
         elif user_input == "8":
             patient = asyncio.run(create_patient())
             theData = json.loads(patient)
-            print("\nPatient has beem added with the following attributes: Name: " + theData["msg"]["name"] + ", username: " + theData["msg"]["username"] + ", pronoun: '" + theData["msg"]["pronoun"] + "' and with the note: " + theData["msg"]["note"] + ".")
+            try:
+                print("\nPatient has beem added with the following attributes: Name: " + theData["msg"]["name"] + ", username: " + theData["msg"]["username"] + ", pronoun: '" + theData["msg"]["pronoun"] + "' and with the note: " + theData["msg"]["note"] + ".")
+            except:
+                print(theData["msg"])
         elif user_input == "9":
             bill = asyncio.run(charge_for_service())
             theData = json.loads(bill)
-            print("\nThe patient " + theData["msg"]["patient"] + " was charged " + str(theData["msg"]["price"]) + " for " + theData["msg"]["text"] + ".")
+            try: 
+                print("\nThe patient " + theData["msg"]["patient"] + " was charged " + str(theData["msg"]["price"]) + " for " + theData["msg"]["text"] + ".")
+            except:
+                print(theData["msg"])
         elif user_input == "10":
             history = asyncio.run(get_medical_history())
             theData = json.loads(history)
-            if theData["msg"] == "There is no patient with this username":
-                print(theData["msg"])
-            elif theData["msg"] == 'No medical records':
-                print(theData["username"] + " has no medical record")
-            else:
-                medical_history = json.loads(theData["msg"])
-                username = theData["username"]
-                Allergies = ""
-                Surgeries = ""
-                for nr, allergy in enumerate(medical_history["Allergies"]):
-                    if nr == 0:
-                        Allergies += allergy
-                    else:
-                        Allergies += ", " + allergy
+            try:
+                if theData["msg"] == "There is no patient with this username":
+                    print(theData["msg"])
+                elif theData["msg"] == 'No medical records':
+                    print(theData["username"] + " has no medical record")
+                else:
+                    medical_history = json.loads(theData["msg"])
+                    username = theData["username"]
+                    Allergies = ""
+                    Surgeries = ""
+                    for nr, allergy in enumerate(medical_history["Allergies"]):
+                        if nr == 0:
+                            Allergies += allergy
+                        else:
+                            Allergies += ", " + allergy
 
-                for nr, surgary in enumerate(medical_history["Surgeries"]):
-                    if nr == 0:
-                        Surgeries += surgary
+                    for nr, surgary in enumerate(medical_history["Surgeries"]):
+                        if nr == 0:
+                            Surgeries += surgary
+                        else:
+                            Surgeries += ", " + surgary
+                    if len(Allergies) != 0 and len(Surgeries):
+                        print( username + " has the following medical history/notes: Allergies: " + Allergies + " and Surgeries: " + Surgeries + ".")
+                    elif len(Allergies) != 0:
+                        print( username + " has the following medical history/notes: Surgeries: " + Surgeries + ".")
+                    elif len(Surgeries) != 0:
+                        print( username + " has the following medical history/notes: Allergies: " + Allergies + ".")
                     else:
-                        Surgeries += ", " + surgary
-                if len(Allergies) != 0 and len(Surgeries):
-                    print( username + " has the following medical history/notes: Allergies: " + Allergies + " and Surgeries: " + Surgeries + ".")
-                elif len(Allergies) != 0:
-                    print( username + " has the following medical history/notes: Surgeries: " + Surgeries + ".")
-                elif len(Surgeries) != 0:
-                    print( username + " has the following medical history/notes: Allergies: " + Allergies + ".")
-        else:
-            print("Please enter a valid number")
+                        print("Please enter a valid number")
+            except:
+                print(theData["msg"])

@@ -8,7 +8,7 @@ class NurseLogic():
         self.__nurses = self.__data.get_nurses()
     
     def get_nurse_database(self):
-        '''returns list of all nurses from the database'''
+        """returns list of all nurses from the database"""
         return self.__nurses
     
     def create_nurse(self, data):
