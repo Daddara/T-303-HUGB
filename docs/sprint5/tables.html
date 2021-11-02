@@ -94,6 +94,8 @@ tables    </h1>
 
 <span class="k">class</span> <span class="nc">createTable</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;Initializes the PDF report by creating the filename as well as a title</span>
+<span class="sd">         and some margins to where our tables are created.&#39;&#39;&#39;</span>
         <span class="n">style</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
         <span class="n">title_style</span> <span class="o">=</span> <span class="n">style</span><span class="p">[</span><span class="s1">&#39;Heading1&#39;</span><span class="p">]</span>
         <span class="n">title_style</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="mi">1</span>
@@ -113,7 +115,11 @@ tables    </h1>
         <span class="bp">self</span><span class="o">.</span><span class="n">__elems</span> <span class="o">=</span> <span class="p">[</span><span class="n">Paragraph</span><span class="p">(</span><span class="s2">&quot;Hospital Report&quot;</span><span class="p">,</span> <span class="n">title_style</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;creates the base for the pdf report&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;This is where the tables are created, with the first row being unique.</span>
+<span class="sd">        The first row is the first list in the list of lists, being the keys in the dicts.</span>
+<span class="sd">        The first row is styled differently as well.&#39;&#39;&#39;</span>
+        
+
         <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="n">style</span> <span class="o">=</span> <span class="n">TableStyle</span><span class="p">([</span>
@@ -163,7 +169,8 @@ tables    </h1>
         
 
     <span class="k">def</span> <span class="nf">create_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;hello &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Creates a header for the table, with unique headers for the classes.</span>
+<span class="sd">        Open for extension&#39;&#39;&#39;</span>
         <span class="n">styles</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
         <span class="n">title_style</span> <span class="o">=</span> <span class="n">styles</span><span class="p">[</span><span class="s1">&#39;Heading2&#39;</span><span class="p">]</span>
         <span class="n">title_style</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="mi">1</span>
@@ -186,12 +193,12 @@ tables    </h1>
         <span class="k">return</span> <span class="n">title</span>
 
     <span class="k">def</span> <span class="nf">final_pfd_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;assembles &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;This is where we add all the headers and tables together.&#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__elems</span><span class="p">)</span>
 
 
     <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;get keys &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Capitalizes and gets all the keys from the dictionaries.&#39;&#39;&#39;</span>
         <span class="n">ret_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>  
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Patient</span><span class="p">):</span>
@@ -204,7 +211,7 @@ tables    </h1>
         <span class="k">return</span> <span class="n">ret_list</span>
 
     <span class="k">def</span> <span class="nf">list_of_d_to_list_of_l</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Makes list of d list of l&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Converts the list of dictionaries to a list of lists for the PDF generator&#39;&#39;&#39;</span>
         <span class="n">ret_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_keys</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">Patient</span><span class="p">):</span>
@@ -218,7 +225,7 @@ tables    </h1>
 
 
     <span class="k">def</span> <span class="nf">make_para_notes_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Makes parameters for patient notes&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Edits the notes in patient to better fit the PDF page.&#39;&#39;&#39;</span>
         <span class="n">styles</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">patient</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
@@ -226,6 +233,7 @@ tables    </h1>
                 <span class="n">patient</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">Paragraph</span><span class="p">(</span><span class="n">patient</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">styles</span><span class="p">[</span><span class="s1">&#39;Normal&#39;</span><span class="p">])</span>
             <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">data</span>
+
     
 </pre></div>
 
@@ -245,6 +253,8 @@ tables    </h1>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">createTable</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;Initializes the PDF report by creating the filename as well as a title</span>
+<span class="sd">         and some margins to where our tables are created.&#39;&#39;&#39;</span>
         <span class="n">style</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
         <span class="n">title_style</span> <span class="o">=</span> <span class="n">style</span><span class="p">[</span><span class="s1">&#39;Heading1&#39;</span><span class="p">]</span>
         <span class="n">title_style</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="mi">1</span>
@@ -264,7 +274,11 @@ tables    </h1>
         <span class="bp">self</span><span class="o">.</span><span class="n">__elems</span> <span class="o">=</span> <span class="p">[</span><span class="n">Paragraph</span><span class="p">(</span><span class="s2">&quot;Hospital Report&quot;</span><span class="p">,</span> <span class="n">title_style</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;creates the base for the pdf report&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;This is where the tables are created, with the first row being unique.</span>
+<span class="sd">        The first row is the first list in the list of lists, being the keys in the dicts.</span>
+<span class="sd">        The first row is styled differently as well.&#39;&#39;&#39;</span>
+        
+
         <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="n">style</span> <span class="o">=</span> <span class="n">TableStyle</span><span class="p">([</span>
@@ -314,7 +328,8 @@ tables    </h1>
         
 
     <span class="k">def</span> <span class="nf">create_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;hello &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Creates a header for the table, with unique headers for the classes.</span>
+<span class="sd">        Open for extension&#39;&#39;&#39;</span>
         <span class="n">styles</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
         <span class="n">title_style</span> <span class="o">=</span> <span class="n">styles</span><span class="p">[</span><span class="s1">&#39;Heading2&#39;</span><span class="p">]</span>
         <span class="n">title_style</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="mi">1</span>
@@ -337,12 +352,12 @@ tables    </h1>
         <span class="k">return</span> <span class="n">title</span>
 
     <span class="k">def</span> <span class="nf">final_pfd_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;assembles &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;This is where we add all the headers and tables together.&#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__elems</span><span class="p">)</span>
 
 
     <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;get keys &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Capitalizes and gets all the keys from the dictionaries.&#39;&#39;&#39;</span>
         <span class="n">ret_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>  
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Patient</span><span class="p">):</span>
@@ -355,7 +370,7 @@ tables    </h1>
         <span class="k">return</span> <span class="n">ret_list</span>
 
     <span class="k">def</span> <span class="nf">list_of_d_to_list_of_l</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Makes list of d list of l&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Converts the list of dictionaries to a list of lists for the PDF generator&#39;&#39;&#39;</span>
         <span class="n">ret_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_keys</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">Patient</span><span class="p">):</span>
@@ -369,7 +384,7 @@ tables    </h1>
 
 
     <span class="k">def</span> <span class="nf">make_para_notes_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Makes parameters for patient notes&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Edits the notes in patient to better fit the PDF page.&#39;&#39;&#39;</span>
         <span class="n">styles</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">patient</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
@@ -393,6 +408,8 @@ tables    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;Initializes the PDF report by creating the filename as well as a title</span>
+<span class="sd">         and some margins to where our tables are created.&#39;&#39;&#39;</span>
         <span class="n">style</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
         <span class="n">title_style</span> <span class="o">=</span> <span class="n">style</span><span class="p">[</span><span class="s1">&#39;Heading1&#39;</span><span class="p">]</span>
         <span class="n">title_style</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="mi">1</span>
@@ -414,7 +431,10 @@ tables    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>Initializes the PDF report by creating the filename as well as a title
+and some margins to where our tables are created.</p>
+</div>
+
 
                             </div>
                             <div id="createTable.create" class="classattr">
@@ -428,7 +448,11 @@ tables    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;creates the base for the pdf report&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;This is where the tables are created, with the first row being unique.</span>
+<span class="sd">        The first row is the first list in the list of lists, being the keys in the dicts.</span>
+<span class="sd">        The first row is styled differently as well.&#39;&#39;&#39;</span>
+        
+
         <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="n">style</span> <span class="o">=</span> <span class="n">TableStyle</span><span class="p">([</span>
@@ -479,7 +503,9 @@ tables    </h1>
 
         </details>
 
-            <div class="docstring"><p>creates the base for the pdf report</p>
+            <div class="docstring"><p>This is where the tables are created, with the first row being unique.
+The first row is the first list in the list of lists, being the keys in the dicts.
+The first row is styled differently as well.</p>
 </div>
 
 
@@ -495,7 +521,8 @@ tables    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">create_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;hello &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Creates a header for the table, with unique headers for the classes.</span>
+<span class="sd">        Open for extension&#39;&#39;&#39;</span>
         <span class="n">styles</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
         <span class="n">title_style</span> <span class="o">=</span> <span class="n">styles</span><span class="p">[</span><span class="s1">&#39;Heading2&#39;</span><span class="p">]</span>
         <span class="n">title_style</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="mi">1</span>
@@ -520,7 +547,8 @@ tables    </h1>
 
         </details>
 
-            <div class="docstring"><p>hello</p>
+            <div class="docstring"><p>Creates a header for the table, with unique headers for the classes.
+Open for extension</p>
 </div>
 
 
@@ -536,13 +564,13 @@ tables    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">final_pfd_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;assembles &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;This is where we add all the headers and tables together.&#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__elems</span><span class="p">)</span>
 </pre></div>
 
         </details>
 
-            <div class="docstring"><p>assembles</p>
+            <div class="docstring"><p>This is where we add all the headers and tables together.</p>
 </div>
 
 
@@ -558,7 +586,7 @@ tables    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;get keys &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Capitalizes and gets all the keys from the dictionaries.&#39;&#39;&#39;</span>
         <span class="n">ret_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>  
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Patient</span><span class="p">):</span>
@@ -573,7 +601,7 @@ tables    </h1>
 
         </details>
 
-            <div class="docstring"><p>get keys</p>
+            <div class="docstring"><p>Capitalizes and gets all the keys from the dictionaries.</p>
 </div>
 
 
@@ -589,7 +617,7 @@ tables    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">list_of_d_to_list_of_l</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Makes list of d list of l&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Converts the list of dictionaries to a list of lists for the PDF generator&#39;&#39;&#39;</span>
         <span class="n">ret_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_keys</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">Patient</span><span class="p">):</span>
@@ -604,7 +632,7 @@ tables    </h1>
 
         </details>
 
-            <div class="docstring"><p>Makes list of d list of l</p>
+            <div class="docstring"><p>Converts the list of dictionaries to a list of lists for the PDF generator</p>
 </div>
 
 
@@ -620,7 +648,7 @@ tables    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">make_para_notes_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Makes parameters for patient notes&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;Edits the notes in patient to better fit the PDF page.&#39;&#39;&#39;</span>
         <span class="n">styles</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">patient</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
@@ -632,7 +660,7 @@ tables    </h1>
 
         </details>
 
-            <div class="docstring"><p>Makes parameters for patient notes</p>
+            <div class="docstring"><p>Edits the notes in patient to better fit the PDF page.</p>
 </div>
 
 
